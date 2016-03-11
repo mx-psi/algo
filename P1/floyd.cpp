@@ -1,5 +1,5 @@
 /**
-   @file C�lculo del coste de los caminos m�nimos. Algoritmo de Floyd.
+   @file Cálculo del coste de los caminos mínimos. Algoritmo de Floyd.
 */
 
 
@@ -18,9 +18,9 @@ static int const MAX_LONG  = 10;
 /**********************************************************************/
 
 /**
-   @brief Reserva espacio en memoria din�mica para una matriz cuadrada.
+   @brief Reserva espacio en memoria dinámica para una matriz cuadrada.
 
-   @param dim: dimensi�n de la matriz. dim > 0.
+   @param dim: dimensión de la matriz. dim > 0.
 
    @returns puntero a la zona de memoria reservada.
 */
@@ -33,7 +33,7 @@ int ** ReservaMatriz(int dim);
    @brief Libera el espacio asignado a una matriz cuadrada.
 
    @param M: puntero a la zona de memoria reservada. Es MODIFICADO.
-   @param dim: dimensi�n de la matriz. dim > 0.
+   @param dim: dimensión de la matriz. dim > 0.
 
    Liberar la zona memoria asignada a M y lo pone a NULL.
 */
@@ -45,7 +45,7 @@ void LiberaMatriz(int ** & M, int dim);
    @brief Rellena una matriz cuadrada con valores aleaotorias.
 
    @param M: puntero a la zona de memoria reservada. Es MODIFICADO.
-   @param dim: dimensi�n de la matriz. dim > 0.
+   @param dim: dimensión de la matriz. dim > 0.
 
    Asigna un valor aleatorio entero de [0, MAX_LONG - 1] a cada
    elemento de la matriz M, salvo los de la diagonal principal
@@ -55,12 +55,12 @@ void RellenaMatriz(int **M, int dim);
 
 /**********************************************************************/
 /**
-   @brief C�lculo de caminos m�nimos.
+   @brief Cálculo de caminos mínimos.
 
    @param M: Matriz de longitudes de los caminos. Es MODIFICADO.
-   @param dim: dimensi�n de la matriz. dim > 0.
+   @param dim: dimensión de la matriz. dim > 0.
 
-   Calcula la longitud del camino m�nimo entre cada par de nodos (i,j),
+   Calcula la longitud del camino mínimo entre cada par de nodos (i,j),
    que se almacena en M[i][j].
 */
 void Floyd(int **M, int dim);
@@ -69,7 +69,7 @@ void Floyd(int **M, int dim);
 
 
 /**
-   Implementaci�n de las funciones
+   Implementación de las funciones
 **/
 
 
@@ -142,15 +142,15 @@ void Floyd(int **M, int dim)
 /**********************************************************************/
 int main (int argc, char **argv)
 {
-//  clock_t tantes;    // Valor del reloj antes de la ejecuci�n
-//  clock_t tdespues;  // Valor del reloj despu�s de la ejecuci�n
-  int dim;           // Dimensi�n de la matriz
+//  clock_t tantes;    // Valor del reloj antes de la ejecución
+//  clock_t tdespues;  // Valor del reloj después de la ejecución
+  int dim;           // Dimensión de la matriz
 
   //Lectura de los parametros de entrada
   if (argc != 2)
     {
-      cout << "Par�metros de entrada: " << endl
-	   << "1.- N�mero de nodos" << endl << endl;
+      cout << "Parámetros de entrada: " << endl
+	   << "1.- Número de nodos" << endl << endl;
       return 1;
     }
 

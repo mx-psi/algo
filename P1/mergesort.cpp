@@ -1,5 +1,5 @@
 /**
-   @file Ordenaci�n por mezcla
+   @file Ordenación por mezcla
 */
 
 
@@ -16,14 +16,14 @@ using namespace std;
 
 
 /* ************************************************************ */
-/*  M�todo de ordenaci�n por mezcla  */
+/*  Método de ordenación por mezcla  */
 
 /**
-   @brief Ordena un vector por el m�todo de mezcla.
+   @brief Ordena un vector por el método de mezcla.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
@@ -35,13 +35,13 @@ void mergesort(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el m�todo de mezcla.
+   @brief Ordena parte de un vector por el método de mezcla.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
 
@@ -54,35 +54,35 @@ static void mergesort_lims(int T[], int inicial, int final);
 
 
 /**
-   @brief Ordena un vector por el m�todo de inserci�n.
+   @brief Ordena un vector por el método de inserción.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de inserci�n.
+   Aplica el algoritmo de inserción.
 */
 inline static
 void insercion(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el m�todo de inserci�n.
+   @brief Ordena parte de un vector por el método de inserción.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
 
    Cambia el orden de los elementos de T entre las posiciones
    inicial y final - 1 de forma que los dispone en sentido creciente
    de menor a mayor.
-   Aplica el algoritmo de la inserci�n.
+   Aplica el algoritmo de la inserción.
 */
 static void insercion_lims(int T[], int inicial, int final);
 
@@ -90,16 +90,16 @@ static void insercion_lims(int T[], int inicial, int final);
 /**
    @brief Mezcla dos vectores ordenados sobre otro.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a escribir.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a escribir
 		   inicial < final.
    @param U: Vector con los elementos ordenados.
    @param V: Vector con los elementos ordenados.
-             El n�mero de elementos de U y V sumados debe coincidir
+             El número de elementos de U y V sumados debe coincidir
              con final - inicial.
 
    En los elementos de T entre las posiciones inicial y final - 1
@@ -111,7 +111,7 @@ static void fusion(int T[], int inicial, int final, int U[], int V[]);
 
 
 /**
-   Implementaci�n de las funciones
+   Implementación de las funciones
 **/
 
 

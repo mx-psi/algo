@@ -1,5 +1,5 @@
 /**
-   @file Ordenaci�n r�pida (quicksort).
+   @file Ordenación rápida (quicksort).
 */
 
 
@@ -16,14 +16,14 @@ using namespace std;
 
 
 /* ************************************************************ */
-/*  M�todo de ordenaci�n r�pida  */
+/*  Método de ordenación rápida  */
 
 /**
-   @brief Ordena un vector por el m�todo quicksort.
+   @brief Ordena un vector por el método quicksort.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
@@ -35,13 +35,13 @@ void quicksort(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el m�todo quicksort.
+   @brief Ordena parte de un vector por el método quicksort.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
 
@@ -54,62 +54,62 @@ static void quicksort_lims(int T[], int inicial, int final);
 
 
 /**
-   @brief Ordena un vector por el m�todo de inserci�n.
+   @brief Ordena un vector por el método de inserción.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de inserci�n.
+   Aplica el algoritmo de inserción.
 */
 inline static
 void insercion(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el m�todo de inserci�n.
+   @brief Ordena parte de un vector por el método de inserción.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
 
    Cambia el orden de los elementos de T entre las posiciones
    inicial y final - 1 de forma que los dispone en sentido creciente
    de menor a mayor.
-   Aplica el algoritmo de inserci�n.
+   Aplica el algoritmo de inserción.
 */
 static void insercion_lims(int T[], int inicial, int final);
 
 
 /**
-   @brief Redistribuye los elementos de un vector seg�n un pivote.
+   @brief Redistribuye los elementos de un vector según un pivote.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
-   @param pp: Posici�n del pivote. Es MODIFICADO.
+   @param pp: Posición del pivote. Es MODIFICADO.
 
    Selecciona un pivote los elementos de T situados en las posiciones
    entre inicial y final - 1. Redistribuye los elementos, situando los
-   menores que el pivote a su izquierda, despu�s los iguales y a la
-   derecha los mayores. La posici�n del pivote se devuelve en pp.
+   menores que el pivote a su izquierda, después los iguales y a la
+   derecha los mayores. La posición del pivote se devuelve en pp.
 */
 static void dividir_qs(int T[], int inicial, int final, int & pp);
 
 
 
 /**
-   Implementaci�n de las funciones
+   Implementación de las funciones
 **/
 
 

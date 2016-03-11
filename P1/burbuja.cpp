@@ -1,5 +1,5 @@
 /**
-   @file Ordenaci�n por burbuja
+   @file Ordenación por burbuja
 */
 
 
@@ -16,14 +16,14 @@ using namespace std;
 
 
 /* ************************************************************ */
-/*  M�todo de ordenaci�n por burbuja  */
+/*  Método de ordenación por burbuja  */
 
 /**
-   @brief Ordena un vector por el m�todo de la burbuja.
+   @brief Ordena un vector por el método de la burbuja.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
@@ -35,14 +35,14 @@ void burbuja(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el m�todo de la burbuja.
+   @brief Ordena parte de un vector por el método de la burbuja.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos
+   @param T: vector de elementos. Tiene un número de elementos
                    mayor o igual a final.Es MODIFICADO.
 
-   @param inicial: Posici�n que marca el incio de la parte del
+   @param inicial: Posición que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posici�n detr�s de la �ltima de la parte del
+   @param final: Posición detrás de la última de la parte del
                    vector a ordenar.
 		   inicial < final.
 
@@ -56,7 +56,7 @@ static void burbuja_lims(int T[], int inicial, int final);
 
 
 /**
-   Implementaci�n de las funciones
+   Implementación de las funciones
 **/
 
 inline void burbuja(int T[], int num_elem)
