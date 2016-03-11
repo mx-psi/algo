@@ -2,7 +2,7 @@
    @file C�lculo de la sucesi�n de Fibonacci
 */
 
-   
+
 #include <iostream>
 #include <chrono>
 using namespace std::chrono;
@@ -24,16 +24,13 @@ int fibo(int n)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
 
-  int n;
+  int n = atoi(argv[1]);
   int f;
   steady_clock::time_point tantes, tdespues;
   duration<double> transcurrido;
- 
-  //std::cout << "�N�mero del t�rmino: ";
-  std::cin >> n;
 
   tantes =  steady_clock::now();
   f = fibo(n);
@@ -45,4 +42,3 @@ int main()
 
   return 0;
 }
- 
