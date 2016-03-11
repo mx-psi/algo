@@ -114,12 +114,12 @@ int main(int argc, char * argv[])
 
   // escribe_vector(T, n);
 
-  chrono::high_resolution_clock::time_point tantes, tdespues;
+  chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
-  tantes = chrono::high_resolution_clock::now();
+  tantes = chrono::steady_clock::now();
   heapsort(T, n);
-  tdespues = chrono::high_resolution_clock::now();
+  tdespues = chrono::steady_clock::now();
 
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
   cout << n << " " << transcurrido.count() << endl;

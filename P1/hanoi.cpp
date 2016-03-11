@@ -51,12 +51,12 @@ int main(int argc, char * argv[])
 
   int M = atoi(argv[1]);
 
-  chrono::high_resolution_clock::time_point tantes, tdespues;
+  chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
-  tantes = chrono::high_resolution_clock::now();
+  tantes = chrono::steady_clock::now();
   hanoi(M, 1, 2);
-  tdespues = chrono::high_resolution_clock::now();
+  tdespues = chrono::steady_clock::now();
 
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
   cout << M << " " << transcurrido.count() << endl;
