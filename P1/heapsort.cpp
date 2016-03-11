@@ -1,50 +1,50 @@
 /**
-   @file Ordenación por montones
+   @file Ordenaciï¿½n por montones
 */
 
-   
+
 #include <iostream>
 using namespace std;
 #include <ctime>
 #include <cstdlib>
 #include <climits>
 #include <cassert>
+#include <chrono>
 
 
 
 
 
-
-/* ************************************************************ */ 
-/*  Método de ordenación por montones  */
+/* ************************************************************ */
+/*  Mï¿½todo de ordenaciï¿½n por montones  */
 
 /**
-   @brief Ordena un vector por el método de montones.
+   @brief Ordena un vector por el mï¿½todo de montones.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de ordenación por montones.
+   Aplica el algoritmo de ordenaciï¿½n por montones.
 */
-inline static 
+inline static
 void heapsort(int T[], int num_elem);
 
 
 
 /**
-   @brief Reajusta parte de un vector para que sea un montón.
+   @brief Reajusta parte de un vector para que sea un montï¿½n.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
-   @param k: índice del elemento que se toma com raíz
-   
-   Reajusta los elementos entre las posiciones k y num_elem - 1 
-   de T para que cumpla la propiedad de un montón (APO), 
-   considerando al elemento en la posición k como la raíz.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
+   @param k: ï¿½ndice del elemento que se toma com raï¿½z
+
+   Reajusta los elementos entre las posiciones k y num_elem - 1
+   de T para que cumpla la propiedad de un montï¿½n (APO),
+   considerando al elemento en la posiciï¿½n k como la raï¿½z.
 */
 static void reajustar(int T[], int num_elem, int k);
 
@@ -52,7 +52,7 @@ static void reajustar(int T[], int num_elem, int k);
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
 
@@ -69,7 +69,7 @@ static void heapsort(int T[], int num_elem)
       reajustar(T, i, 0);
     }
 }
-  
+
 
 static void reajustar(int T[], int num_elem, int k)
 {
@@ -89,8 +89,8 @@ static void reajustar(int T[], int num_elem, int k)
     }
   T[k] = v;
 }
-  
-      
+
+
 int main(int argc, char * argv[])
 {
 
@@ -114,7 +114,15 @@ int main(int argc, char * argv[])
 
   // escribe_vector(T, n);
 
+  chrono::high_resolution_clock::time_point tantes, tdespues;
+  chrono::duration<double> transcurrido;
+
+  tantes = chrono::high_resolution_clock::now();
   heapsort(T, n);
+  tdespues = chrono::high_resolution_clock::now();
+
+  transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
+  cout << n << " " << transcurrido.count() << endl;
 
   // escribe_vector(T, n);
 
@@ -123,4 +131,3 @@ int main(int argc, char * argv[])
 
   return 0;
 };
- 
