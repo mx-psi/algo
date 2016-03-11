@@ -1,5 +1,5 @@
 /**
-   @file Ordenaci�n por montones
+   @file Ordenación por montones
 */
 
 
@@ -16,18 +16,18 @@ using namespace std;
 
 
 /* ************************************************************ */
-/*  M�todo de ordenaci�n por montones  */
+/*  Método de ordenación por montones  */
 
 /**
-   @brief Ordena un vector por el m�todo de montones.
+   @brief Ordena un vector por el método de montones.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
+   @param num_elem: número de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de ordenaci�n por montones.
+   Aplica el algoritmo de ordenación por montones.
 */
 inline static
 void heapsort(int T[], int num_elem);
@@ -35,16 +35,16 @@ void heapsort(int T[], int num_elem);
 
 
 /**
-   @brief Reajusta parte de un vector para que sea un mont�n.
+   @brief Reajusta parte de un vector para que sea un montón.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: n�mero de elementos. num_elem > 0.
-   @param k: �ndice del elemento que se toma com ra�z
+   @param num_elem: número de elementos. num_elem > 0.
+   @param k: índice del elemento que se toma com raíz
 
    Reajusta los elementos entre las posiciones k y num_elem - 1
-   de T para que cumpla la propiedad de un mont�n (APO),
-   considerando al elemento en la posici�n k como la ra�z.
+   de T para que cumpla la propiedad de un montón (APO),
+   considerando al elemento en la posición k como la raíz.
 */
 static void reajustar(int T[], int num_elem, int k);
 
@@ -52,7 +52,7 @@ static void reajustar(int T[], int num_elem, int k);
 
 
 /**
-   Implementaci�n de las funciones
+   Implementación de las funciones
 **/
 
 
