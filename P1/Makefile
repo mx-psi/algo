@@ -5,12 +5,12 @@ CPPS = $(wildcard *.cpp)
 DATS = $(CPPS:.cpp=.dat)
 PNGS = $(CPPS:.cpp=.png)
 
-.PRECIOUS: $(DATS)
+.PRECIOUS: $(DATS) $(PNGS)
 
-%.out: %.cpp
+%.exe: %.cpp
 	$(CXX) $(CPPFLAGS) $< -o $@
 
-%.dat: %.out
+%.dat: %.exe
 	./script.sh $< 1 1 25
 
 %.png: %.dat
@@ -20,4 +20,4 @@ PNGS = $(CPPS:.cpp=.png)
 	pdflatex $<
 
 mrproper:
-	rm *.png *.dat *.out
+	rm *.png *.dat *.out *.snm *.log *.toc *.aux *.nav
