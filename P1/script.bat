@@ -4,4 +4,4 @@ REM Ejemplo: fibonacci 10 5 80 ejecuta fibonacci 10, fibonacci 15, ..., fibonacc
 REM Salida: nombredelejecutable_output.txt
 
 break > %1_output.txt
-for /l %%x in (%2, %3, %4) do echo %%x | %1 >> %1_output.txt
+for /l %%x in (%2, %3, %4) do %1 %%x >> %1_output.txt

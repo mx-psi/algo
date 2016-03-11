@@ -5,13 +5,21 @@ CPPS = $(wildcard *.cpp)
 DATS = $(CPPS:.cpp=.dat)
 PNGS = $(CPPS:.cpp=.png)
 
+ifdef SystemRoot  # Windows
+	RM = del /q
+	SCRIPT = script.bat
+else
+	RM = rm
+   SCRIPT = ./script.sh
+endif
+
 .PRECIOUS: $(DATS) $(PNGS)
 
 %.exe: %.cpp
 	$(CXX) $(CPPFLAGS) $< -o $@
 
 %.dat: %.exe
-	./script.sh $< 1 1 25
+	$(SCRIPT) $< 1 1 25
 
 %.png: %.dat
 	gnuplot -e "data='$<'" -e "out='$@'" plot.plg
@@ -20,4 +28,4 @@ PNGS = $(CPPS:.cpp=.png)
 	pdflatex $<
 
 mrproper:
-	rm *.png *.dat *.out *.snm *.log *.toc *.aux *.nav
+	$(RM) *.png *.dat *.exe *.snm *.log *.toc *.aux *.nav
