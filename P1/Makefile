@@ -8,12 +8,11 @@ PNGS = $(CPPS:.cpp=.png)
 ifdef SystemRoot  # Windows
 	RM = del /q
 	SCRIPT = script.bat	
-
+	SCRIPT_PLOT_CONFIG = script_plot_config.bat
 else
 	RM = rm
 	SCRIPT = ./script.sh
 	SCRIPT_PLOT_CONFIG = ./script_plot_config.sh
-	SCRIPT_GNUPLOT = ./script_gnuplot.sh
 endif
 
 .PRECIOUS: $(DATS) $(PNGS)
@@ -24,9 +23,11 @@ endif
 %.dat: %.exe
 	$(SCRIPT) $< 1 1 25
 
-%.png: %.dat
-	$(SCRIPT_PLOT_CONFIG) $< "Capacidad del vector" "Tiempos de ejecución" "Tiempos de ejecución de burbuja" $<
-	$(SCRIPT_GNUPLOT) $< $@
+plot_%.plg: %.dat
+	$(SCRIPT_PLOT_CONFIG) $< "Tamaño" "Tiempo de ejecución" "Tiempos de ejecución de $(subst .dat,,$<)" $<
+
+%.png: %.dat plot_%.plg
+	gnuplot -e "data='$<'" -e "out='$@'" plot.plg $(word 2, $^)
 
 %.pdf: %.tex $(PNGS)
 	pdflatex $<
