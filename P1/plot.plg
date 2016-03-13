@@ -1,3 +1,7 @@
 set terminal png
-set output out
+set output OUT
 set style data linespoints
+set title TITLE
+set xlabel LABELX
+set ylabel LABELY
+plot DATA title LEGEND

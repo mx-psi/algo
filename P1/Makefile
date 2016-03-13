@@ -1,19 +1,16 @@
-CXX = g++
 CPPFLAGS = -std=gnu++0x
-
 CPPS = $(wildcard *.cpp)
 DATS = $(CPPS:.cpp=.dat)
 PNGS = $(CPPS:.cpp=.png)
 
 ifdef SystemRoot  # Windows
 	RM = del /q
-	SCRIPT = script.bat	
-	SCRIPT_PLOT_CONFIG = script_plot_config.bat
+	SCRIPT = script.bat
 else
-	RM = rm
 	SCRIPT = ./script.sh
-	SCRIPT_PLOT_CONFIG = ./script_plot_config.sh
 endif
+
+all: PresentacionP1.pdf MemoriaP1.pdf
 
 .PRECIOUS: $(DATS) $(PNGS)
 
@@ -23,11 +20,9 @@ endif
 %.dat: %.exe
 	$(SCRIPT) $< 1 1 25
 
-plot_%.plg: %.dat
-	$(SCRIPT_PLOT_CONFIG) $< "Tamaño" "Tiempo de ejecución" "Tiempos de ejecución de $(subst .dat,,$<)" $<
-
-%.png: %.dat plot_%.plg
-	gnuplot -e "data='$<'" -e "out='$@'" plot.plg $(word 2, $^)
+%.png: %.dat
+	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución de $(basename $< .dat)'; \
+	LABELX='Tamaño'; LABELY='Tiempo de ejecución';LEGEND='$(basename $< .dat)'" plot.plg
 
 %.pdf: %.tex $(PNGS)
 	pdflatex $<
