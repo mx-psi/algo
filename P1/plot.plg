@@ -2,6 +2,6 @@ set terminal png
 set output OUT
 set style data linespoints
 set title TITLE
-set xlabel LABELX
-set ylabel LABELY
+set xlabel "Tamaño"
+set ylabel "Tiempo de ejecución"
 plot DATA title LEGEND
