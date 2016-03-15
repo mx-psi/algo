@@ -1,4 +1,4 @@
-set terminal png
+set terminal pdf
 set output OUT
 set style data linespoints
 set title TITLE

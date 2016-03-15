@@ -1,7 +1,7 @@
 CXXFLAGS = -std=gnu++0x
 CPPS = $(wildcard *.cpp)
 DATS = $(CPPS:.cpp=.dat)
-PNGS = $(CPPS:.cpp=.png)
+GPHS = $(CPPS:.cpp=_g.pdf)
 
 ifdef SystemRoot  # Windows
 	RM = del /q
@@ -12,7 +12,7 @@ endif
 
 all: PresentacionP1.pdf MemoriaP1.pdf
 
-.PRECIOUS: $(DATS) $(PNGS)
+.PRECIOUS: $(DATS) $(GPHS)
 
 %.exe: %.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
@@ -20,12 +20,12 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 %.dat: %.exe
 	$(SCRIPT) $< 1 1 25
 
-%.png: %.dat
+%_g.pdf: %.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
 	de $(basename $< .dat)'; LEGEND='$(basename $< .dat)'" plot.plg
 
-%.pdf: %.tex $(PNGS)
+%P1.pdf: %P1.tex $(GPHS)
 	pdflatex $<
 
 mrproper:
-	$(RM) *.png *.dat *.exe *.snm *.log *.toc *.aux *.nav *.out
+	$(RM) *_g.pdf *.dat *.exe *.snm *.log *.toc *.aux *.nav *.out
