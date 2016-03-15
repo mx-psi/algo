@@ -5,7 +5,8 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
 % Solarized palette
 \definecolor{solarizedBase03}{HTML}{002B36}
 \definecolor{solarizedBase02}{HTML}{073642}
@@ -40,7 +41,24 @@
 \subsection{Algoritmos Cuadráticos}
 
 \begin{frame}{Burbuja}
-	
+	\resizebox{\linewidth}{!}{	
+	\hspace{1cm}
+	\begin{tabular}{l ||*{7}{c}}
+	%	\hline
+	Datos & 2000 & 4000 & 6000 & 8000 & 10000 & 12000 & 14000 \\
+	Tiempos & 0.0140894 & 0.0515536 & 0.113751 & 0.202951 & 0.317834 & 0.467509 & 0.637843	\\
+	\hline
+	Datos  & 16000 & 18000 & 20000 & 22000 & 24000 & 26000 & 28000 \\
+	Tiempos & 0.831875 & 1.05149 & 1.2976 & 1.56672 & 1.85661 & 2.1866 & 2.52668	\\
+	\hline
+	Datos & 30000 & 32000 & 34000 & 36000 & 38000 & 40000 & 42000 \\
+	Tiempos& 2.90867 & 3.32019 & 3.72809 & 4.19815 & 4.67249 & 5.15041 & 5.69877		\\
+	\hline
+	Datos & 44000 & 46000 & 48000 & 50000 \\
+	Tiempos & 6.25114 & 6.82935 & 7.43045 & 8.08572\\
+
+	\end{tabular}
+}
 \end{frame}
 
 \begin{frame}{Selección}
