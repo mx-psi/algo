@@ -3,20 +3,18 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[vmargin=2cm,hmargin=2cm]{geometry}
-\usepackage{dsfont}
 \usepackage{graphicx}
-\usepackage[usenames]{color}
-\usepackage[dvipsnames]{xcolor}
 \usepackage{accents}
 \usepackage{framed}
 
 \title{\Huge \textbf{Práctica 1}}
 
-\author{\textbf{Pablo Baeyens Fernández} \\ \textbf{Antonio Checa Molina} \\ \textbf{Iñaki Madinabeitia Cabrera} \\  \textbf{José Manuel Muñoz Fuentes} \\ \textbf{Darío Sierra Martínez} \\ }
+\author{\textbf{Pablo Baeyens Fernández} \\ \textbf{Antonio Checa Molina} \\
+\textbf{Iñaki Madinabeitia Cabrera} \\  \textbf{José Manuel Muñoz Fuentes} \\
+ \textbf{Darío Sierra Martínez} \\ }
 
 \date{Algorítmica}
 
-\definecolor{shadecolor}{rgb}{1,1,1}
 \begin{document}
 
 \maketitle
@@ -24,33 +22,41 @@
 
 \newpage
 \section{Ejercicio 1}
-En el ejercicio 1 se nos pide hallar el cálculo de la eficiencia empírica de los algoritmos presentados en la sesión. Para ello hemos modificado los códigos de los programas para que tengan de salida el tamaño que se les pasó como argumento junto al tiempo que han tardado en realizar la tarea del respectivo algoritmo. Usando la biblioteca \textit{chrono} y la estructura que se menciona en la sesión se consiguen medir los tiempos de los programas de forma precisa.
+En el ejercicio 1 se nos pide hallar el cálculo de la eficiencia empírica de los
+algoritmos presentados en la sesión. Para ello hemos modificado los códigos de
+los programas para que tengan de salida el tamaño que se les pasó como argumento
+junto al tiempo que han tardado en realizar la tarea del respectivo algoritmo.
+Usando la biblioteca \textit{chrono} y la estructura que se menciona en la
+sesión se consiguen medir los tiempos de los programas de forma precisa.
 
-Una vez hecho esto, se generó un script de bash para automatizar la ejecución de varios tamaños, y recoger todas las salidas en un archivo para luego poder usar esos datos. El archivo se incluye a continuación:
+Una vez hecho esto, se generó un script de bash para automatizar la ejecución de
+varios tamaños, y recoger todas las salidas en un archivo para luego poder usar
+esos datos. El archivo se incluye a continuación:
 
 
 \begin{framed}
-	
+
 	\# !/bin/bash
-	
+
 	\# Uso: nombredelejecutable inicial salto final
 
 	\# Ejemplo: fibonacci 10 5 80 ejecuta fibonacci 10, fibonacci 15, ..., fibonacci 80
-	
-	\# Salida: nombredelejecutable\_output.txt
+
+	\# Salida: nombredelejecutable.dat
 	\vspace{0.3cm}
-	
+
 	$>$ \$(basename \$1 .exe).dat
-	
+
 	for i in \$(seq \$2 \$3 \$4); do
-	
+
 	\hspace{0.4cm}./\$1 \$i $>>$ \$(basename \$1 .exe).dat
-	
+
 	done
-	
+
 \end{framed}
 
-Las tablas generadas con este proceso se colocan a continuación, habiendo una tabla por cada orden de eficiencia y una última para todos los de ordenación:
+Las tablas generadas con este proceso se colocan a continuación, habiendo una tabla
+por cada orden de eficiencia y una última para todos los de ordenación:
 
 \subsection{Tabla de los algoritmos cuadráticos}
 
@@ -83,7 +89,8 @@ Las tablas generadas con este proceso se colocan a continuación, habiendo una t
 \newpage
 \section{Ejercicio 2}
 
-En el ejercicio 2 nos piden realizar las gráficas de los algoritmos, que hemos realizado metiendo en \textit{gnuplot} las tablas anteriores:
+En el ejercicio 2 nos piden realizar las gráficas de los algoritmos, que hemos
+realizado metiendo en \textit{gnuplot} las tablas anteriores:
 
 \subsection{Gráfica de los algoritmos cuadráticos}
 %\begin{figure}[h] \includegraphics[width=8cm]{graf_cuadraticos} \centering
@@ -93,7 +100,7 @@ Comentarios
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
 %\begin{figure}[h] \includegraphics[width=8cm]{graf_nlog} \centering
 %	\caption{Algoritmos  $n\cdot log(n)$} \end{figure}
-Más comentarios 
+Más comentarios
 
 \subsection{Gráfica del algoritmo de Floyd (cúbico)}
 %\begin{figure}[h] \includegraphics[width=6cm]{graf_cubicos} \centering
