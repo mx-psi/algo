@@ -20,6 +20,10 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 %.dat: %.exe
 	$(SCRIPT) $< 1 1 25
 
+n2_g.pdf: burbuja.dat seleccion.dat insercion.dat
+	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
+	TITLE='Tiempos de ejecución de cuadráticos'" plot_multiple.plg
+
 %_g.pdf: %.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
 	de $(basename $< .dat)'; LEGEND='$(basename $< .dat)'" plot.plg
