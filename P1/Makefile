@@ -18,7 +18,7 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 %.dat: %.exe
-	$(SCRIPT) $< 1 1 25
+	$(SCRIPT) $< 2000 2000 50000
 
 %_g.pdf: %.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
@@ -29,3 +29,9 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 
 mrproper:
 	$(RM) *_g.pdf *.dat *.exe *.snm *.log *.toc *.aux *.nav *.out
+
+
+img: $(GPHS)
+
+
+
