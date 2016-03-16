@@ -27,5 +27,8 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 %P1.pdf: %P1.tex $(GPHS)
 	pdflatex $<
 
-mrproper:
-	$(RM) *_g.pdf *.dat *.exe *.snm *.log *.toc *.aux *.nav *.out
+clean:
+	$(RM) *_g.pdf *.exe *.snm *.log *.toc *.aux *.nav *.out *P1.pdf
+
+mrproper: clean
+	$(RM) *.dat
