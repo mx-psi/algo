@@ -24,6 +24,10 @@ n2_g.pdf: burbuja.dat seleccion.dat insercion.dat
 	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
 	TITLE='Tiempos de ejecución de cuadráticos'" plot_multiple.plg
 
+nln_g.pdf: quicksort.dat heapsort.dat mergesort.dat
+	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
+	TITLE='Tiempos de ejecución de orden n log(n)'" plot_multiple.plg
+
 %_g.pdf: %.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
 	de $(basename $< .dat)'; LEGEND='$(basename $< .dat)'" plot.plg
