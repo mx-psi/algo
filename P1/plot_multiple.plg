@@ -1,7 +1,9 @@
 set terminal pdf
 set output OUT
 set style data linespoints
+set pointsize .6
+set key left top
 set title TITLE
 set xlabel "Tamaño"
-set ylabel "Tiempo de ejecución"
+set ylabel "Tiempos"
 plot for [file in DATA] sprintf("%s.dat",file) title file

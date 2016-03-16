@@ -20,13 +20,17 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 %.dat: %.exe
 	$(SCRIPT) $< 2000 2000 50000
 
-n2_g.pdf: burbuja.dat seleccion.dat insercion.dat
+comparativa_cuadraticos_g.pdf: burbuja.dat seleccion.dat insercion.dat
 	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
-	TITLE='Tiempos de ejecución de cuadráticos'" plot_multiple.plg
+	TITLE='Tiempos de ejecución para algoritmos cuadráticos'" plot_multiple.plg
 
-nln_g.pdf: quicksort.dat heapsort.dat mergesort.dat
+comparativa_logaritmicos_g.pdf: quicksort.dat heapsort.dat mergesort.dat
 	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
-	TITLE='Tiempos de ejecución de orden n log(n)'" plot_multiple.plg
+	TITLE='Tiempos de ejecución para algoritmos n·log(n)'" plot_multiple.plg
+
+comparativa_global_g.pdf: quicksort.dat heapsort.dat mergesort.dat burbuja.dat seleccion.dat insercion.dat
+	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
+	TITLE='Tiempos de ejecución de globales'" gnuplot_script_cuad
 
 %_g.pdf: %.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
@@ -35,19 +39,10 @@ nln_g.pdf: quicksort.dat heapsort.dat mergesort.dat
 %P1.pdf: %P1.tex $(GPHS)
 	pdflatex $<
 
-<<<<<<< HEAD
-mrproper:
-	$(RM) *_g.pdf *.dat *.exe *.snm *.log *.toc *.aux *.nav *.out
-
-
 img: $(GPHS)
 
-
-
-=======
 clean:
 	$(RM) *_g.pdf *.exe *.snm *.log *.toc *.aux *.nav *.out *P1.pdf
 
 mrproper: clean
 	$(RM) *.dat
->>>>>>> master

@@ -4,7 +4,8 @@ set title "Tiempos de ejecución globales"
 set xlabel "Datos"
 set ylabel "Tiempos"
 set style data linespoints
-set output "comparativa_global.pdf"
+set pointsize .6
+set output "comparativa_global_g.pdf"
 set key left top
 plot "heapsort.dat" title "heapsort" , "mergesort.dat" title "mergesort" ,"quicksort.dat" title "quicksort" \
 , "burbuja.dat" title "burbuja", "insercion.dat" title "inserción", "seleccion.dat" title "selección"

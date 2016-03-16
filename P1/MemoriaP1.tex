@@ -437,7 +437,7 @@ con los siguientes resultados:
 El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de los otros dos, que se encuentran casi igualados, teniendo un menor tiempo el de inserción. Probablemente este menor tiempo sea el motivo de que en \textit{quicksort} y \textit{mergesort} se use el algoritmo de inserción para subvectores pequeños.
 
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
-\begin{figure}[h] \includegraphics[width=11cm]{comparativa_logaritmicos} \centering
+\begin{figure}[h] \includegraphics[width=11cm]{comparativa_logaritmicos_g} \centering
 	\caption{Algoritmos  $n\cdot log(n)$} \end{figure}
 
 En el algoritmo \textit{mergesort} se aprecian pequeños escalones. Probablemente en cada escalón se incrementa el número de llamadas recursivas, de forma que el tamaño de los subvectores para los que se llama a la función de ordenado por selección (que actúa para tamaños de entrada pequeños) es menor. \\
@@ -460,7 +460,7 @@ El algoritmo \textit{quicksort} también usa el algoritmo de inserción por deba
 
 
 \subsection{Gráfica de los algoritmos de ordenación}
-\begin{figure}[h] \includegraphics[width=14cm]{comparativa_global} \centering
+\begin{figure}[h] \includegraphics[width=14cm]{comparativa_global_g} \centering
 	\caption{Algoritmos de ordenación} \end{figure}
 
 La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficiencia y de otro provoca que los tiempos de los algoritmos de orden de eficiencia $n \cdot \log (n)$ se muestren como una línea horizontal.
