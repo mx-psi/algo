@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\graphicspath{{img/}}
 \usepackage{booktabs}% http://ctan.org/pkg/booktabs
 % Solarized palette
 \definecolor{solarizedBase03}{HTML}{002B36}
@@ -41,7 +42,7 @@
 \subsection{Algoritmos Cuadráticos}
 
 \begin{frame}{Burbuja}
-	\resizebox{\linewidth}{!}{	
+	\resizebox{\linewidth}{!}{
 	\hspace{1cm}
 	\begin{tabular}{l ||*{7}{c}}
 	%	\hline
@@ -62,7 +63,7 @@
 \end{frame}
 
 \begin{frame}{Selección}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 			\begin{tabular}{l ||*{7}{c}}
 				%	\hline
@@ -77,14 +78,14 @@
 				\hline
 				Datos & 44000 & 46000 & 48000 & 50000 \\
 				Tiempo (s) & 2.56741 & 2.80465 & 3.05395 & 3.3125\\
-				
+
 			\end{tabular}
 		}
-		
+
 \end{frame}
 
 \begin{frame}{Inserción}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 			\begin{tabular}{l ||*{7}{c}}
 				%	\hline
@@ -99,7 +100,7 @@
 				\hline
 				Datos & 44000 & 46000 & 48000 & 50000 \\
 				Tiempo (s) & 2.26926 & 2.46238 & 2.66613 & 2.92835\\
-				
+
 			\end{tabular}
 		}
 \end{frame}
@@ -107,7 +108,7 @@
 \subsection{Algoritmos Cúbicos}
 
 \begin{frame}{Algoritmo de Floyd}
-	\resizebox{\linewidth}{!}{	
+	\resizebox{\linewidth}{!}{
 		\hspace{1cm}
 		\begin{tabular}{l ||*{7}{c}}
 			%	\hline
@@ -122,7 +123,7 @@
 				\hline
 				Datos & 660 & 690 & 720 & 750 \\
 				Tiempo (s) & 1.70325 &1.94156& 2.19971 &2.48584\\
-			
+
 		\end{tabular}
 	}
 \end{frame}
@@ -130,7 +131,7 @@
 \subsection{Algoritmos $n\cdot log(n)$ }
 
 \begin{frame}{Quicksort}
-	\resizebox{\linewidth}{!}{	
+	\resizebox{\linewidth}{!}{
 		\hspace{1cm}
 		\begin{tabular}{l ||*{7}{c}}
 			%	\hline
@@ -145,13 +146,13 @@
 			\hline
 			Datos & 44000 & 46000 & 48000 & 50000 \\
 			Tiempo (s) & 0.00518884 & 0.00542106 & 0.00569736 & 0.00593068\\
-			
+
 		\end{tabular}
 	}
 \end{frame}
 
 \begin{frame}{Heapsort}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 			\begin{tabular}{l ||*{7}{c}}
 				%	\hline
@@ -166,13 +167,13 @@
 				\hline
 				Datos & 44000 & 46000 & 48000 & 50000 \\
 				Tiempo (s) & 0.00733094 & 0.00750173 & 0.00784107 & 0.00840717\\
-				
+
 			\end{tabular}
 		}
 \end{frame}
 
 \begin{frame}{Mergesort}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 			\begin{tabular}{l ||*{7}{c}}
 				%	\hline
@@ -187,14 +188,14 @@
 				\hline
 				Datos & 44000 & 46000 & 48000 & 50000 \\
 				Tiempo (s)  & 0.00946593 & 0.00930644 & 0.00988324 & 0.0106572\\
-				
+
 			\end{tabular}
 		}
 \end{frame}
 \subsection{Algoritmos exponenciales}
 
 \begin{frame}{Fibonacci $t_n=t_{n-1}+t_{n-2}$}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 			\begin{tabular}{l ||*{7}{c}}
 				%	\hline
@@ -209,13 +210,13 @@
 				\hline
 				Datos & 22 & 23 & 24 & 25 \\
 				Tiempo (s) & 0.000189094 & 0.000315282 & 0.000499445 &  0.000675111\\
-				
+
 			\end{tabular}
 		}
 \end{frame}
 
 \begin{frame}{Hanói $t_n=2 \cdot t_{n-1}+1 $}
-		\resizebox{\linewidth}{!}{	
+		\resizebox{\linewidth}{!}{
 			\hspace{1cm}
 
 			\begin{tabular}{l ||*{7}{c}}
@@ -231,7 +232,7 @@
 				\hline
 				Datos & 22 & 23 & 24 & 25 \\
 				Tiempo (s) & 0.0273772 & 0.05418 & 0.107202 & 0.214262\\
-				
+
 			\end{tabular}
 		}
 \end{frame}
