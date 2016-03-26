@@ -14,6 +14,9 @@ all: PresentacionP1.pdf MemoriaP1.pdf
 .PHONY: img all clean mrproper
 .PRECIOUS: $(DATS) $(GPHS)
 
+exes: $(CPPS:cpps/%.cpp=%.exe)
+img: $(GPHS)
+
 %.exe: cpps/%.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 
@@ -36,10 +39,12 @@ img/%_g.pdf: dats/%.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
 	de $(basename $< .dat)'; LEGEND='$(basename $< .dat)'" plot.plg
 
-%P1.pdf: %P1.tex $(GPHS)
-	pdflatex $<
+img/%_todos_g.pdf: dats/%_pablo.dat #Añadir resto de nombres
+	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
+	TITLE='Tiempos de ejecución para $(basename $@ _todos_g.pdf)'" plot_multiple.plg
 
-img: $(GPHS)
+%P1.pdf: %P1.tex img
+	pdflatex $<
 
 clean:
 	$(RM) img/* *.snm *.log *.toc *.aux *.nav *.out *P1.pdf
