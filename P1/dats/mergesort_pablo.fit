@@ -1,0 +1,46 @@
+
+
+*******************************************************************************
+Fri Mar 25 13:22:51 2016
+
+
+FIT:    data read from 'mergesort_pablo.dat'
+        format = z
+        #datapoints = 25
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 1.81782e-05       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 220986
+
+initial set of free parameter values
+
+a               = 1.98548e-08
+b               = -1.91192e-07
+
+After 1 iterations the fit converged.
+final sum of squares of residuals : 1.81782e-05
+rel. change during last iteration : -9.28205e-11
+
+degrees of freedom    (FIT_NDF)                        : 23
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.00088902
+variance of residuals (reduced chisquare) = WSSR/ndf   : 7.90356e-07
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 1.98548e-08      +/- 1.116e-09    (5.621%)
+b               = -1.91192e-07     +/- 0.0003488    (1.824e+05%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.860  1.000 

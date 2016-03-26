@@ -1,0 +1,52 @@
+
+
+*******************************************************************************
+Fri Mar 25 13:25:17 2016
+
+
+FIT:    data read from 'floyd_pablo.dat'
+        format = z
+        #datapoints = 25
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 575.985           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 8.53338e+07
+
+initial set of free parameter values
+
+a               = 1.76413e-08
+b               = -1.90141e-07
+c               = 0.00456989
+d               = 1
+
+After 12 iterations the fit converged.
+final sum of squares of residuals : 0.000848002
+rel. change during last iteration : -3.22708e-11
+
+degrees of freedom    (FIT_NDF)                        : 21
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.00635461
+variance of residuals (reduced chisquare) = WSSR/ndf   : 4.03811e-05
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 5.0967e-09       +/- 1.612e-10    (3.163%)
+b               = 3.8042e-07       +/- 1.911e-07    (50.22%)
+c               = -8.30906e-05     +/- 6.48e-05     (77.99%)
+d               = 0.00502291       +/- 0.005953     (118.5%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      d      
+a               1.000 
+b              -0.987  1.000 
+c               0.926 -0.973  1.000 
+d              -0.719  0.795 -0.898  1.000 
