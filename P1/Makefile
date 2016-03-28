@@ -6,8 +6,10 @@ GPHS = $(CPPS:cpps/%.cpp=img/%_g.pdf)
 ifdef SystemRoot  # Windows
 	RM = del /q
 	SCRIPT = script.bat
+	BAR = \\
 else
 	SCRIPT = ./script.sh
+	BAR = /
 endif
 
 all: PresentacionP1.pdf MemoriaP1.pdf
@@ -47,7 +49,7 @@ img/%_todos_g.pdf: dats/%_pablo.dat #Añadir resto de nombres
 	pdflatex $<
 
 clean:
-	$(RM) img/* *.snm *.log *.toc *.aux *.nav *.out *P1.pdf
+	$(RM) img$(BAR)* *.snm *.log *.toc *.aux *.nav *.out *P1.pdf
 
 mrproper: clean
-	$(RM) dats/*
+	$(RM) dats$(BAR)*
