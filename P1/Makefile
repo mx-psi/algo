@@ -7,6 +7,7 @@ ifdef SystemRoot  # Windows
 	RM = del /q
 	SCRIPT = script.bat
 	BAR = \\
+	CXXFLAGS := $(CXXFLAGS) -Dsrandom=srand -Drandom=rand
 else
 	SCRIPT = ./script.sh
 	BAR = /
@@ -41,7 +42,7 @@ img/%_g.pdf: dats/%.dat
 	gnuplot -e "DATA='$<';OUT='$@';TITLE='Tiempos de ejecución \
 	de $(basename $< .dat)'; LEGEND='$(basename $< .dat)'" plot.plg
 
-img/%_todos_g.pdf: dats/%_pablo.dat #Añadir resto de nombres
+img/%_todos_g.pdf: dats/%_antonio.dat dats/%_dario.dat dats/%_inaki.dat dats/%_jose_manuel.dat dats/%_pablo.dat
 	gnuplot -e "DATA='$(basename $^)';OUT='$@';\
 	TITLE='Tiempos de ejecución para $(basename $@ _todos_g.pdf)'" plot_multiple.plg
 
