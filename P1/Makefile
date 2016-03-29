@@ -9,7 +9,7 @@ ifdef SystemRoot  # Windows
 	RM = del /q
 	SCRIPT = script.bat
 	BAR = \\
-	CXXFLAGS := $(CXXFLAGS) -Dsrandom=srand -Drandom=rand
+	CXXFLAGS := $(CXXFLAGS) -Dsrandom=srand -Drandom()="(rand()<<16)|(rand()<<1)|(rand()&1)"
 else
 	SCRIPT = ./script.sh
 	BAR = /
