@@ -27,5 +27,5 @@ programas.each do |p|
       output += "\t" + d.join(" & ") + " \\\\\n\t\\hline\n"
    end
    output += "\\end{tabular}\n"
-   File.write(p + "_tabla.txt", output)
+   File.write("tablas/#{p}_tabla.tex", output)
 end

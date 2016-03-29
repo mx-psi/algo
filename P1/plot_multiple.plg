@@ -6,4 +6,4 @@ set key left top
 set title TITLE
 set xlabel "Tamaño"
 set ylabel "Tiempos"
-plot for [file in DATA] sprintf("%s.dat",file) title file
+plot for [file in DATA] sprintf("dats/%s.dat",file) title file
