@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{adjustbox} % Tamaño de tablas
 \graphicspath{{img/}}
 \usepackage{booktabs}% http://ctan.org/pkg/booktabs
 % Solarized palette
@@ -165,5 +166,226 @@
 		\includegraphics[width = \textwidth ]{comparativa_global_g}
 \end{frame}
 
+
+\section{Ejercicio 3: \large{Eficiencia Híbrida }}
+
+\subsection{Parámetros de ajuste individuales}
+
+\begin{frame}{Ajustes cuadráticos}
+\noindent\adjustbox{max width=\textwidth}{%
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Persona & Burbuja & Inserción & Selección \\
+	\hline
+	
+	Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ ($0.99$) & $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ ($0.99$) & $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ ($1$) \\
+	\hline
+	Darío &$89\cdot10^{-3} -1.62\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ $ (0.99)$ &$89 \cdot 10^{-3}+-1.62\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ $ (0.99)$&$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ $(0.99)$ \\
+	
+	\hline
+	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($0.99$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($0.99$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(0.99)$ \\
+	\hline
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($1$) \\
+	\hline
+	Iñaki & $3.23\cdot 10^{-9}n^2 +1.36\cdot 10^{-7}n -2.52\cdot 10^{-5}$ ($0.99$)
+	& $1.18\cdot 10^{-9}n^2 +1.36 \cdot 10^{-7}n -2.5\cdot 10^{-5}$ ($0.99$)
+	& $1.31\cdot 10^{-9}n^2 +5.81\cdot 10^{-7} -0.002$ ($0.99$)\\
+	\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}{Ajustes $n \cdot \log(n)$}
+
+\noindent\adjustbox{max width=\textwidth}{
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Persona & Heapsort & Mergesort & Quicksort \\
+	\hline
+	
+	Antonio & $2.72 \cdot 10^{-8}n\log(n) -0.55$ ($0.999$)  & $1.918 \cdot 10^{-8} n \log(n) - 0.305 $ ($0.996$)& $1.06 \cdot 10^{-8}n\log(n) -0.083 $ ($0.999$)\\
+	\hline
+	Darío & $2.56\cdot 10^{-8} n\log(n) -0.005$ $(0.99) $&$3.03\cdot 10^{-8}n\log(x) -0.004$ $(0.99)$&$1.46\cdot 10^{-8}\cdot n\log(n) -0.005$ $(0.99)$ \\
+	
+	\hline
+	José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($0.99$) & $2.29 \cdot 10^{-8}n\log(n) - 0.08$ ($0.99$) & $1.42 \cdot 10^{-8}n\log(n) + 0.02$ ($0.99$)\\
+	\hline
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($0.995$)  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($0.997$)& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($0.999$)\\
+	\hline
+	Iñaki & $2.46\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ ($0.99$)
+	& $1.48\cdot 10^{-8}n\log(n) +1$ ($0.99$)
+	& $1.12\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ ($0.99$)\\
+	\hline
+	
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}{Ajuste del algoritmo de Floyd}
+\noindent\adjustbox{max width=\textwidth}{
+\begin{tabular}{|l|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Floyd & $r$ \\
+	\hline
+	Antonio & $ 6 \cdot 10^{-9}n^3 -7.9 \cdot 10^{-7}n^2 -2.17 \cdot 10^{-4}n +0.012$ & $0.999$ \\
+	\hline
+	Darío & $6.98\cdot 10^{-9} \cdot n^3 -7.66\cdot 10^{-7}\cdot n^2 +0.0002\cdot n -0.005$ & $0.999$ \\
+	
+	\hline
+	José Manuel & $ 6.88 \cdot 10^{-9}n^3 + 2.89 \cdot 10^{-7}n^2 -4.44 \cdot 10^{-5}n +0.001$ & $0.999$ \\
+	\hline
+	Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$ & $1$ \\
+	\hline
+	Iñaki & $5.76\cdot 10^{-9}n^3 +1.36\cdot 10^{-7}n^2 -2.52\cdot 10^{-5}n +0.002$ & $0.999$\\
+	\hline
+	
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}{Ajuste del algoritmo de Fibonacci}
+\noindent\adjustbox{max width=\textwidth}{
+\begin{tabular}{|l|l|l|}
+	
+	\hline
+	Persona & Eficiencia híbrida de Fibonacci & $r$ \\
+	\hline
+	
+	Antonio & $3.81 \cdot 10^{-9} \varphi^n +7.21\cdot 10^{-7}$ & $0.999$\\
+	\hline
+	Darío & $0.002\cdot\varphi^n -0.004$ &$0.999$\\
+	
+	\hline
+	José Manuel & $3.81 \cdot 10^{-9} \varphi^n +9.68\cdot 10^{-7}$ & $0.999$\\
+	\hline
+	Pablo & $6.4 \cdot 10^{-9} \varphi^n -1.8\cdot 10^{-8}$ & $0.997$\\
+	\hline
+	Iñaki & $4.29\cdot 10^{-9} \varphi^n +5.6\cdot 10^{-6}$ & $0.995$\\
+	\hline
+\end{tabular}}
+
+\end{frame}
+
+\begin{frame}{Ajuste del algoritmo de Hanoi}
+\noindent\adjustbox{max width=\textwidth}{
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Persona & Eficiencia híbrida de Hanoi & $r$ \\
+		\hline
+		
+		Antonio & $5.69 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-4}$ & $1$\\
+		\hline
+		Darío & $6.38\cdot 10^{-9}\cdot 2^n -0.005$ & $0.984$\\
+		\hline
+		José Manuel & $6.00 \cdot 10^{-9} 2^n + 9.3 \cdot 10^{-6}$ & $0.999$\\
+		\hline
+		Pablo & $6.1 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-9}$ & $0.998$\\
+		\hline
+		Iñaki & $0.06 \cdot 2^n -0.03$ & $0.999$\\
+		\hline
+	\end{tabular}}
+\end{frame}
+
+\subsection{Ajustes con varias funciones}
+
+\begin{frame}{Cuadráticos: inserción}
+	\includegraphics[width = \textwidth ]{img/cuad_hibrida.pdf}
+\end{frame}
+
+\begin{frame}{$n \cdot \log(n)$: quicksort}
+	\includegraphics[width = \textwidth ]{img/log_hibrida.pdf}
+\end{frame}
+
+\begin{frame}{Exponenciales: Hanoi}
+	\includegraphics[width = \textwidth ]{img/expo_hibrida2.pdf}
+\end{frame}
+
+\begin{frame}{Cúbicos: Floyd}
+	\includegraphics[width = \textwidth ]{img/floyd_hibrida.pdf}
+\end{frame}
+
+\section{Ejercicio 4: \large{Eficiencia según la optimización }}
+
+\subsection{Algoritmos cuadráticos}
+
+\begin{frame}{Burbuja}
+	\input{tablas/Opt_burbuja_tabla_mini}
+\end{frame}
+
+\begin{frame}{Burbuja}
+	\includegraphics[width = \textwidth ]{img/burbuja_optim_g.pdf}
+\end{frame}
+
+\begin{frame}{Selección}
+	\input{tablas/Opt_seleccion_tabla_mini}
+\end{frame}
+
+\begin{frame}{Selección}
+	\includegraphics[width = \textwidth ]{img/seleccion_optim_g.pdf}
+\end{frame}
+
+\begin{frame}{Inserción}
+	\input{tablas/Opt_insercion_tabla_mini}
+\end{frame}
+
+\begin{frame}{Inserción}
+	\includegraphics[width = \textwidth ]{img/insercion_optim_g.pdf}
+\end{frame}
+
+\subsection{Algoritmos $n \cdot \log(n)$}
+
+\begin{frame}{Quicksort}
+	\input{tablas/Opt_quicksort_tabla_mini}
+\end{frame}
+
+\begin{frame}{Quicksort}
+	\includegraphics[width = \textwidth ]{img/quicksort_optim_g.pdf}
+\end{frame}
+
+\begin{frame}{Mergesort}
+	\input{tablas/Opt_mergesort_tabla_mini}
+\end{frame}
+
+\begin{frame}{Mergesort}
+	\includegraphics[width = \textwidth ]{img/mergesort_optim_g.pdf}
+\end{frame}
+
+\begin{frame}{Heapsort}
+	\input{tablas/Opt_heapsort_tabla_mini}
+\end{frame}
+
+\begin{frame}{Heapsort}
+	\includegraphics[width = \textwidth ]{img/heapsort_optim_g.pdf}
+\end{frame}
+
+\subsection{Algoritmos cúbicos}
+
+\begin{frame}{Floyd}
+	\input{tablas/Opt_floyd_tabla_mini}
+\end{frame}
+
+\begin{frame}{Floyd}
+	\includegraphics[width = \textwidth ]{img/floyd_optim_g.pdf}
+\end{frame}
+
+\subsection{Algoritmos exponenciales}
+
+\begin{frame}{Fibonacci}
+	\input{tablas/Opt_fibonacci_tabla_mini}
+\end{frame}
+
+\begin{frame}{Fibonacci}
+	\includegraphics[width = \textwidth ]{img/fibonacci_optim_g.pdf}
+\end{frame}
+
+\begin{frame}{Hanói}
+	\input{tablas/Opt_hanoi_tabla_mini}
+\end{frame}
+
+\begin{frame}{Hanói}
+	\includegraphics[width = \textwidth ]{img/hanoi_optim_g.pdf}
+\end{frame}
 
 \end{document}
