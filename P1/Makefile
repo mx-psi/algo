@@ -41,7 +41,7 @@ img/%_g.pdf: dats/%.dat
 
 img/%_todos_g.pdf: dats/%_antonio.dat dats/%_dario.dat dats/%_inaki.dat dats/%_jose_manuel.dat dats/%_pablo.dat
 	gnuplot -e "DATA='$(notdir $(basename $^))';OUT='$@';\
-	TITLE='Tiempos de ejecución para $(notdir $(basename $@ _todos_g.pdf))'" plot_multiple.plg
+	TITLE='Tiempos de ejecución para $(patsubst img/%_todos_g.pdf, %, $@)'" plot_multiple.plg
 
 tablas:
 	ruby tablas_gen.rb
