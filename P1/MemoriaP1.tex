@@ -1,13 +1,15 @@
 \documentclass[a4paper, 11pt]{article}
 
-\usepackage[spanish]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[vmargin=2cm,hmargin=2cm]{geometry}
-\usepackage{graphicx}
-\graphicspath{{img/}}
-\usepackage{accents}
-\usepackage{framed}
+\usepackage[spanish]{babel} % Idioma
+\usepackage[utf8]{inputenc} % Codificación
+\usepackage[T1]{fontenc} % Codificación
+\usepackage{adjustbox} % Tamaño de tablas
+\usepackage{float} % Posicionamiento de figure
+\usepackage[vmargin=2cm,hmargin=2cm]{geometry} % Márgenes
+\usepackage{graphicx} % Imágenes
+\graphicspath{{img/}} % Las imágenes están en la carpeta img
+\usepackage{accents} % Cosas de Windows
+\usepackage{framed} % Idem
 
 \newcommand{\spec}[4]{
 \bgroup
@@ -100,10 +102,10 @@ ordenación toman estos mismos valores.
 \subsection{Tabla del algoritmo de inserción}
 \input{tablas/insercion_tabla}
 
+\newpage
 \subsection{Tabla de los algoritmos cuadráticos}
 
-Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
-de orden cuadrático:
+\noindent Incluimos una tabla comparando los datos de una sóla persona para los algoritmos de orden cuadrático: \\
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
@@ -169,10 +171,10 @@ de orden cuadrático:
 \subsection{Tabla del algoritmo Quicksort}
 \input{tablas/quicksort_tabla}
 
+\newpage
 \subsection{Tabla de los algoritmos $n\cdot \log(n)$}
 
-Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
-de orden $n\cdot \log(n)$:
+\noindent Incluimos una tabla comparando los datos de una sóla persona para los algoritmos de orden $n\cdot \log(n)$: \\
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
@@ -234,7 +236,7 @@ de orden $n\cdot \log(n)$:
 \subsection{Tabla del algoritmo cúbico (Floyd)}
    \input{tablas/floyd_tabla}
 
-\subsection{Tabla del algoritmo de Fibonacci $(O(\varphi)^n)$}
+\subsection{Tabla del algoritmo de Fibonacci $(O(\varphi^n))$}
    \input{tablas/fibonacci_tabla}
 
 \subsection{Tabla del algoritmo de Hanoi ($O(2^n)$)}
@@ -310,17 +312,19 @@ con los siguientes resultados:
 \begin{figure}[h] \includegraphics[width=11cm]{comparativa_cuadraticos_g} \centering
 	\caption{Algoritmos cuadráticos} \end{figure}
 
-\begin{figure}[h] \includegraphics[width=11cm]{burbuja_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=11cm]{burbuja_todos_g} \centering
       \caption{Algoritmo de burbuja} \end{figure}
-
-\begin{figure}[h] \includegraphics[width=11cm]{seleccion_todos_g} \centering
-      \caption{Algoritmo de selección} \end{figure}
-
-\begin{figure}[h] \includegraphics[width=11cm]{insercion_todos_g} \centering
-      \caption{Algoritmo de inserción} \end{figure}
 
 El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de los otros dos, que se encuentran casi igualados, teniendo un menor tiempo el de inserción. Probablemente este menor tiempo sea el motivo de que en \textit{quicksort} y \textit{mergesort} se use el algoritmo de inserción para subvectores pequeños.
 
+
+\begin{figure}[H] \includegraphics[width=11cm]{seleccion_todos_g} \centering
+      \caption{Algoritmo de selección} \end{figure}
+
+\begin{figure}[H] \includegraphics[width=11cm]{insercion_todos_g} \centering
+      \caption{Algoritmo de inserción} \end{figure}
+
+\newpage
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
 \begin{figure}[h] \includegraphics[width=11cm]{comparativa_logaritmicos_g} \centering
 	\caption{Algoritmos  $n\cdot log(n)$} \end{figure}
@@ -338,20 +342,20 @@ El algoritmo \textit{quicksort} también usa el algoritmo de inserción por deba
    \caption{Algoritmo Heapsort} \end{figure}
 
 \newpage
+
 \subsection{Gráfica del algoritmo de Floyd (cúbico)}
-\begin{figure}[h] \includegraphics[width=13cm]{floyd_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=13cm]{floyd_todos_g} \centering
 	\caption{Algoritmo de Floyd (cúbico)} \end{figure}
 
-\subsection{Gráfica del algoritmo de Fibonacci $(O(\varphi)^n)$}
-\begin{figure}[h] \includegraphics[width=13cm]{fibonacci_todos_g} \centering
+\subsection{Gráfica del algoritmo de Fibonacci $(O(\varphi^n))$}
+\begin{figure}[H] \includegraphics[width=13cm]{fibonacci_todos_g} \centering
 	\caption{Algoritmo de Fibonacci} \end{figure}
 
-\newpage
 \subsection{Gráfica del algoritmo de Hanoi ($O(2^n)$)}
-\begin{figure}[h] \includegraphics[width=13cm]{hanoi_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=13cm]{hanoi_todos_g} \centering
 	\caption{Algoritmo de Hanoi} \end{figure}
 
-
+\newpage
 \subsection{Gráfica de los algoritmos de ordenación}
 \begin{figure}[h] \includegraphics[width=14cm]{comparativa_global_g} \centering
 	\caption{Algoritmos de ordenación} \end{figure}
@@ -363,6 +367,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 
 \subsection{Eficiencia híbrida de los algoritmos cuadráticos}
 
+\noindent\adjustbox{max width=\textwidth}{%
 \begin{tabular}{|l|l|l|l|}
 	\hline
 	Persona & Burbuja & Inserción & Selección \\
@@ -378,9 +383,11 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($r=0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($r=0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($r=1$) \\
 	\hline
 \end{tabular}
+}
 
 \subsection{Eficiencia híbrida de los algoritmos $n \cdot \log(n)$}
 
+\noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|l|}
 	\hline
 	Persona & Heapsort & Mergesort & Quicksort \\
@@ -397,8 +404,10 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 
 \end{tabular}
+}
 
 \subsection{Eficiencia híbrida del algoritmo de Floyd}
+\noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|}
 	\hline
 	Persona & Eficiencia híbrida de Floyd & Coeficiente de correlación \\
@@ -414,8 +423,10 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
  \hline
 
 \end{tabular}
+}
 
 \subsection{Eficiencia híbrida del algoritmo de Fibonacci}
+\noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|}
 
 	\hline
@@ -431,9 +442,10 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
    \hline
  Pablo & $6.4 \cdot 10^{-9} \varphi^n -1.8\cdot 10^{-8}$ & $0.997$\\
  \hline
-\end{tabular}
+\end{tabular}}
 
 \subsection{Eficiencia híbrida del algoritmo de Hanoi}
+\noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|}
 	\hline
 	Persona & Eficiencia híbrida de Hanoi & Coeficiente de correlación \\
@@ -447,8 +459,9 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
    \hline
  Pablo & $6.1 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-9}$ & $0.9998$\\
  \hline
-\end{tabular}
+\end{tabular}}
 
+\newpage
 \subsection{Eficiencia hibrida: Comparativa}
 
 Observaremos experimentalmente que si intentamos ajustar los datos de ejecución de los algoritmos con distintas funciones, la que produce un mejor ajuste es la que expresa su eficiencia en el caso medio.
@@ -458,7 +471,7 @@ Tomaremos un algoritmo tipo de cada clase de eficiencia y lo intentaremos ajusta
 \vspace{1cm}
 \textbf{Algoritmos cuadráticos}
 
-\begin{figure}[h]\includegraphics[width=13cm]{img/cuad_hibrida.pdf} \centering
+\begin{figure}[H]\includegraphics[width=13cm]{img/cuad_hibrida.pdf} \centering
 	\caption{Comparativa Cuadráticos Híbrida}\end{figure}
 
 Como vemos la función cuadrática es la que mejor se ajusta a los datos.
@@ -470,7 +483,7 @@ Como vemos la función cuadrática es la que mejor se ajusta a los datos.
 Vamos a aproximar los datos del \textit{quicksort} con una función lineal y una logarítmica. Veremos que la aproximación lineal es mejor de lo que de primeras podríamos pensar.
 
 
-\begin{figure}[h]\includegraphics[width=13cm]{img/log_hibrida.pdf} \centering
+\begin{figure}[H]\includegraphics[width=13cm]{img/log_hibrida.pdf} \centering
 	\caption{Comparativa Logarítmica Híbrida}\end{figure}
 
 Esto se debe a que el logaritmo es menor que cualquier raiz, asintóticamente; es por esto que la función O(nlog(n)) se comporta de una manera parecida a una lineal.
@@ -482,7 +495,7 @@ Esto se debe a que el logaritmo es menor que cualquier raiz, asintóticamente; e
 
 Ejecutaremos el algoritmo de Hanói y lo compararemos con funciones polinómicas de diverso grado.
 
-\begin{figure}[h]\includegraphics[width=13cm]{img/expo_hibrida2.pdf} \centering
+\begin{figure}[H]\includegraphics[width=13cm]{img/expo_hibrida2.pdf} \centering
 	\caption{Comparativa Exponencial Híbrida}\end{figure}
 
 Como era de esperar aproximar el crecimiento exponencial mediante funciones polinómicas es inviable. Cabe destacar que no empleamos algoritmos cúbicos porque el método de mínimos cuadrados devuelve una aproximación tan nefasta que se dejan de apreciar bien las demás funciones en la gráfica.
@@ -493,7 +506,7 @@ Como era de esperar aproximar el crecimiento exponencial mediante funciones poli
 
 Por último aproximaremos mediante las funciones que ya hemos tratado los datos resultantes de la ejecución del algoritmo cúbico de Floyd.
 
-\begin{figure}[h]\includegraphics[width=13cm]{img/floyd_hibrida.pdf} \centering
+\begin{figure}[H]\includegraphics[width=13cm]{img/floyd_hibrida.pdf} \centering
 	\caption{Comparativa Floyd Híbrida}\end{figure}
 
 \begin{framed}
@@ -503,6 +516,51 @@ Por último aproximaremos mediante las funciones que ya hemos tratado los datos 
 
 Por último queremos comentar la proximidad de las funciones cuadrática y cúbica, salvo para datos pequeños que ajusta mejor la cúbica; esto se debe a que las constantes difieren mucho y los datos son insuficientes, por tanto, en un pequeño intervalo las funciones pueden llegar a "parecerse".
 
+\newpage
+\section{Ejercicio 4}
+\subsection{Optimización de Burbuja}
+\input{tablas/Opt_burbuja_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/burbuja_optim_g.pdf} \centering
+	\caption{Optimización Burbuja}\end{figure}
 
+\subsection{Optimización de Selección}
+\input{tablas/Opt_seleccion_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/seleccion_optim_g.pdf} \centering
+	\caption{Optimización Selección}\end{figure}
+
+\subsection{Optimización de Inserción}
+\input{tablas/Opt_insercion_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/insercion_optim_g.pdf} \centering
+	\caption{Optimización Inserción}\end{figure}
+
+\subsection{Optimización de Quicksort}
+\input{tablas/Opt_quicksort_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/quicksort_optim_g.pdf} \centering
+	\caption{Optimización Quicksort}\end{figure}
+
+\subsection{Optimización de Mergesort}
+\input{tablas/Opt_mergesort_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/mergesort_optim_g.pdf} \centering
+	\caption{Optimización Mergesort}\end{figure}
+
+\subsection{Optimización de Heapsort}
+\input{tablas/Opt_heapsort_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/heapsort_optim_g.pdf} \centering
+	\caption{Optimización Heapsort}\end{figure}
+
+\subsection{Optimización de Floyd}
+\input{tablas/Opt_floyd_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/floyd_optim_g.pdf} \centering
+	\caption{Optimización Floyd}\end{figure}
+
+\subsection{Optimización de Fibonacci}
+\input{tablas/Opt_fibonacci_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/fibonacci_optim_g.pdf} \centering
+	\caption{Optimización Fibonacci}\end{figure}
+
+\subsection{Optimización de Hanói}
+\input{tablas/Opt_hanoi_tabla}
+\begin{figure}[H]\includegraphics[width=13cm]{img/hanoi_optim_g.pdf} \centering
+	\caption{Optimización Hanói}\end{figure}
 
 \end{document}
