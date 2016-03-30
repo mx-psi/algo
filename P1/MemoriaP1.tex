@@ -548,49 +548,86 @@ Por último queremos comentar la proximidad de las funciones cuadrática y cúbi
 
 \newpage
 \section{Ejercicio 4}
+
+En el ejercicio 4 nos pedían ver cómo varía la eficiencia empírica según diversos factores. A lo largo de esta memoria hemos visto que el sistema operativo y el ordenador en el que se realizan los cálculos afectan ligeramente al resultado de la eficiencia, pero que asintóticamente se comportan de la misma manera.
+
+En este apartado nos centraremos, por tanto, en el otro factor relevante: la optimización. Vamos a comparar los tiempos de los algoritmos anteriores cuando los compilamos con diferentes niveles de optimización. Acabaremos viendo que, al igual que los otros dos, la optimización puede mejorarnos el tiempo de ejecución, pero no variar la tendencia asintótica de la eficiencia.
+
+También nos adentraremos en un hecho importante sobre la optimización. Si bien uno esperaría que cuanto más alto el nivel de optimización, mejor se comporta el algoritmo, esto no es siempre cierto. Esto es consecuencia de la implementación interna de los distintos niveles de optimización del compilador, en los que no tenemos pensado entrar, pero que ponen de relieve que debemos hacer un contraste de tiempos entre las versiones con optimización cuando estemos creando algún programa que necesite rapidez.
+
+\newpage
 \subsection{Optimización de Burbuja}
 \input{tablas/Opt_burbuja_tabla}
 \begin{figure}[H]\includegraphics[width=13cm]{img/burbuja_optim_g.pdf} \centering
 	\caption{Optimización Burbuja}\end{figure}
 
+Tanto en la última fila de la tabla como en la gráfica podemos notar que el primer nivel de optimización nos baja considerablemente el tiempo de ejecución. Como en la mayoría de otros algoritmos, la optimización de nivel 1 se encuentra un poco por encima de las otras dos, que van alternándose. Aun así, podemos apreciar una leve ventaja del nivel 2 frente al 3.
+
+\newpage 
 \subsection{Optimización de Selección}
 \input{tablas/Opt_seleccion_tabla}
 \begin{figure}[H]\includegraphics[width=13cm]{img/seleccion_optim_g.pdf} \centering
 	\caption{Optimización Selección}\end{figure}
 
+En este algoritmo podemos apreciar lo que se mencionaba antes: el nivel 3 no es el más rápido siempre. Unas razones de por qué afecta más en unos algoritmos que en otros es la capacidad de la caché junto a la gestión del algoritmo de sus propios datos. En este caso, el algoritmo peor parado es selección, que aplica menos intercambios que inserción, pero que realiza más comparaciones.
+
+\newpage
 \subsection{Optimización de Inserción}
 \input{tablas/Opt_insercion_tabla}
 \begin{figure}[H]\includegraphics[width=13cm]{img/insercion_optim_g.pdf} \centering
 	\caption{Optimización Inserción}\end{figure}
 
+De nuevo, notamos que la diferencia entre optimizar y no hacerlo es notable. En este caso, la diferencia entre las tres optimizaciones es prácticamente nula, así que no tiene mucho sentido sacar información de ahí.
+
+\newpage
 \subsection{Optimización de Quicksort}
 \input{tablas/Opt_quicksort_tabla}
-\begin{figure}[H]\includegraphics[width=13cm]{img/quicksort_optim_g.pdf} \centering
+\begin{figure}[H]\includegraphics[width=12cm]{img/quicksort_optim_g.pdf} \centering
 	\caption{Optimización Quicksort}\end{figure}
 
+El Quicksort es el algoritmo más rápido de todos los que estamos sacando de relieve, por lo que podemos apreciar un dato importante, observando un momento las tablas. El Quicksort stá por debajo de la versión optimizada del Mergesort. Para 25 millones de datos, el Quicksort tarda $4.5$ segundos mientras que el Mergesort con nivel 1 de optimización tarda $3.76$ segundos. Lo arreglamos fácilmente optimizando también el Quicksort, lo cual lo sigue dejando el más rápido de todos, bajando a $2.34$ segundos en nivel 3.
+\newpage
 \subsection{Optimización de Mergesort}
 \input{tablas/Opt_mergesort_tabla}
 \begin{figure}[H]\includegraphics[width=13cm]{img/mergesort_optim_g.pdf} \centering
 	\caption{Optimización Mergesort}\end{figure}
 
+En el Mergesort podemos notar, como lo hicimos cuando vimos su subida en el apartado 1 de esta memoria, los escalones que forma cuando cambia el tamaño con el que aplica inserción, pero esta vez en los demás niveles de optimización. La diferencia entre los niveles de optimización en este caso es también nula. 
+\newpage
 \subsection{Optimización de Heapsort}
 \input{tablas/Opt_heapsort_tabla}
-\begin{figure}[H]\includegraphics[width=13cm]{img/heapsort_optim_g.pdf} \centering
+\begin{figure}[H]\includegraphics[width=12cm]{img/heapsort_optim_g.pdf} \centering
 	\caption{Optimización Heapsort}\end{figure}
 
+Llegamos al Heapsort, con el que nos encontramos que, aunque pareciese que el nivel 1 se comportaba de una forma parecida a los otros dos niveles, puede haber casos en los que no nos haga mucha disminución de tiempo, como aquí. Los tiempos del Heapsort normal con respecto al de nivel 1 no cambian tanto como en los anteriores algoritmos que veíamos, mientras que los otros dos niveles ya nos bajan a la mitad del tiempo, como antes. Las causas de esto recaen sobre la implementación interna de los niveles de optimización y, de nuevo, sobre la gestión del algoritmo de sus datos.
+
+\newpage
 \subsection{Optimización de Floyd}
 \input{tablas/Opt_floyd_tabla}
 \begin{figure}[H]\includegraphics[width=13cm]{img/floyd_optim_g.pdf} \centering
 	\caption{Optimización Floyd}\end{figure}
 
+En Floyd podemos presenciar cómo de importante puede ser optimizar, puesto que las curvas que realizan las optimizaciones son mucho más suaves que la del original. Si bien la distancia entre ellos para 750 datos es de 2 segundos, las pendientes de las curvas sugieren que esta distancia aumenta considerablemente en pocos datos más.
+\newpage
 \subsection{Optimización de Fibonacci}
 \input{tablas/Opt_fibonacci_tabla}
-\begin{figure}[H]\includegraphics[width=13cm]{img/fibonacci_optim_g.pdf} \centering
+\begin{figure}[H]\includegraphics[width=11cm]{img/fibonacci_optim_g.pdf} \centering
 	\caption{Optimización Fibonacci}\end{figure}
 
+Aquí encontramos un problema para sacar información, puesto que los tiempos de ejecución para 25 datos son muy pequeños en Fibonacci, y en las gráficas no notamos mucho cambio. Sin embargo, si nos ayudamos de las tablas, podremos fijarnos en que el nivel O0 se encuentra cerca de dos veces el nivel O3 en la mayoría de los puntos. Esto sugiere que aunque no lo veamos, la diferencia entre un ejecutable y otro es prácticamente la misma que hemos visto anteriormente, y el original tarda el doble del tiempo en ejecutarse. Por otro lado, el nivel 1 tampoco nos ofrece mucha mejora, como ocurría con el Heapsort.
+\newpage
 \subsection{Optimización de Hanói}
 \input{tablas/Opt_hanoi_tabla}
-\begin{figure}[H]\includegraphics[width=13cm]{img/hanoi_optim_g.pdf} \centering
+\begin{figure}[H]\includegraphics[width=12cm]{img/hanoi_optim_g.pdf} \centering
 	\caption{Optimización Hanói}\end{figure}
+
+Por último, el algoritmo de Hanói que es el más lento de todos. Al ser exponencial, de nuevo, como en Fibonacci, la gráfica solo nos muestra algo de información en los últimos puntos, antes de dispararse. Pero allí podemos ver que las pendientes de las curvas del original superan a los de las versiones optimizadas, que dibujan una curva mucho más suave. Conforme más avancemos aumentando el tamaño, más pronunciada será la diferencia entre estos ejecutables. Esta vez el nivel 3 es el que más mejora ofrece.
+
+\newpage
+\subsection{Conclusión}
+Como conclusión podemos decir que es prioritario optimizar si queremos sacar el máximo juego a nuestros algoritmos, pero que debemos comparar los tres niveles de optimización con algún sencillo test como los anteriores, para quedarnos con el nivel que más mejore la gestión del algoritmo.
+
+Por otro lado, si bien una buena optimización puede aligerarnos la carga del algoritmo en tiempo, no podrá deshacerse de su tendencia asintótica. Prueba de ello es que en todos los datos que hemos recogido, las optimizaciones rondaban la mitad del tiempo del original, lo cual no cambia la tendencia en tamaños grandes. Así que, aunque pueden ser muy provechosas, no podemos confiar solo en las optimizaciones al compilar para hacer una verdadera mejora en el tiempo de nuestro algoritmo. 
+
 
 \end{document}
