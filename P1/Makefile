@@ -31,7 +31,7 @@ img/comparativa_logaritmicos_g.pdf: dats/quicksort.dat dats/heapsort.dat dats/me
 	gnuplot -e "DATA='$(notdir $(basename $^))';OUT='$@';\
 	TITLE='Tiempos de ejecución para algoritmos n·log(n)'" plot_multiple.plg
 
-img/comparativa_global_g.pdf: dats/quicksort.dat dats/heapsort.dat dats/mergesort.dat dats/burbuja.dat dats/seleccion.dat dats/insercion.dat
+img/comparativa_global_g.pdf: dats/quicksort_s.dat dats/heapsort_s.dat dats/mergesort_s.dat dats/burbuja.dat dats/seleccion.dat dats/insercion.dat
 	gnuplot -e "DATA='$(notdir $(basename $^))';OUT='$@';\
 	TITLE='Tiempos de ejecución de globales'" plot_multiple.plg
 
