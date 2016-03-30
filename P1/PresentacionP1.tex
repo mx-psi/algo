@@ -171,25 +171,65 @@
 
 \subsection{Parámetros de ajuste individuales}
 
-\begin{frame}{Ajustes cuadráticos}
+\begin{frame}{Ajuste de Burbuja}
 \noindent\adjustbox{max width=\textwidth}{%
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|}
 	\hline
-	Persona & Burbuja & Inserción & Selección \\
+	Persona & Eficiencia híbrida de Burbuja \\
 	\hline
 
-	Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ ($0.99$) & $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ ($0.99$) & $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ ($1$) \\
+	Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ ($0.99$) \\
 	\hline
-	Darío &$89\cdot10^{-3} -1.62\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ $ (0.99)$ &$89 \cdot 10^{-3}+-1.62\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ $ (0.99)$&$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ $(0.99)$ \\
+	Darío &$89\cdot10^{-3} -1.62\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ $ (0.99)$ \\
 
 	\hline
-	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($0.99$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($0.99$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(0.99)$ \\
+	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($0.99$) \\
 	\hline
-	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($1$) \\
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($0.99$) \\
 	\hline
-	Iñaki & $3.23\cdot 10^{-9}n^2 +1.36\cdot 10^{-7}n -2.52\cdot 10^{-5}$ ($0.99$)
-	& $1.18\cdot 10^{-9}n^2 +1.36 \cdot 10^{-7}n -2.5\cdot 10^{-5}$ ($0.99$)
-	& $1.31\cdot 10^{-9}n^2 +5.81\cdot 10^{-7} -0.002$ ($0.99$)\\
+	Iñaki & $3.23\cdot 10^{-9}n^2 +1.36\cdot 10^{-7}n -2.52\cdot 10^{-5}$ ($0.99$)\\
+	\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}{Ajuste de Inserción}
+\noindent\adjustbox{max width=\textwidth}{%
+\begin{tabular}{|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Inserción \\
+	\hline
+	Antonio &  $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ ($0.99$)  \\
+	\hline
+	Darío &$89 \cdot 10^{-3}+-1.62\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ $ (0.99)$ \\
+	\hline
+	José Manuel  & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($0.99$) \\
+	\hline
+	Pablo & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($0.99$) \\
+	\hline
+	Iñaki & $1.18\cdot 10^{-9}n^2 +1.36 \cdot 10^{-7}n -2.5\cdot 10^{-5}$ ($0.99$)\\
+	\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}{Ajuste de Selección}
+\noindent\adjustbox{max width=\textwidth}{%
+\begin{tabular}{|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Selección \\
+	\hline
+
+	Antonio &  $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ ($1$) \\
+	\hline
+	Darío &$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ $(0.99)$ \\
+
+	\hline
+	José Manuel & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(0.99)$ \\
+	\hline
+	Pablo & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($1$) \\
+	\hline
+	Iñaki & $1.31\cdot 10^{-9}n^2 +5.81\cdot 10^{-7} -0.002$ ($0.99$)\\
 	\hline
 \end{tabular}
 }
@@ -222,7 +262,7 @@
 
 \end{frame}
 
-\begin{frame}{Ajuste del algoritmo de Floyd}
+\begin{frame}{Ajuste de Floyd}
 \noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|}
 	\hline
@@ -245,7 +285,7 @@
 
 \end{frame}
 
-\begin{frame}{Ajuste del algoritmo de Fibonacci}
+\begin{frame}{Ajuste de Fibonacci}
 \noindent\adjustbox{max width=\textwidth}{
 \begin{tabular}{|l|l|l|}
 
@@ -268,7 +308,7 @@
 
 \end{frame}
 
-\begin{frame}{Ajuste del algoritmo de Hanoi}
+\begin{frame}{Ajuste de Hanoi}
 \noindent\adjustbox{max width=\textwidth}{
 	\begin{tabular}{|l|l|l|}
 		\hline
