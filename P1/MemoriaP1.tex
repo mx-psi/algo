@@ -367,9 +367,11 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Burbuja & Inserción & Selección \\
 	\hline
+
 	Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ ($r=0.99$) & $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ ($r=0.99$) & $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ ($r=1$) \\
 	\hline
-   Darío &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot x +3\cdot10^{-9}\cdot x^2$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot x +1.68\cdot 10^{-9}\cdot x^2$&$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot x +1.59 \cdot 10^{-9} \cdot x^2$ \\
+  Darío &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ $ (r=0.9999956782)$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ $ (r=0.999999728)$&$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ $(r=0.9996713117)$ \\
+  
    \hline
 	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($r=0.999998565269577$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($r=0.999979582960209$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(r=0.999996280002182)$ \\
    \hline
@@ -383,10 +385,11 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Heapsort & Mergesort & Quicksort \\
 	\hline
-	
+
 	Antonio & $2.72 \cdot 10^{-8}n\log(n) -0.55$ ($r=0.999$)  & $1.918 \cdot 10^{-8} n \log(n) - 0.305 $ ($r=0.996$)& $1.06 \cdot 10^{-8}n\log(n) -0.083 $ ($r=0.999$)\\	
 	\hline
-   Darío & $-0.00499364 +2.58544\cdot 10^{-8}\cdot x\cdot log(x)  $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot x\cdot log(x)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot x\cdot log(x) $\\
+   Darío & $-0.00499364 +2.58544\cdot 10^{-8}\cdot n\cdot log(n) $ $(r=0.999654372) $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot n\cdot log(x)$ $(r=0.99990783266)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot n\cdot log(n)$ $(r=0.99994678468)$ \\
+
    \hline
    José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($r=0.999702622004366$) & $2.29 \cdot 10^{-8}n\log(n) - 0.082$ ($r=0.997798964368601$) & $1.42 \cdot 10^{-8}n\log(n) + 0.020$ ($r=0.999963309603908$)\\
    \hline
@@ -400,9 +403,10 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Floyd & Coeficiente de correlación \\
    \hline
-   Antonio & $ 6 \cdot 10^{-9}n^3 -7.9 \cdot 10^{-7}n^2 -2.17 \cdot 10^{-4}n +0.012$ & $0.999$ \\
+ Antonio & $ 6 \cdot 10^{-9}n^3 -7.9 \cdot 10^{-7}n^2 -2.17 \cdot 10^{-4}n +0.012$ & $0.999$ \\
    \hline
- Darío & $ -0.00499364 +0.000217346\cdot x+-7.6610\cdot 10^{-7} + 6.98242\cdot 10^{-9} $ \\
+ Darío & $ -0.00499364 +0.000217346\cdot n-7.6610\cdot 10^{-7}\cdot n^2 + 6.98242\cdot 10^{-9} \cdot n^3 $ & 0.99999657 \\
+
    \hline
  José Manuel & $ 6.88 \cdot 10^{-9}n^3 + 2.89 \cdot 10^{-7}n^2 -4.44 \cdot 10^{-5}n +0.001$ & $0.999960701767451$ \\
 	\hline
@@ -417,9 +421,11 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Fibonacci & Coeficiente de correlación \\
 	\hline
+
 	Antonio & $3.81 \cdot 10^{-9} \phi^n +7.21\cdot 10^{-7}$ & $0.999$\\
 	\hline
- Darío & $-0.00450426 +0.00150218\cdot\phi^x $\\
+ Darío & $-0.00450426 +0.00150218\cdot\varphi^n $ &0.999987\\
+
    \hline
  José Manuel & $3.81 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n +9.68\cdot 10^{-7}$ & $0.999939284564366$\\
    \hline
@@ -432,9 +438,10 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Hanoi & Coeficiente de correlación \\
 	\hline
+
 	Antonio & $5.69 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-4}$ & $1$\\
 	\hline
- Darío & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^x$\\
+ Darío & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^n$ & 0.983571\\
    \hline
  José Manuel & $6.00 \cdot 10^{-9} 2^n + 9.3 \cdot 10^{-6}$ & $0.999999531007589$\\
    \hline
@@ -450,4 +457,51 @@ Observaremos experimentalmente que si intentamos ajustar los datos de ejecución
 
 Tomaremos un algoritmo tipo de cada clase de eficiencia y lo intentaremos ajustar mediante distintas curvas.
 
+\vspace{1cm}
 \textbf{Algoritmos cuadráticos}
+
+\begin{figure}[h]\includegraphics[width=13cm]{img/cuad_hibrida.pdf} \centering
+	\caption{Comparativa Cuadráticos Híbrida}\end{figure}
+
+Como vemos la función cuadrática es la que mejor se ajusta a los datos.
+
+\vspace{1cm}
+
+\textbf{Algoritmos logarítmicos}
+
+Vamos a aproximar los datos del $"quicksort"$ con una función lineal y una logarítmica. Veremos que la aproximación lineal es mejor de lo que de primeras podríamos pensar.
+
+
+\begin{figure}[h]\includegraphics[width=13cm]{img/log_hibrida.pdf} \centering
+	\caption{Comparativa Logarítmica Híbrida}\end{figure}
+
+Esto se debe a que el logaritmo es menor que cualquier raiz, asintóticamente; es por esto que la función O(nlog(n)) se comporta de una manera parecida a una lineal.
+
+
+\vspace{1cm}
+
+\textbf{Algoritmos Exponenciales}
+
+Ejecutaremos el algoritmo de Hanói y lo compararemos con funciones polinómicas de diverso grado.
+
+\begin{figure}[h]\includegraphics[width=13cm]{img/expo_hibrida2.pdf} \centering
+	\caption{Comparativa Exponencial Híbrida}\end{figure}
+
+Como era de esperar aproximar el crecimiento exponencial mediante funciones polinómicas es inviable. Cabe destacar que no empleamos algoritmos cúbicos porque el método de mínimos cuadrados devuelve una aproximación tan nefasta que se dejan de apreciar bien las demás funciones en la gráfica.
+
+\vspace{1cm}
+
+\textbf{Algoritmos Cúbicos}
+
+Por último aproximaremos mediante las funciones que ya hemos tratado los datos resultantes de la ejecución del algoritmo cúbico de Floyd.
+
+\begin{figure}[h]\includegraphics[width=13cm]{img/floyd_hibrida.pdf} \centering
+	\caption{Comparativa Floyd Híbrida}\end{figure}
+
+\begin{framed}
+	Se ha de notar que no hemos intentado ajustar el algoritmo de floyd con una función exponencial. Esto se debe a que dicho ajuste es tan poco realista que las constantes se salen del rango de precisión aritmética del programa empleado para el su cálculo.(gnuplot)
+\end{framed}
+
+
+Por último queremos comentar la proximidad de las funciones cuadrática y cúbica, salvo para datos pequeños que ajusta mejor la cúbica; esto se debe a que las constantes difieren mucho y los datos son insuficientes, por tanto, en un pequeño intervalo las funciones pueden llegar a "parecerse".
+
