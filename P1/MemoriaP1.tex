@@ -9,19 +9,6 @@
 \usepackage{accents}
 \usepackage{framed}
 
-\newcommand{\spec}[4]{
-\bgroup
-\def\arraystretch{1.3}
-\begin{tabular}{|l|}
-\hline
-%Hardware y SO empleado:\\
-CPU: #1 @#2 GHz\\RAM: #3 GB \hspace{0.8cm} SO: #4 \\
-\hline
-\end{tabular}
-\egroup
-\vspace*{0.3cm}
-}
-
 \title{\Huge \textbf{Práctica 1}}
 
 \author{\textbf{Pablo Baeyens Fernández} \\ \textbf{Antonio Checa Molina} \\
@@ -92,19 +79,302 @@ tamaños mucho mayores, mientras que en la tabla comparativa de algoritmos de
 ordenación toman estos mismos valores.
 
 \subsection{Tabla de los algoritmos cuadráticos}
-\input{tablas/cuadraticos_tabla}
+
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Tamaño &Tiempo de Burbuja &Tiempo de  Inserción &Tiempo de  Selección \\
+	\hline
+	\hline
+	2000 & 0,0141 & 0,005 & 0,0057 \\
+	\hline
+	4000 & 0,0516 & 0,0211 & 0,023 \\
+	\hline
+	6000 & 0,1138 & 0,0423 & 0,0485 \\
+	\hline
+	8000 & 0,203 & 0,0749 & 0,0853 \\
+	\hline
+	10000 & 0,3178 & 0,1194 & 0,1335 \\
+	\hline
+	12000 & 0,4675 & 0,1719 & 0,1922 \\
+	\hline
+	14000 & 0,6378 & 0,2302 & 0,2608 \\
+	\hline
+	16000 & 0,8319 & 0,3068 & 0,3446 \\
+	\hline
+	18000 & 1,0515 & 0,3948 & 0,4365 \\
+	\hline
+	20000 & 1,2976 & 0,4715 & 0,5323 \\
+	\hline
+	22000 & 1,5667 & 0,5756 & 0,6479 \\
+	\hline
+	24000 & 1,8566 & 0,6691 & 0,7654 \\
+	\hline
+	26000 & 2,1866 & 0,8164 & 0,9028 \\
+	\hline
+	28000 & 2,5267 & 0,9151 & 1,0435 \\
+	\hline
+	30000 & 2,9087 & 1,0581 & 1,2003 \\
+	\hline
+	32000 & 3,3202 & 1,1995 & 1,3639 \\
+	\hline
+	34000 & 3,7281 & 1,3595 & 1,5385 \\
+	\hline
+	36000 & 4,1982 & 1,5143 & 1,723 \\
+	\hline
+	38000 & 4,6725 & 1,684 & 1,9174 \\
+	\hline
+	40000 & 5,1504 & 1,8823 & 2,1246 \\
+	\hline
+	42000 & 5,6988 & 2,0988 & 2,3405 \\
+	\hline
+	44000 & 6,2511 & 2,2693 & 2,5674 \\
+	\hline
+	46000 & 6,8294 & 2,4624 & 2,8047 \\
+	\hline
+	48000 & 7,4305 & 2,6661 & 3,054 \\
+	\hline
+	50000 & 8,0857 & 2,9284 & 3,3125 \\
+	\hline
+\end{tabular}
 
 \subsection{Tabla de los algoritmos $n\cdot \log(n)$ }
-\input{tablas/nlogn_tabla}
+
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Tamaño & Tiempo de Heapsort & Tiempo de Mergesort & Tiempo de Quicksort \\
+	\hline
+	\hline
+	1000000	&0,158862&	0,25279&	0,245436\\
+	\hline
+	2000000	&0,333955&	0,55784	&0,508929\\
+	\hline
+	3000000	&0,512390&	0,92310	&0,883956\\
+	\hline
+	4000000	&0,689444&	1,26719	&1,068840\\
+	\hline
+	5000000	&0,875720&	1,66226	&1,422010\\
+	\hline
+	6000000	&1,063160&	2,06275	&1,804380\\
+	\hline
+	7000000	&1,254210&	2,46109	&1,880770\\
+	\hline
+	8000000	&1,448250&	2,89135	&2,214050\\
+	\hline
+	9000000	&1,636350&	3,30651	&2,563270\\
+	\hline
+	10000000	&1,802540&	3,69426	&2,943020\\
+	\hline
+	11000000	&2,013440&	4,14343	&3,320140\\
+	\hline
+	12000000	&2,211360&	4,60380	&3,736370\\
+	\hline
+	13000000	&2,399370&	5,06756	&4,035230\\
+	\hline
+	14000000	&2,589330&	5,51359	&3,893640\\
+	\hline
+	15000000	&2,786440&	5,96415	&4,248670\\
+	\hline
+	16000000	&2,984850&	6,40422	&4,579140\\
+	\hline
+	17000000	&3,174740&	6,93151	&4,953660\\
+	\hline
+	18000000	&3,358080&	7,39067	&5,305020\\
+	\hline
+	19000000	&3,563030&	7,85371	&5,679610\\
+	\hline
+	20000000	&3,803150&	8,35113	&6,070570\\
+	\hline
+	21000000	&3,950770&	8,85375	&6,459050\\
+	\hline
+	22000000	&4,171410&	9,26481	&6,862640\\
+	\hline
+	23000000	&4,371020&	9,70679	&7,275080\\
+	\hline
+	24000000	&4,558990&	10,26190	&7,763610\\
+	\hline
+	25000000	&4,774830&	10,71420	&8,117880\\
+	\hline
+\end{tabular}
 
 \subsection{Tabla del algoritmo cúbico (Floyd)}
-\input{tablas/floyd_tabla}
+
+
+\begin{tabular}{|l|l|}
+	\hline
+	Tamaño & Tiempo de Floyd \\
+	\hline
+	\hline
+	30	&0,000280424\\
+	\hline
+	60	&0,001601650\\
+	\hline
+	90	&0,005779860\\
+	\hline
+	120	&0,011250300\\
+	\hline
+	150	&0,021107200\\
+	\hline
+	180	&0,035468500\\
+	\hline
+	210	&0,055724200\\
+	\hline
+	240	&0,082467900\\
+	\hline
+	270	&0,119058000\\
+	\hline
+	300	&0,160319000\\
+	\hline
+	330	&0,213182000\\
+	\hline
+	360	&0,281825000\\
+	\hline
+	390	&0,358154000\\
+	\hline
+	420	&0,437591000\\
+	\hline
+	450	&0,543534000\\
+	\hline
+	480	&0,652500000\\
+	\hline
+	510	&0,790683000\\
+	\hline
+	540	&0,929593000\\
+	\hline
+	570	&1,097870000\\
+	\hline
+	600	&1,279820000\\
+	\hline
+	630	&1,479150000\\
+	\hline
+	660	&1,703250000\\
+	\hline
+	690	&1,941560000\\
+	\hline
+	720	&2,199710000\\
+	\hline
+	750	&2,485840000\\
+	\hline
+\end{tabular}
 
 \subsection{Tabla del algoritmo de Fibonacci $(O(\frac{1+\sqrt{5}}{2})^n)$}
-\input{tablas/fibonacci_tabla}
+
+
+\begin{tabular}{|l|l|}
+	\hline
+	Tamaño & Tiempo de Fibonacci \\
+	\hline
+	\hline
+1&1.79e-07 \\
+\hline
+2&1.88e-07\\
+\hline
+3&2.05e-07\\
+\hline
+4&2.89e-07\\
+\hline
+5&2.61e-07\\
+\hline
+6&2.87e-07\\
+\hline
+7&4.65e-07\\
+\hline
+8&7.53e-07\\
+\hline
+9&1.131e-06\\
+\hline
+10&1.365e-06\\
+\hline
+11&1.796e-06\\
+\hline
+12&1.671e-06\\
+\hline
+13&3.612e-06\\
+\hline
+14&7.294e-06\\
+\hline
+15&7.834e-06\\
+\hline
+16&1.2102e-05\\
+\hline
+17&1.7977e-05\\
+\hline
+18&2.9478e-05\\
+\hline
+19&5.3614e-05\\
+\hline
+20&7.2343e-05\\
+\hline
+21&0.000132759\\
+\hline
+22&0.000189094\\
+\hline
+23&0.000315282\\
+\hline
+24&0.000499445\\
+\hline
+25&0.000675111\\
+\hline
+
+\end{tabular}
 
 \subsection{Tabla del algoritmo de Hanoi ($O(2^n)$)}
-\input{tablas/hanoi_tabla}
+\begin{tabular}{|l|l|}
+	\hline
+	Tamaño & Tiempo de Hanoi \\
+	\hline
+	\hline
+1&1.85e-07\\
+\hline
+2&2.52e-07\\
+\hline
+3&3.63e-07\\
+\hline
+4&5.65e-07\\
+\hline
+5&5.96e-07\\
+\hline
+6&1.206e-06\\
+\hline
+7&1.909e-06\\
+\hline
+8&3.047e-06\\
+\hline
+9&5.639e-06\\
+\hline
+10&1.1064e-05\\
+\hline
+11&2.1002e-05\\
+\hline
+12&3.7705e-05\\
+\hline
+13&7.8102e-05\\
+\hline
+14&0.000165379\\
+\hline
+15&0.000334135\\
+\hline
+16&0.000589484\\
+\hline
+17&0.000988963\\
+\hline
+18&0.0017404\\
+\hline
+19&0.00368885\\
+\hline
+20&0.00684205\\
+\hline
+21&0.0136331\\
+\hline
+22&0.0273772\\
+\hline
+23&0.05418\\
+\hline
+24&0.107202\\
+\hline
+25&0.214262\\
+\hline
+
+\end{tabular}
 
 \subsection{Tabla de los algoritmos de ordenación}
 
@@ -176,15 +446,6 @@ con los siguientes resultados:
 \begin{figure}[h] \includegraphics[width=11cm]{comparativa_cuadraticos_g} \centering
 	\caption{Algoritmos cuadráticos} \end{figure}
 
- \begin{figure}[h] \includegraphics[width=11cm]{burbuja_todos_g} \centering
- 	\caption{Algoritmo de burbuja} \end{figure}
-
- \begin{figure}[h] \includegraphics[width=11cm]{seleccion_todos_g} \centering
- 	\caption{Algoritmo de selección} \end{figure}
-
- \begin{figure}[h] \includegraphics[width=11cm]{insercion_todos_g} \centering
- 	\caption{Algoritmo de inserción} \end{figure}
-
 El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de los otros dos, que se encuentran casi igualados, teniendo un menor tiempo el de inserción. Probablemente este menor tiempo sea el motivo de que en \textit{quicksort} y \textit{mergesort} se use el algoritmo de inserción para subvectores pequeños.
 
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
@@ -193,29 +454,20 @@ El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de l
 
 En el algoritmo \textit{mergesort} se aprecian pequeños escalones. Probablemente en cada escalón se incrementa el número de llamadas recursivas, de forma que el tamaño de los subvectores para los que se llama a la función de ordenado por selección (que actúa para tamaños de entrada pequeños) es menor. \\
 
-\begin{figure}[h] \includegraphics[width=11cm]{mergesort_todos_g} \centering
- \caption{Algoritmo Mergesort} \end{figure}
-
 El algoritmo \textit{quicksort} también usa el algoritmo de inserción por debajo de cierto umbral, pero usa un umbral más pequeño. Esto puede ser la causa de que no presente los escalones.
-
-\begin{figure}[h] \includegraphics[width=11cm]{quicksort_todos_g} \centering
- \caption{Algoritmo Quicksort} \end{figure}
-
- \begin{figure}[h] \includegraphics[width=11cm]{heapsort_todos_g} \centering
-  \caption{Algoritmo Heapsort} \end{figure}
 
 \newpage
 \subsection{Gráfica del algoritmo de Floyd (cúbico)}
-\begin{figure}[h] \includegraphics[width=13cm]{floyd_todos_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{floyd_g} \centering
 	\caption{Algoritmo de Floyd (cúbico)} \end{figure}
 
 \subsection{Gráfica del algoritmo de Fibonacci $(O(\frac{1+\sqrt{5}}{2})^n)$}
-\begin{figure}[h] \includegraphics[width=13cm]{fibonacci_todos_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{fibonacci_g} \centering
 	\caption{Algoritmo de Fibonacci} \end{figure}
 
 \newpage
 \subsection{Gráfica del algoritmo de Hanoi ($O(2^n)$)}
-\begin{figure}[h] \includegraphics[width=13cm]{hanoi_todos_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{hanoi_g} \centering
 	\caption{Algoritmo de Hanoi} \end{figure}
 
 
@@ -234,18 +486,22 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Burbuja & Inserción & Selección \\
 	\hline
-	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015 (0.99)$ & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002 (0.99)$ & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004 (1)$ \\
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004 (1)$ \\
+	Dario &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot x +3\cdot10^{-9}\cdot x^2$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot x +1.68\cdot 10^{-9}\cdot x^2&89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot x +1.59 \cdot 10^{-9} \cdot x^2 \\
 	\hline
 \end{tabular}
 
-\subsection{Eficiencia híbrida de los algoritmos $n \cdot \log(n)$}
+\subsection{Eficiencia híbrida de los algoritmos $ n \cdot \log(n)$}
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
 	Persona & Heapsort & Mergesort & Quicksort \\
 	\hline
-	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7} (0.995)$  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7} (0.997)$& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7} (0.999)$\\
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7} (0.999)$\\
 	\hline
+	Dario &$-0.00499364 +2.58544\cdot 10^{-8}\cdot x\cdot log(x)  $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot x\cdot log(x)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot x\cdot log(x) $\\
+	\hline
+	
 \end{tabular}
 
 \subsection{Eficiencia híbrida del algoritmo de Floyd}
@@ -253,8 +509,12 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Floyd \\
 	\hline
- Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005 (1)$\\
+ Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$\\
  \hline
+ Dario & $ -0.00499364 +0.000217346\cdot x+-7.6610\cdot 10^{-7} + 6.98242\cdot 10^{-9} $ \\
+ \hline
+ 
+ 
 \end{tabular}
 
 \subsection{Eficiencia híbrida del algoritmo de Fibonacci}
@@ -262,8 +522,9 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Fibonacci \\
 	\hline
- Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8} (0.997)$\\
+ Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$\\
  \hline
+ Dario & $-0.00450426 +0.00150218\cdot\phi^x $
 \end{tabular}
 
 \subsection{Eficiencia híbrida del algoritmo de Hanoi}
@@ -271,7 +532,9 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Hanoi \\
 	\hline
- Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5} (-0.9998)$\\
+ Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5}$\\
+ \hline 
+ Dario & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^x$\\
  \hline
 \end{tabular}
 
