@@ -78,7 +78,17 @@ los otros algoritmos de ordenación. En la tabla en la que se presentan se usan
 tamaños mucho mayores, mientras que en la tabla comparativa de algoritmos de
 ordenación toman estos mismos valores.
 
+\subsection{Tabla del algoritmo de burbuja}
+\input{tablas/burbuja_tabla}
+
+\subsection{Tabla del algoritmo de selección}
+\input{tablas/seleccion_tabla}
+
+\subsection{Tabla del algoritmo de inserción}
+\input{tablas/insercion_tabla}
+
 \subsection{Tabla de los algoritmos cuadráticos}
+<<<<<<< HEAD
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
@@ -138,6 +148,80 @@ ordenación toman estos mismos valores.
 \end{tabular}
 
 \subsection{Tabla de los algoritmos $n\cdot \log(n)$ }
+=======
+
+Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
+de orden cuadrático:
+
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Tamaño &Tiempo de Burbuja &Tiempo de  Inserción &Tiempo de  Selección \\
+	\hline
+	\hline
+	2000 & 0,0141 & 0,005 & 0,0057 \\
+	\hline
+	4000 & 0,0516 & 0,0211 & 0,023 \\
+	\hline
+	6000 & 0,1138 & 0,0423 & 0,0485 \\
+	\hline
+	8000 & 0,203 & 0,0749 & 0,0853 \\
+	\hline
+	10000 & 0,3178 & 0,1194 & 0,1335 \\
+	\hline
+	12000 & 0,4675 & 0,1719 & 0,1922 \\
+	\hline
+	14000 & 0,6378 & 0,2302 & 0,2608 \\
+	\hline
+	16000 & 0,8319 & 0,3068 & 0,3446 \\
+	\hline
+	18000 & 1,0515 & 0,3948 & 0,4365 \\
+	\hline
+	20000 & 1,2976 & 0,4715 & 0,5323 \\
+	\hline
+	22000 & 1,5667 & 0,5756 & 0,6479 \\
+	\hline
+	24000 & 1,8566 & 0,6691 & 0,7654 \\
+	\hline
+	26000 & 2,1866 & 0,8164 & 0,9028 \\
+	\hline
+	28000 & 2,5267 & 0,9151 & 1,0435 \\
+	\hline
+	30000 & 2,9087 & 1,0581 & 1,2003 \\
+	\hline
+	32000 & 3,3202 & 1,1995 & 1,3639 \\
+	\hline
+	34000 & 3,7281 & 1,3595 & 1,5385 \\
+	\hline
+	36000 & 4,1982 & 1,5143 & 1,723 \\
+	\hline
+	38000 & 4,6725 & 1,684 & 1,9174 \\
+	\hline
+	40000 & 5,1504 & 1,8823 & 2,1246 \\
+	\hline
+	42000 & 5,6988 & 2,0988 & 2,3405 \\
+	\hline
+	44000 & 6,2511 & 2,2693 & 2,5674 \\
+	\hline
+	46000 & 6,8294 & 2,4624 & 2,8047 \\
+	\hline
+	48000 & 7,4305 & 2,6661 & 3,054 \\
+	\hline
+	50000 & 8,0857 & 2,9284 & 3,3125 \\
+	\hline
+\end{tabular}
+
+\subsection{Tabla del algoritmo Heapsort}
+\input{tablas/heapsort_tabla}
+\subsection{Tabla del algoritmo Mergesort}
+\input{tablas/mergesort_tabla}
+\subsection{Tabla del algoritmo Quicksort}
+\input{tablas/quicksort_tabla}
+
+\subsection{Tabla de los algoritmos $n\cdot \log(n)$}
+
+Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
+de orden $n\cdot \log(n)$:
+>>>>>>> master
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
@@ -486,8 +570,14 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Burbuja & Inserción & Selección \\
 	\hline
+<<<<<<< HEAD
 	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004 (1)$ \\
 	Dario &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot x +3\cdot10^{-9}\cdot x^2$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot x +1.68\cdot 10^{-9}\cdot x^2&89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot x +1.59 \cdot 10^{-9} \cdot x^2 \\
+=======
+	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($r=0.999998565269577$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($r=0.999979582960209$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(r=0.999996280002182)$ \\
+   \hline
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($r=0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($r=0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($r=1$) \\
+>>>>>>> master
 	\hline
 \end{tabular}
 
@@ -497,7 +587,13 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Heapsort & Mergesort & Quicksort \\
 	\hline
+<<<<<<< HEAD
 	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7} (0.999)$\\
+=======
+   José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($r=0.999702622004366$) & $2.29 \cdot 10^{-8}n\log(n) - 0.082$ ($r=0.997798964368601$) & $1.42 \cdot 10^{-8}n\log(n) + 0.020$ ($r=0.999963309603908$)\\
+   \hline
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.995$)  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($r=0.997$)& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.999$)\\
+>>>>>>> master
 	\hline
 	Dario &$-0.00499364 +2.58544\cdot 10^{-8}\cdot x\cdot log(x)  $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot x\cdot log(x)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot x\cdot log(x) $\\
 	\hline
@@ -507,11 +603,17 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 \subsection{Eficiencia híbrida del algoritmo de Floyd}
 \begin{tabular}{|l|l|}
 	\hline
-	Persona & Eficiencia híbrida de Floyd \\
+	Persona & Eficiencia híbrida de Floyd & Coeficiente de correlación \\
+   \hline
+ José Manuel & $ 6.88 \cdot 10^{-9}n^3 + 2.89 \cdot 10^{-7}n^2 -4.44 \cdot 10^{-5}n +0.001$ & $0.999960701767451$ \\
 	\hline
+<<<<<<< HEAD
  Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$\\
  \hline
  Dario & $ -0.00499364 +0.000217346\cdot x+-7.6610\cdot 10^{-7} + 6.98242\cdot 10^{-9} $ \\
+=======
+ Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$ & $1$ \\
+>>>>>>> master
  \hline
  
  
@@ -520,9 +622,15 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 \subsection{Eficiencia híbrida del algoritmo de Fibonacci}
 \begin{tabular}{|l|l|}
 	\hline
-	Persona & Eficiencia híbrida de Fibonacci \\
+	Persona & Eficiencia híbrida de Fibonacci & Coeficiente de correlación \\
 	\hline
+<<<<<<< HEAD
  Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$\\
+=======
+ José Manuel & $3.81 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n +9.68\cdot 10^{-7}$ & $0.999939284564366$\\
+   \hline
+ Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$ & $0.997$\\
+>>>>>>> master
  \hline
  Dario & $-0.00450426 +0.00150218\cdot\phi^x $
 \end{tabular}
@@ -530,11 +638,17 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 \subsection{Eficiencia híbrida del algoritmo de Hanoi}
 \begin{tabular}{|l|l|}
 	\hline
-	Persona & Eficiencia híbrida de Hanoi \\
+	Persona & Eficiencia híbrida de Hanoi & Coeficiente de correlación \\
 	\hline
+<<<<<<< HEAD
  Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5}$\\
  \hline 
  Dario & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^x$\\
+=======
+ José Manuel & $6.00 \cdot 10^{-9} 2^n + 9.3 \cdot 10^{-6}$ & $0.999999531007589$\\
+   \hline
+ Pablo & $6.1 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-9}$ & $0.9998$\\
+>>>>>>> master
  \hline
 \end{tabular}
 
