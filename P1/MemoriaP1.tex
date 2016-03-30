@@ -7,21 +7,23 @@
 \usepackage{float} % Posicionamiento de figure
 \usepackage[vmargin=2cm,hmargin=2cm]{geometry} % Márgenes
 \usepackage{graphicx} % Imágenes
+\usepackage{hyperref} % Enlaces
 \graphicspath{{img/}} % Las imágenes están en la carpeta img
 \usepackage{accents} % Cosas de Windows
 \usepackage{framed} % Idem
 
-\newcommand{\spec}[4]{
+\newcommand{\spec}[5]{
 \bgroup
-\def\arraystretch{1.3}
+\def\arraystretch{1.2}
 \begin{tabular}{|l|}
 \hline
+PC de \textbf{#1}:\\
 %Hardware y SO empleado:\\
-CPU: #1 @#2 GHz\\RAM: #3 GB \hspace{0.8cm} SO: #4 \\
+CPU: #2 @#3 GHz\\RAM: #4 GB \hspace{0.8cm} SO: #5 \\
 \hline
 \end{tabular}
 \egroup
-\vspace*{0.3cm}
+\vspace*{0.2cm}
 }
 
 \title{\Huge \textbf{Práctica 1}}
@@ -81,6 +83,15 @@ Todos los tiempos que se muestran en las tablas están en segundos, mientras que
 tiempo de ejecución: en los algoritmos de ordenación hace referencia a la
 capacidad del vector que se ordenaba, mientras que en Fibonacci o Hanói hace
 referencia a las iteraciones totales del programa. \\
+
+Cada miembro del grupo ha ejecutado el script en un computador con las siguientes prestaciones:
+
+\noindent
+\spec{Antonio}{Cafetera}{0.00}{0}{Windows Vista 8-bit}
+\spec{Darío}{Tostadora}{99999}{$\pi$}{MS-DOS 16-bit} \\
+\spec{Iñaki}{Chef 2000}{2000}{$\sqrt{-1}$}{Ninguno}
+\spec{José Manuel}{\href{http://ark.intel.com/es-es/products/75459/}{Intel\textregistered\ Core\texttrademark\ i5-4200U}}{1.60}{4}{Windows 8.1 64-bit} \\
+\spec{Pablo}{Lavavajillas}{pocos}{muchos}{Uno de Steve Jobs}
 
 Debido al tamaño de las tablas (ya que cada una debía tener al menos 25 entradas),
 cada tabla se muestra en una página. \\
@@ -309,55 +320,56 @@ realizado metiendo en \textit{gnuplot} los datos mostrados en las tablas anterio
 con los siguientes resultados:
 
 \subsection{Gráfica de los algoritmos cuadráticos}
-\begin{figure}[h] \includegraphics[width=11cm]{comparativa_cuadraticos_g} \centering
+\begin{figure}[h] \includegraphics[width=14cm]{comparativa_cuadraticos_g} \centering
 	\caption{Algoritmos cuadráticos} \end{figure}
-
-\begin{figure}[H] \includegraphics[width=11cm]{burbuja_todos_g} \centering
-      \caption{Algoritmo de burbuja} \end{figure}
 
 El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de los otros dos, que se encuentran casi igualados, teniendo un menor tiempo el de inserción. Probablemente este menor tiempo sea el motivo de que en \textit{quicksort} y \textit{mergesort} se use el algoritmo de inserción para subvectores pequeños.
 
+\begin{figure}[H] \includegraphics[width=15cm]{burbuja_todos_g} \centering
+      \caption{Algoritmo de burbuja} \end{figure}
 
-\begin{figure}[H] \includegraphics[width=11cm]{seleccion_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=15cm]{seleccion_todos_g} \centering
       \caption{Algoritmo de selección} \end{figure}
 
-\begin{figure}[H] \includegraphics[width=11cm]{insercion_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=15cm]{insercion_todos_g} \centering
       \caption{Algoritmo de inserción} \end{figure}
 
 \newpage
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
-\begin{figure}[h] \includegraphics[width=11cm]{comparativa_logaritmicos_g} \centering
+\begin{figure}[h] \includegraphics[width=14cm]{comparativa_logaritmicos_g} \centering
 	\caption{Algoritmos  $n\cdot log(n)$} \end{figure}
 
 En el algoritmo \textit{mergesort} se aprecian pequeños escalones. Probablemente en cada escalón se incrementa el número de llamadas recursivas, de forma que el tamaño de los subvectores para los que se llama a la función de ordenado por selección (que actúa para tamaños de entrada pequeños) es menor. \\
 El algoritmo \textit{quicksort} también usa el algoritmo de inserción por debajo de cierto umbral, pero usa un umbral más pequeño. Esto puede ser la causa de que no presente los escalones.
 
-\begin{figure}[h] \includegraphics[width=11cm]{mergesort_todos_g} \centering
+\begin{figure}[h] \includegraphics[width=15cm]{mergesort_todos_g} \centering
    \caption{Algoritmo Mergesort} \end{figure}
 
-\begin{figure}[h] \includegraphics[width=11cm]{quicksort_todos_g} \centering
+Aquí se observa que los escalones aparecen en todas las ejecuciones en distintas
+máquinas.
+
+\begin{figure}[H] \includegraphics[width=15cm]{quicksort_todos_g} \centering
    \caption{Algoritmo Quicksort} \end{figure}
 
-\begin{figure}[h] \includegraphics[width=11cm]{heapsort_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=15cm]{heapsort_todos_g} \centering
    \caption{Algoritmo Heapsort} \end{figure}
 
 \newpage
 
 \subsection{Gráfica del algoritmo de Floyd (cúbico)}
-\begin{figure}[H] \includegraphics[width=13cm]{floyd_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=16cm]{floyd_todos_g} \centering
 	\caption{Algoritmo de Floyd (cúbico)} \end{figure}
 
 \subsection{Gráfica del algoritmo de Fibonacci $(O(\varphi^n))$}
-\begin{figure}[H] \includegraphics[width=13cm]{fibonacci_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=16cm]{fibonacci_todos_g} \centering
 	\caption{Algoritmo de Fibonacci} \end{figure}
 
 \subsection{Gráfica del algoritmo de Hanoi ($O(2^n)$)}
-\begin{figure}[H] \includegraphics[width=13cm]{hanoi_todos_g} \centering
+\begin{figure}[H] \includegraphics[width=16cm]{hanoi_todos_g} \centering
 	\caption{Algoritmo de Hanoi} \end{figure}
 
-\newpage
 \subsection{Gráfica de los algoritmos de ordenación}
-\begin{figure}[h] \includegraphics[width=14cm]{comparativa_global_g} \centering
+\begin{figure}[h] \includegraphics[width=16cm]{comparativa_global_g} \centering
 	\caption{Algoritmos de ordenación} \end{figure}
 
 La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficiencia y de otro provoca que los tiempos de los algoritmos de orden de eficiencia $n \cdot \log (n)$ se muestren como una línea horizontal.
