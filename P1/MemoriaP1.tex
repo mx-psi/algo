@@ -385,63 +385,61 @@ los datos reales y la función obtenida entre paréntesis junto a la función en
 \subsection{Eficiencia híbrida de los algoritmos cuadráticos}
 
 \noindent\adjustbox{max width=\textwidth}{%
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona & Burbuja \\
-		\hline
+\begin{tabular}{|l|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Burbuja & r \\
+	\hline
 
-		Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ ($0.99$) \\
-		\hline
-		Darío &$89\cdot10^{-3} -1.62\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ $ (0.99)$ \\
+	Antonio & $3.67\cdot 10^{-9}n^2 -3.02\cdot 10^{-5}n + 0.189$ & $0.99$ \\
+	\hline
+	Darío &$89\cdot10^{-3} -1.62\cdot10^{-5}\cdot n +3\cdot10^{-9}\cdot n^2$ &$0.99$ \\
 
-		\hline
-		José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($0.99$) \\
-		\hline
-		Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($0.99$) \\
-		\hline
-		Iñaki & $3.23\cdot 10^{-9}n^2 +1.36\cdot 10^{-7}n -2.52\cdot 10^{-5}$ ($0.99$)\\
-		\hline
-	\end{tabular}
+	\hline
+	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ & $0.99$ \\
+	\hline
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ & $0.99$ \\
+	\hline
+	Iñaki & $3.23\cdot 10^{-9}n^2 +1.36\cdot 10^{-7}n -2.52\cdot 10^{-5}$ & $0.99$\\
+	\hline
+\end{tabular}
 }
 
 \noindent\adjustbox{max width=\textwidth}{%
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona &Inserción \\
-		\hline
-
-		Antonio &  $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ ($0.99$)  \\
-		\hline
-		Darío &$89 \cdot 10^{-3}+-1.62\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ $ (0.99)$ \\
-
-		\hline
-		José Manuel  & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($0.99$) \\
-		\hline
-		Pablo & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($0.99$) \\
-		\hline
-		Iñaki & $1.18\cdot 10^{-9}n^2 +1.36 \cdot 10^{-7}n -2.5\cdot 10^{-5}$ ($0.99$)\\
-		\hline
-	\end{tabular}
+\begin{tabular}{|l|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Inserción & r \\
+	\hline
+	Antonio &  $1.21\cdot 10^{-9}n^2 -5.77\cdot 10^{-6}n + 0,003$ & $0.99$ \\
+	\hline
+	Darío &$89 \cdot 10^{-3}+-1.62\cdot10^{-5} \cdot n +1.68\cdot 10^{-9}\cdot n^2$ & $0.99$ \\
+	\hline
+	José Manuel  & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ & $0.99$ \\
+	\hline
+	Pablo & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$  & $0.99$\\
+	\hline
+	Iñaki & $1.18\cdot 10^{-9}n^2 +1.36 \cdot 10^{-7}n -2.5\cdot 10^{-5}$ & $0.99$\\
+	\hline
+\end{tabular}
 }
 
 \noindent\adjustbox{max width=\textwidth}{%
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona & Selección \\
-		\hline
+\begin{tabular}{|l|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Selección & r\\
+	\hline
 
-		Antonio &  $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ ($1$) \\
-		\hline
-		Darío &$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ $(0.99)$ \\
+	Antonio &  $1.459 \cdot 10^{-9}n^2 -5.7\cdot 10^{-6}n + 0,002$ & $1$ \\
+	\hline
+	Darío &$89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot n +1.59 \cdot 10^{-9} \cdot n^2$ & $0.99$ \\
 
-		\hline
-		José Manuel & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(0.99)$ \\
-		\hline
-		Pablo & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($1$) \\
-		\hline
-		Iñaki & $1.31\cdot 10^{-9}n^2 +5.81\cdot 10^{-7} -0.002$ ($0.99$)\\
-		\hline
-	\end{tabular}
+	\hline
+	José Manuel & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ & $0.99$ \\
+	\hline
+	Pablo & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ & $1$ \\
+	\hline
+	Iñaki & $1.31\cdot 10^{-9}n^2 +5.81\cdot 10^{-7} -0.002$ & $0.99$\\
+	\hline
+\end{tabular}
 }
 
 
@@ -449,66 +447,64 @@ los datos reales y la función obtenida entre paréntesis junto a la función en
 
 
 \noindent\adjustbox{max width=\textwidth}{
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona & Heapsort\\
-		\hline
+\begin{tabular}{|l|l|l|}
+	\hline
+	Persona & Eficiencia híbrida de Heapsort & r\\
+	\hline
+	Antonio & $2.72 \cdot 10^{-8}n\log(n) -0.55$ & $0.999$ \\
+	\hline
+	Darío & $2.56\cdot 10^{-8} n\log(n) -0.005$ & $0.99$ \\
+	\hline
+	José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ & $0.99$ \\
+	\hline
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ & $0.995$ \\
+	\hline
+	Iñaki & $2.46\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ & $0.99$\\
+	\hline
 
-		Antonio & $2.72 \cdot 10^{-8}n\log(n) -0.55$ ($0.999$)  \\
-		\hline
-		Darío & $2.56\cdot 10^{-8} n\log(n) -0.005$ $(0.99) $ \\
-
-		\hline
-		José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($0.99$) \\
-		\hline
-		Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($0.995$)  \\
-		\hline
-		Iñaki & $2.46\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ ($0.99$)\\
-		\hline
-
-	\end{tabular}
+\end{tabular}
 }
 
 \noindent\adjustbox{max width=\textwidth}{
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona & Mergesort\\
-		\hline
+\begin{tabular}{|l|l|l|}
+ \hline
+ Persona & Eficiencia híbrida de Mergesort & r\\
+ \hline
 
-		Antonio& $1.918 \cdot 10^{-8} n \log(n) - 0.305 $ ($0.996$)\\
-		\hline
-		Darío &$3.03\cdot 10^{-8}n\log(x) -0.004$ $(0.99)$ \\
+ Antonio& $1.918 \cdot 10^{-8} n \log(n) - 0.305 $ & $0.996$\\
+ \hline
+ Darío &$3.03\cdot 10^{-8}n\log(x) -0.004$ & $0.99$ \\
 
-		\hline
-		José Manuel & $2.29 \cdot 10^{-8}n\log(n) - 0.08$ ($0.99$)\\
-		\hline
-		Pablo & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($0.997$)\\
-		\hline
-		Iñaki	& $1.48\cdot 10^{-8}n\log(n) +1$ ($0.99$)\\
-		\hline
+ \hline
+ José Manuel & $2.29 \cdot 10^{-8}n\log(n) - 0.08$ & $0.99$\\
+ \hline
+ Pablo & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ & $0.997$\\
+ \hline
+ Iñaki	& $1.48\cdot 10^{-8}n\log(n) +1$ & $0.99$\\
+ \hline
 
-	\end{tabular}
+\end{tabular}
 }
 
 \noindent\adjustbox{max width=\textwidth}{
-	\begin{tabular}{|l|l|}
-		\hline
-		Persona & Quicksort \\
-		\hline
+\begin{tabular}{|l|l|l|}
+ \hline
+ Persona & Eficiencia híbrida de Quicksort & r \\
+ \hline
 
-		Antonio & $1.06 \cdot 10^{-8}n\log(n) -0.083 $ ($0.999$)\\
-		\hline
-		Darío&$1.46\cdot 10^{-8}\cdot n\log(n) -0.005$ $(0.99)$ \\
+ Antonio & $1.06 \cdot 10^{-8}n\log(n) -0.083 $ & $0.999$\\
+ \hline
+ Darío&$1.46\cdot 10^{-8}\cdot n\log(n) -0.005$ & $0.99$ \\
 
-		\hline
-		José Manuel  & $1.42 \cdot 10^{-8}n\log(n) + 0.02$ ($0.99$)\\
-		\hline
-		Pablo & $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($0.999$)\\
-		\hline
-		Iñaki & $1.12\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ ($0.99$)\\
-		\hline
+ \hline
+ José Manuel  & $1.42 \cdot 10^{-8}n\log(n) + 0.02$ & $0.99$\\
+ \hline
+ Pablo & $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ & $0.999$\\
+ \hline
+ Iñaki & $1.12\cdot 10^{-8}n\log(n) +1.36\cdot 10^{-7}$ & $0.99$\\
+ \hline
 
-	\end{tabular}
+\end{tabular}
 }
 
 \subsection{Eficiencia híbrida del algoritmo de Floyd}
