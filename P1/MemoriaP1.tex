@@ -9,6 +9,19 @@
 \usepackage{accents}
 \usepackage{framed}
 
+\newcommand{\spec}[4]{
+\bgroup
+\def\arraystretch{1.3}
+\begin{tabular}{|l|}
+\hline
+%Hardware y SO empleado:\\
+CPU: #1 @#2 GHz\\RAM: #3 GB \hspace{0.8cm} SO: #4 \\
+\hline
+\end{tabular}
+\egroup
+\vspace*{0.3cm}
+}
+
 \title{\Huge \textbf{Práctica 1}}
 
 \author{\textbf{Pablo Baeyens Fernández} \\ \textbf{Antonio Checa Molina} \\
@@ -88,67 +101,6 @@ ordenación toman estos mismos valores.
 \input{tablas/insercion_tabla}
 
 \subsection{Tabla de los algoritmos cuadráticos}
-<<<<<<< HEAD
-
-\begin{tabular}{|l|l|l|l|}
-	\hline
-	Tamaño &Tiempo de Burbuja &Tiempo de  Inserción &Tiempo de  Selección \\
-	\hline
-	\hline
-	2000 & 0,0141 & 0,005 & 0,0057 \\
-	\hline
-	4000 & 0,0516 & 0,0211 & 0,023 \\
-	\hline
-	6000 & 0,1138 & 0,0423 & 0,0485 \\
-	\hline
-	8000 & 0,203 & 0,0749 & 0,0853 \\
-	\hline
-	10000 & 0,3178 & 0,1194 & 0,1335 \\
-	\hline
-	12000 & 0,4675 & 0,1719 & 0,1922 \\
-	\hline
-	14000 & 0,6378 & 0,2302 & 0,2608 \\
-	\hline
-	16000 & 0,8319 & 0,3068 & 0,3446 \\
-	\hline
-	18000 & 1,0515 & 0,3948 & 0,4365 \\
-	\hline
-	20000 & 1,2976 & 0,4715 & 0,5323 \\
-	\hline
-	22000 & 1,5667 & 0,5756 & 0,6479 \\
-	\hline
-	24000 & 1,8566 & 0,6691 & 0,7654 \\
-	\hline
-	26000 & 2,1866 & 0,8164 & 0,9028 \\
-	\hline
-	28000 & 2,5267 & 0,9151 & 1,0435 \\
-	\hline
-	30000 & 2,9087 & 1,0581 & 1,2003 \\
-	\hline
-	32000 & 3,3202 & 1,1995 & 1,3639 \\
-	\hline
-	34000 & 3,7281 & 1,3595 & 1,5385 \\
-	\hline
-	36000 & 4,1982 & 1,5143 & 1,723 \\
-	\hline
-	38000 & 4,6725 & 1,684 & 1,9174 \\
-	\hline
-	40000 & 5,1504 & 1,8823 & 2,1246 \\
-	\hline
-	42000 & 5,6988 & 2,0988 & 2,3405 \\
-	\hline
-	44000 & 6,2511 & 2,2693 & 2,5674 \\
-	\hline
-	46000 & 6,8294 & 2,4624 & 2,8047 \\
-	\hline
-	48000 & 7,4305 & 2,6661 & 3,054 \\
-	\hline
-	50000 & 8,0857 & 2,9284 & 3,3125 \\
-	\hline
-\end{tabular}
-
-\subsection{Tabla de los algoritmos $n\cdot \log(n)$ }
-=======
 
 Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
 de orden cuadrático:
@@ -221,7 +173,6 @@ de orden cuadrático:
 
 Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
 de orden $n\cdot \log(n)$:
->>>>>>> master
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
@@ -281,184 +232,13 @@ de orden $n\cdot \log(n)$:
 \end{tabular}
 
 \subsection{Tabla del algoritmo cúbico (Floyd)}
-
-
-\begin{tabular}{|l|l|}
-	\hline
-	Tamaño & Tiempo de Floyd \\
-	\hline
-	\hline
-	30	&0,000280424\\
-	\hline
-	60	&0,001601650\\
-	\hline
-	90	&0,005779860\\
-	\hline
-	120	&0,011250300\\
-	\hline
-	150	&0,021107200\\
-	\hline
-	180	&0,035468500\\
-	\hline
-	210	&0,055724200\\
-	\hline
-	240	&0,082467900\\
-	\hline
-	270	&0,119058000\\
-	\hline
-	300	&0,160319000\\
-	\hline
-	330	&0,213182000\\
-	\hline
-	360	&0,281825000\\
-	\hline
-	390	&0,358154000\\
-	\hline
-	420	&0,437591000\\
-	\hline
-	450	&0,543534000\\
-	\hline
-	480	&0,652500000\\
-	\hline
-	510	&0,790683000\\
-	\hline
-	540	&0,929593000\\
-	\hline
-	570	&1,097870000\\
-	\hline
-	600	&1,279820000\\
-	\hline
-	630	&1,479150000\\
-	\hline
-	660	&1,703250000\\
-	\hline
-	690	&1,941560000\\
-	\hline
-	720	&2,199710000\\
-	\hline
-	750	&2,485840000\\
-	\hline
-\end{tabular}
+   \input{tablas/floyd_tabla}
 
 \subsection{Tabla del algoritmo de Fibonacci $(O(\frac{1+\sqrt{5}}{2})^n)$}
-
-
-\begin{tabular}{|l|l|}
-	\hline
-	Tamaño & Tiempo de Fibonacci \\
-	\hline
-	\hline
-1&1.79e-07 \\
-\hline
-2&1.88e-07\\
-\hline
-3&2.05e-07\\
-\hline
-4&2.89e-07\\
-\hline
-5&2.61e-07\\
-\hline
-6&2.87e-07\\
-\hline
-7&4.65e-07\\
-\hline
-8&7.53e-07\\
-\hline
-9&1.131e-06\\
-\hline
-10&1.365e-06\\
-\hline
-11&1.796e-06\\
-\hline
-12&1.671e-06\\
-\hline
-13&3.612e-06\\
-\hline
-14&7.294e-06\\
-\hline
-15&7.834e-06\\
-\hline
-16&1.2102e-05\\
-\hline
-17&1.7977e-05\\
-\hline
-18&2.9478e-05\\
-\hline
-19&5.3614e-05\\
-\hline
-20&7.2343e-05\\
-\hline
-21&0.000132759\\
-\hline
-22&0.000189094\\
-\hline
-23&0.000315282\\
-\hline
-24&0.000499445\\
-\hline
-25&0.000675111\\
-\hline
-
-\end{tabular}
+   \input{tablas/fibonacci_tabla}
 
 \subsection{Tabla del algoritmo de Hanoi ($O(2^n)$)}
-\begin{tabular}{|l|l|}
-	\hline
-	Tamaño & Tiempo de Hanoi \\
-	\hline
-	\hline
-1&1.85e-07\\
-\hline
-2&2.52e-07\\
-\hline
-3&3.63e-07\\
-\hline
-4&5.65e-07\\
-\hline
-5&5.96e-07\\
-\hline
-6&1.206e-06\\
-\hline
-7&1.909e-06\\
-\hline
-8&3.047e-06\\
-\hline
-9&5.639e-06\\
-\hline
-10&1.1064e-05\\
-\hline
-11&2.1002e-05\\
-\hline
-12&3.7705e-05\\
-\hline
-13&7.8102e-05\\
-\hline
-14&0.000165379\\
-\hline
-15&0.000334135\\
-\hline
-16&0.000589484\\
-\hline
-17&0.000988963\\
-\hline
-18&0.0017404\\
-\hline
-19&0.00368885\\
-\hline
-20&0.00684205\\
-\hline
-21&0.0136331\\
-\hline
-22&0.0273772\\
-\hline
-23&0.05418\\
-\hline
-24&0.107202\\
-\hline
-25&0.214262\\
-\hline
-
-\end{tabular}
+   \input{tablas/hanoi_tabla}
 
 \subsection{Tabla de los algoritmos de ordenación}
 
@@ -530,6 +310,15 @@ con los siguientes resultados:
 \begin{figure}[h] \includegraphics[width=11cm]{comparativa_cuadraticos_g} \centering
 	\caption{Algoritmos cuadráticos} \end{figure}
 
+\begin{figure}[h] \includegraphics[width=11cm]{burbuja_todos_g} \centering
+      \caption{Algoritmo de burbuja} \end{figure}
+
+\begin{figure}[h] \includegraphics[width=11cm]{seleccion_todos_g} \centering
+      \caption{Algoritmo de selección} \end{figure}
+
+\begin{figure}[h] \includegraphics[width=11cm]{insercion_todos_g} \centering
+      \caption{Algoritmo de inserción} \end{figure}
+
 El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de los otros dos, que se encuentran casi igualados, teniendo un menor tiempo el de inserción. Probablemente este menor tiempo sea el motivo de que en \textit{quicksort} y \textit{mergesort} se use el algoritmo de inserción para subvectores pequeños.
 
 \subsection{Gráfica de los algoritmos $n\cdot log(n)$ }
@@ -537,21 +326,29 @@ El algoritmo de la burbuja requiere más del doble de tiempo que cualquiera de l
 	\caption{Algoritmos  $n\cdot log(n)$} \end{figure}
 
 En el algoritmo \textit{mergesort} se aprecian pequeños escalones. Probablemente en cada escalón se incrementa el número de llamadas recursivas, de forma que el tamaño de los subvectores para los que se llama a la función de ordenado por selección (que actúa para tamaños de entrada pequeños) es menor. \\
-
 El algoritmo \textit{quicksort} también usa el algoritmo de inserción por debajo de cierto umbral, pero usa un umbral más pequeño. Esto puede ser la causa de que no presente los escalones.
+
+\begin{figure}[h] \includegraphics[width=11cm]{mergesort_todos_g} \centering
+   \caption{Algoritmo Mergesort} \end{figure}
+
+\begin{figure}[h] \includegraphics[width=11cm]{quicksort_todos_g} \centering
+   \caption{Algoritmo Quicksort} \end{figure}
+
+\begin{figure}[h] \includegraphics[width=11cm]{heapsort_todos_g} \centering
+   \caption{Algoritmo Heapsort} \end{figure}
 
 \newpage
 \subsection{Gráfica del algoritmo de Floyd (cúbico)}
-\begin{figure}[h] \includegraphics[width=13cm]{floyd_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{floyd_todos_g} \centering
 	\caption{Algoritmo de Floyd (cúbico)} \end{figure}
 
 \subsection{Gráfica del algoritmo de Fibonacci $(O(\frac{1+\sqrt{5}}{2})^n)$}
-\begin{figure}[h] \includegraphics[width=13cm]{fibonacci_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{fibonacci_todos_g} \centering
 	\caption{Algoritmo de Fibonacci} \end{figure}
 
 \newpage
 \subsection{Gráfica del algoritmo de Hanoi ($O(2^n)$)}
-\begin{figure}[h] \includegraphics[width=13cm]{hanoi_g} \centering
+\begin{figure}[h] \includegraphics[width=13cm]{hanoi_todos_g} \centering
 	\caption{Algoritmo de Hanoi} \end{figure}
 
 
@@ -570,32 +367,25 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Burbuja & Inserción & Selección \\
 	\hline
-<<<<<<< HEAD
-	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004 (1)$ \\
-	Dario &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot x +3\cdot10^{-9}\cdot x^2$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot x +1.68\cdot 10^{-9}\cdot x^2&89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot x +1.59 \cdot 10^{-9} \cdot x^2 \\
-=======
+   Darío &$89\cdot10^{-3} -1.61671\cdot10^{-5}\cdot x +3\cdot10^{-9}\cdot x^2$ &$89 \cdot 10^{-3}+-1.6166\cdot10^{-5} \cdot x +1.68\cdot 10^{-9}\cdot x^2&89\cdot 10^{-3}-1.616\cdot 10^{-5}\cdot x +1.59 \cdot 10^{-9} \cdot x^2 \\
+   \hline
 	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($r=0.999998565269577$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($r=0.999979582960209$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ $(r=0.999996280002182)$ \\
    \hline
 	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($r=0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($r=0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($r=1$) \\
->>>>>>> master
 	\hline
 \end{tabular}
 
-\subsection{Eficiencia híbrida de los algoritmos $ n \cdot \log(n)$}
+\subsection{Eficiencia híbrida de los algoritmos $n \cdot \log(n)$}
 
 \begin{tabular}{|l|l|l|l|}
 	\hline
 	Persona & Heapsort & Mergesort & Quicksort \\
 	\hline
-<<<<<<< HEAD
-	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7} (0.999)$\\
-=======
+   Darío & $-0.00499364 +2.58544\cdot 10^{-8}\cdot x\cdot log(x)  $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot x\cdot log(x)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot x\cdot log(x) $\\
+   \hline
    José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($r=0.999702622004366$) & $2.29 \cdot 10^{-8}n\log(n) - 0.082$ ($r=0.997798964368601$) & $1.42 \cdot 10^{-8}n\log(n) + 0.020$ ($r=0.999963309603908$)\\
    \hline
-	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.995$)  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($r=0.997$)& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.999$)\\
->>>>>>> master
-	\hline
-	Dario &$-0.00499364 +2.58544\cdot 10^{-8}\cdot x\cdot log(x)  $&$ -0.00499364 +3.0260\cdot 10^{-8}\cdot x\cdot log(x)$&$-0.00499364  +1.46227\cdot 10^{-8}\cdot x\cdot log(x) $\\
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.995$)  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($r=0.997$)& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.999$)\\	
 	\hline
 	
 \end{tabular}
@@ -605,18 +395,13 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Floyd & Coeficiente de correlación \\
    \hline
+ Darío & $ -0.00499364 +0.000217346\cdot x+-7.6610\cdot 10^{-7} + 6.98242\cdot 10^{-9} $ \\
+   \hline
  José Manuel & $ 6.88 \cdot 10^{-9}n^3 + 2.89 \cdot 10^{-7}n^2 -4.44 \cdot 10^{-5}n +0.001$ & $0.999960701767451$ \\
 	\hline
-<<<<<<< HEAD
- Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$\\
- \hline
- Dario & $ -0.00499364 +0.000217346\cdot x+-7.6610\cdot 10^{-7} + 6.98242\cdot 10^{-9} $ \\
-=======
  Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$ & $1$ \\
->>>>>>> master
  \hline
- 
- 
+
 \end{tabular}
 
 \subsection{Eficiencia híbrida del algoritmo de Fibonacci}
@@ -624,15 +409,12 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Fibonacci & Coeficiente de correlación \\
 	\hline
-<<<<<<< HEAD
- Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$\\
-=======
+ Darío & $-0.00450426 +0.00150218\cdot\phi^x $\\
+   \hline
  José Manuel & $3.81 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n +9.68\cdot 10^{-7}$ & $0.999939284564366$\\
    \hline
  Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$ & $0.997$\\
->>>>>>> master
  \hline
- Dario & $-0.00450426 +0.00150218\cdot\phi^x $
 \end{tabular}
 
 \subsection{Eficiencia híbrida del algoritmo de Hanoi}
@@ -640,15 +422,11 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	Persona & Eficiencia híbrida de Hanoi & Coeficiente de correlación \\
 	\hline
-<<<<<<< HEAD
- Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5}$\\
- \hline 
- Dario & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^x$\\
-=======
+ Darío & $ -0.00499364+ 6.37556\cdot 10^{-9}\cdot 2^x$\\
+   \hline
  José Manuel & $6.00 \cdot 10^{-9} 2^n + 9.3 \cdot 10^{-6}$ & $0.999999531007589$\\
    \hline
  Pablo & $6.1 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-9}$ & $0.9998$\\
->>>>>>> master
  \hline
 \end{tabular}
 
