@@ -91,11 +91,145 @@ los otros algoritmos de ordenación. En la tabla en la que se presentan se usan
 tamaños mucho mayores, mientras que en la tabla comparativa de algoritmos de
 ordenación toman estos mismos valores.
 
-\subsection{Tabla de los algoritmos cuadráticos}
-\input{tablas/cuadraticos_tabla}
+\subsection{Tabla del algoritmo de burbuja}
+\input{tablas/burbuja_tabla}
 
-\subsection{Tabla de los algoritmos $n\cdot \log(n)$ }
-\input{tablas/nlogn_tabla}
+\subsection{Tabla del algoritmo de selección}
+\input{tablas/seleccion_tabla}
+
+\subsection{Tabla del algoritmo de inserción}
+\input{tablas/insercion_tabla}
+
+\subsection{Tabla de los algoritmos cuadráticos}
+
+Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
+de orden cuadrático:
+
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Tamaño &Tiempo de Burbuja &Tiempo de  Inserción &Tiempo de  Selección \\
+	\hline
+	\hline
+	2000 & 0,0141 & 0,005 & 0,0057 \\
+	\hline
+	4000 & 0,0516 & 0,0211 & 0,023 \\
+	\hline
+	6000 & 0,1138 & 0,0423 & 0,0485 \\
+	\hline
+	8000 & 0,203 & 0,0749 & 0,0853 \\
+	\hline
+	10000 & 0,3178 & 0,1194 & 0,1335 \\
+	\hline
+	12000 & 0,4675 & 0,1719 & 0,1922 \\
+	\hline
+	14000 & 0,6378 & 0,2302 & 0,2608 \\
+	\hline
+	16000 & 0,8319 & 0,3068 & 0,3446 \\
+	\hline
+	18000 & 1,0515 & 0,3948 & 0,4365 \\
+	\hline
+	20000 & 1,2976 & 0,4715 & 0,5323 \\
+	\hline
+	22000 & 1,5667 & 0,5756 & 0,6479 \\
+	\hline
+	24000 & 1,8566 & 0,6691 & 0,7654 \\
+	\hline
+	26000 & 2,1866 & 0,8164 & 0,9028 \\
+	\hline
+	28000 & 2,5267 & 0,9151 & 1,0435 \\
+	\hline
+	30000 & 2,9087 & 1,0581 & 1,2003 \\
+	\hline
+	32000 & 3,3202 & 1,1995 & 1,3639 \\
+	\hline
+	34000 & 3,7281 & 1,3595 & 1,5385 \\
+	\hline
+	36000 & 4,1982 & 1,5143 & 1,723 \\
+	\hline
+	38000 & 4,6725 & 1,684 & 1,9174 \\
+	\hline
+	40000 & 5,1504 & 1,8823 & 2,1246 \\
+	\hline
+	42000 & 5,6988 & 2,0988 & 2,3405 \\
+	\hline
+	44000 & 6,2511 & 2,2693 & 2,5674 \\
+	\hline
+	46000 & 6,8294 & 2,4624 & 2,8047 \\
+	\hline
+	48000 & 7,4305 & 2,6661 & 3,054 \\
+	\hline
+	50000 & 8,0857 & 2,9284 & 3,3125 \\
+	\hline
+\end{tabular}
+
+\subsection{Tabla del algoritmo Heapsort}
+\input{tablas/heapsort_tabla}
+\subsection{Tabla del algoritmo Mergesort}
+\input{tablas/mergesort_tabla}
+\subsection{Tabla del algoritmo Quicksort}
+\input{tablas/quicksort_tabla}
+
+\subsection{Tabla de los algoritmos $n\cdot \log(n)$}
+
+Incluimos una tabla comparando los datos de una sóla persona para los algoritmos
+de orden $n\cdot \log(n)$:
+
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Tamaño & Tiempo de Heapsort & Tiempo de Mergesort & Tiempo de Quicksort \\
+	\hline
+	\hline
+	1000000	&0,158862&	0,25279&	0,245436\\
+	\hline
+	2000000	&0,333955&	0,55784	&0,508929\\
+	\hline
+	3000000	&0,512390&	0,92310	&0,883956\\
+	\hline
+	4000000	&0,689444&	1,26719	&1,068840\\
+	\hline
+	5000000	&0,875720&	1,66226	&1,422010\\
+	\hline
+	6000000	&1,063160&	2,06275	&1,804380\\
+	\hline
+	7000000	&1,254210&	2,46109	&1,880770\\
+	\hline
+	8000000	&1,448250&	2,89135	&2,214050\\
+	\hline
+	9000000	&1,636350&	3,30651	&2,563270\\
+	\hline
+	10000000	&1,802540&	3,69426	&2,943020\\
+	\hline
+	11000000	&2,013440&	4,14343	&3,320140\\
+	\hline
+	12000000	&2,211360&	4,60380	&3,736370\\
+	\hline
+	13000000	&2,399370&	5,06756	&4,035230\\
+	\hline
+	14000000	&2,589330&	5,51359	&3,893640\\
+	\hline
+	15000000	&2,786440&	5,96415	&4,248670\\
+	\hline
+	16000000	&2,984850&	6,40422	&4,579140\\
+	\hline
+	17000000	&3,174740&	6,93151	&4,953660\\
+	\hline
+	18000000	&3,358080&	7,39067	&5,305020\\
+	\hline
+	19000000	&3,563030&	7,85371	&5,679610\\
+	\hline
+	20000000	&3,803150&	8,35113	&6,070570\\
+	\hline
+	21000000	&3,950770&	8,85375	&6,459050\\
+	\hline
+	22000000	&4,171410&	9,26481	&6,862640\\
+	\hline
+	23000000	&4,371020&	9,70679	&7,275080\\
+	\hline
+	24000000	&4,558990&	10,26190	&7,763610\\
+	\hline
+	25000000	&4,774830&	10,71420	&8,117880\\
+	\hline
+\end{tabular}
 
 \subsection{Tabla del algoritmo cúbico (Floyd)}
 \input{tablas/floyd_tabla}
@@ -236,7 +370,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
 	José Manuel & $3.85\cdot 10^{-9}n^2 - 7.88\cdot 10^{-6}n + 0.013$ ($r=0.999998565269577$) & $1.32\cdot 10^{-9}n^2 + 4.95\cdot 10^{-7}n - 0.0024$ ($r=0.999979582960209$) & $1.59\cdot 10^{-9}n^2 + 2.93 \cdot 10^{-7} n - 0.0022$ ($r=0.999996280002182$)\\
    \hline
-   Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ \\
+	Pablo & $3\cdot 10^{-9}n^2 -6\cdot 10^{-6}n + 0,015$ ($r=0.99$) & $10^{-9}n^2 + 4\cdot 10^{-7}n + 0,002$ ($r=0.99$) & $10^{-9}n^2 -2\cdot 10^{-7}n + 0,004$ ($r=1$) \\
 	\hline
 \end{tabular}
 
@@ -248,7 +382,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
    José Manuel & $3.13\cdot 10^{-8}n\log(n) - 0.37$ ($r=0.999702622004366$) & $2.29 \cdot 10^{-8}n\log(n) - 0.082$ ($r=0.997798964368601$) & $1.42 \cdot 10^{-8}n\log(n) + 0.020$ ($r=0.999963309603908$)\\
    \hline
-	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$\\
+	Pablo & $1.8 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.995$)  & $2 \cdot 10^{-8} n \log(n) - 1.9\cdot 10^{-7}$ ($r=0.997$)& $1.3 \cdot 10^{-8}n\log(n) -1.9\cdot 10^{-7}$ ($r=0.999$)\\
 	\hline
 \end{tabular}
 
@@ -259,7 +393,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
    \hline
  José Manuel & $ 6.88 \cdot 10^{-9}n^3 + 2.89 \cdot 10^{-7}n^2 -4.44 \cdot 10^{-5}n +0.001$ & $0.999960701767451$
 	\hline
- Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$\\
+ Pablo & $ 5.1 \cdot 10^{-9}n^3 + 3.8 \cdot 10^{-7}n^2 -8.3 \cdot 10^{-5}n +0.005$ & $1$$\\
  \hline
 \end{tabular}
 
@@ -270,7 +404,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
  José Manuel & $3.81 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n +9.68\cdot 10^{-7}$ & $0.999939284564366$\\
    \hline
- Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$\\
+ Pablo & $6.4 \cdot 10^{-9} \frac{1 + \sqrt{5}}{2}^n -1.8\cdot 10^{-8}$ & $0.997$\\
  \hline
 \end{tabular}
 
@@ -281,7 +415,7 @@ La diferencia en el tiempo de ejecución de los algoritmos de un orden de eficie
 	\hline
  José Manuel & $6.00 \cdot 10^{-9} 2^n + 9.3 \cdot 10^{-6}$ & $0.999999531007589$\\
    \hline
- Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5}$\\
+ Pablo & $6.8 \cdot 10^{-9} 2^n + 1.1 \cdot 10^{-5}$ & $-0.9998$\\
  \hline
 \end{tabular}
 
