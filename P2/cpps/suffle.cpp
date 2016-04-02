@@ -5,9 +5,9 @@ using namespace std;
 #include <climits>
 #include <cassert>
 
-//generador de ejemplos para el problema de la comparación de preferencias. Simplemente se genera una permutación aleatoria del vector 0,1,2,...,n-2,n-1
+//generador de ejemplos para el problema de la comparaciÃ³n de preferencias. Simplemente se genera una permutaciÃ³n aleatoria del vector 0,1,2,...,n-2,n-1
 
-double uniforme() //Genera un número uniformemente distribuido en el
+double uniforme() //Genera un nÃºmero uniformemente distribuido en el
                   //intervalo [0,1) a partir de uno de los generadores
                   //disponibles en C.
 {
@@ -34,7 +34,7 @@ srand(time(0));
 
 for (int j=0; j<n; j++) T[j]=j;
 //for (int j=0; j<n; j++) {cout << T[j] << " ";}
-//algoritmo de random shuffling the Knuth (permutación aleatoria)
+//algoritmo de random shuffling the Knuth (permutaciÃ³n aleatoria)
 for (int j=n-1; j>0; j--) {
    double u=uniforme();
    int k=(int)(j*u);

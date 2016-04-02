@@ -7,9 +7,9 @@ using namespace std;
 //#include <algorithm>
 //#include <vector>
 
-//generador de ejemplor para el problema de mezcla de k vectores ordenados. Para obtener k vectores ordenados de forma creciente cada uno con n elementos, genera un vector de tamaño k*n con todos los enteros entre 0 y kn-1 ordenados. Se lanzan entonces k iteraciones de un algoritmo de muestreo aleatorio de tamaño n para obtener los k vectores. Están ordeados porque el algoritmo de muestreo mantiene el orden
+//generador de ejemplor para el problema de mezcla de k vectores ordenados. Para obtener k vectores ordenados de forma creciente cada uno con n elementos, genera un vector de tamaÃ±o k*n con todos los enteros entre 0 y kn-1 ordenados. Se lanzan entonces k iteraciones de un algoritmo de muestreo aleatorio de tamaÃ±o n para obtener los k vectores. EstÃ¡n ordeados porque el algoritmo de muestreo mantiene el orden
 
-double uniforme() //Genera un número uniformemente distribuido en el
+double uniforme() //Genera un nÃºmero uniformemente distribuido en el
                   //intervalo [0,1) a partir de uno de los generadores
                   //disponibles en C. 
 {

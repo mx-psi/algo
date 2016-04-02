@@ -5,9 +5,9 @@ using namespace std;
 #include <climits>
 #include <cassert>
 
-//generador de ejemplos para el problema de eliminar elementos repetidos. Simplemente, para rellenar el vector de tamaño n genera n enteros aleatorios entre 0 y n-1
+//generador de ejemplos para el problema de eliminar elementos repetidos. Simplemente, para rellenar el vector de tamaÃ±o n genera n enteros aleatorios entre 0 y n-1
 
-double uniforme() //Genera un número uniformemente distribuido en el
+double uniforme() //Genera un nÃºmero uniformemente distribuido en el
                   //intervalo [0,1) a partir de uno de los generadores
                   //disponibles en C.
 {
