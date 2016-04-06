@@ -1,5 +1,5 @@
 /**
-   @file Algoritmo trivial de cálculo de número de inversiones
+   @file Cálculo de número de inversiones
 */
 
 
@@ -50,17 +50,24 @@ int preferencias_trivial(const int T1[], const int T2[], int num_elem) {
    return res;
 }
 
-int main(int argc, char * argv[])
-{
+/**
+   @brief Calcula número de inversiones usando DyV
 
-    if (argc != 2)
-    {
-      cerr << "Formato " << argv[0] << " <num_elem>" << endl;
-      return -1;
-    }
+   @param T1: primer  vector de elementos.
+   @param T2: segundo vector de elementos.
+   @param num_elem: número de elementos. num_elem >= 0.
 
-  int n = atoi(argv[1]);
+   Cambia el número de elementos que están en posición
+   invertida en T2 respecto de T1.
+   Aplica un algoritmo Divide y Vencerás
+*/
+int preferencias_dyv(const int T1[], const int T2[], int num_elem) {
+   int res = 0;
+   // TODO: Rellenar
+   return res;
+}
 
+int ejecutar(int (*f)(const int*, const int*, int), int n) {
   int* T1 = new int[n];
   int* T2 = new int[n];
   
@@ -88,7 +95,7 @@ int main(int argc, char * argv[])
   chrono::duration<double> transcurrido;
 
   tantes = chrono::steady_clock::now();
-  int inversiones = preferencias_trivial(T1, T2, n);
+  int inversiones = f(T1, T2, n);
   tdespues = chrono::steady_clock::now();
 
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
@@ -97,4 +104,21 @@ int main(int argc, char * argv[])
   delete [] T2;
 
   return 0;
+}
+
+int main(int argc, char * argv[])
+{
+
+    if (argc != 3 || (argv[2][0] != 't' && argv[2][0] != 'd'))
+    {
+      cerr << "Formato " << argv[0] << " <num_elem> t/d" << endl;
+      return -1;
+    }
+
+  int n = atoi(argv[1]);
+
+  if (argv[2][0] == 't')
+     return ejecutar(preferencias_trivial, n);
+  else
+     return ejecutar(preferencias_dyv, n);
 }
