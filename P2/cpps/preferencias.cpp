@@ -31,63 +31,53 @@ int find(const int T[], int num_elem, int a_buscar) {
 /**
    @brief Calcula número de inversiones
 
-   @param T1: primer  vector de elementos.
-   @param T2: segundo vector de elementos.
+   @param T: vector de elementos.
    @param num_elem: número de elementos. num_elem >= 0.
 
-   Cambia el número de elementos que están en posición
-   invertida en T2 respecto de T1.
-   Aplica un algoritmo trivial.
+   Cambia el número de parejas de elementos que se encuentran
+   en una posición invertida respecto de su contenido.
+   Aplica un algoritmo trivial de eficiencia O(n^2).
 */
-int preferencias_trivial(const int T1[], const int T2[], int num_elem) {
+int preferencias_trivial(const int T[], int num_elem) {
    int res = 0;
-   for (int i = 0; i < num_elem-1; i++) {
-      int pos_i = find(T2, num_elem, T1[i]);
+   for (int i = 0; i < num_elem-1; i++)
       for (int j = i+1; j < num_elem; j++)
-         if (find(T2, pos_i, T1[j]) != pos_i)
+         if (T[i] > T[j])
             res++;
-   }
+
    return res;
 }
 
 /**
    @brief Calcula número de inversiones usando DyV
 
-   @param T1: primer  vector de elementos.
-   @param T2: segundo vector de elementos.
+   @param T: vector de elementos.
    @param num_elem: número de elementos. num_elem >= 0.
 
-   Cambia el número de elementos que están en posición
-   invertida en T2 respecto de T1.
+   Cambia el número de parejas de elementos que se encuentran
+   en una posición invertida respecto de su contenido.
    Aplica un algoritmo Divide y Vencerás
 */
-int preferencias_dyv(const int T1[], const int T2[], int num_elem) {
+int preferencias_dyv(const int T[], int num_elem) {
    int res = 0;
    // TODO: Rellenar
    return res;
 }
 
-int ejecutar(int (*f)(const int*, const int*, int), int n) {
-  int* T1 = new int[n];
-  int* T2 = new int[n];
+int ejecutar(int (*f)(const int*, int), int n) {
+  int* T = new int[n];
   
   for (int i = 0; i < n; i++)
-     T1[i] = T2[i] = i;
+     T[i] = i;
 
   srand(time(0));
   
-  shuffle(T1, n);
-  shuffle(T2, n);
+  shuffle(T, n);
   
   /*
   for (int i = 0; i < n; i++)
-     cout << T1[i] << " ";
-  
-  cout << "\n";
-  
-  for (int i = 0; i < n; i++)
-     cout << T2[i] << " ";
-  
+     cout << T[i] << " ";
+
   cout << "\n\n";
   */
 
@@ -95,13 +85,12 @@ int ejecutar(int (*f)(const int*, const int*, int), int n) {
   chrono::duration<double> transcurrido;
 
   tantes = chrono::steady_clock::now();
-  int inversiones = f(T1, T2, n);
+  int inversiones = f(T, n);
   tdespues = chrono::steady_clock::now();
 
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
   cout << n << " " << inversiones << " " << transcurrido.count() << endl;
-  delete [] T1;
-  delete [] T2;
+  delete [] T;
 
   return 0;
 }
