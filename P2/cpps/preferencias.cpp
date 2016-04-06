@@ -7,7 +7,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <chrono>
-#include "shuffle.h"
+#include "generadores.h"
 using namespace std;
 
 
@@ -66,13 +66,7 @@ int preferencias_dyv(const int T[], int num_elem) {
 
 int ejecutar(int (*f)(const int*, int), int n) {
   int* T = new int[n];
-  
-  for (int i = 0; i < n; i++)
-     T[i] = i;
-
-  srand(time(0));
-  
-  shuffle(T, n);
+  get_preferencias(T, n);
   
   /*
   for (int i = 0; i < n; i++)
