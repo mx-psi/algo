@@ -12,6 +12,18 @@
 \usepackage{accents} % Cosas de Windows
 \usepackage{framed} % Frames
 
+\newcommand{\spec}[6]{
+\bgroup
+\def\arraystretch{1.2}
+\begin{tabular}{|l|}
+\hline
+Ejecución en el PC de \textbf{#1} con optimización -O#6:\\
+CPU: #2 @#3 GHz\\RAM: #4 GB \hspace{0.8cm} SO: #5 \\
+\hline
+\end{tabular}
+\egroup
+\vspace*{0.2cm}
+}
 
 \title{\Huge \textbf{Práctica 2}}
 
