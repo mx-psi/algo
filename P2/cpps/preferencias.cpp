@@ -12,23 +12,6 @@ using namespace std;
 
 
 /**
-   @brief Localiza un elemento en un vector
-
-   @param T: vector de elementos.
-   @param num_elem: número de elementos. num_elem >= 0
-   @param a_buscar: entero a buscar en el vector
-
-   Averigua la posición de un elemento en un vector
-   no ordenado. Aplica búsqueda secuencial.
-   Si no está, devuelve num_elem
-*/
-int find(const int T[], int num_elem, int a_buscar) {
-   int pos;
-   for (pos = 0; T[pos] != a_buscar && pos < num_elem; pos++);
-   return pos;
-}
-
-/**
    @brief Calcula número de inversiones
 
    @param T: vector de elementos.
@@ -48,37 +31,49 @@ int preferencias_trivial( int T[], int num_elem) {
    return res;
 }
 
-static int fusion(int T[], int inicial, int final, int U[], int V[])
+/**
+   @brief Mezcla dos vectores ordenados sobre otro.
+
+   @param T: vector de elementos. Tiene un número de elementos
+                   mayor o igual a final. Es MODIFICADO.
+   @param inicial: Posición que marca el incio de la parte del
+                   vector a escribir.
+   @param final: Posición detrás de la última de la parte del
+                   vector a escribir
+		   inicial < final.
+   @param U: Vector con los elementos ordenados.
+   @param V: Vector con los elementos ordenados.
+             El número de elementos de U y V sumados debe coincidir
+             con final - inicial.
+
+   En los elementos de T entre las posiciones inicial y final - 1
+   pone ordenados en sentido creciente, de menor a mayor, los
+   elementos de los vectores U y V.
+*/
+static int fusion(int T[], int inicial, int final, const int U[], const int V[])
 {
   int j = 0;
   int k = 0;
   int merges = 0;
 
   for (int i = inicial; i < final; i++)
-    {
-      if (U[j] < V[k])
-      {
-	       T[i] = U[j];
-          j++;
-      }
-
-    else{
-	     T[i] = V[k];
-        merges += (final - inicial)/2-inicial-j;
-	      k++;
-
-      }
-
+  {
+    if (U[j] < V[k])
+	   T[i] = U[j++];
+    else {
+	   T[i] = V[k++];
+      merges += (final - inicial)/2-inicial-j;
     }
-
+  }
 
   return merges;
 }
 
-static void insercion_lims(int T[], int inicial, int final)
+static int insercion_lims(int T[], int inicial, int final)
 {
   int i, j;
   int aux;
+  int merges = 0;
   for (i = inicial + 1; i < final; i++) {
     j = i;
     while ((T[j] < T[j-1]) && (j > 0)) {
@@ -86,12 +81,27 @@ static void insercion_lims(int T[], int inicial, int final)
       T[j] = T[j-1];
       T[j-1] = aux;
       j--;
-    };
-  };
+      merges++;
+    }
+  }
+  return merges;
 }
 
 
+/**
+   @brief Calcula número de inversiones con inserción
 
+   @param T: vector de elementos. ES MODIFICADO.
+   @param num_elem: número de elementos. num_elem >= 0.
+
+   Cambia el número de parejas de elementos que se encuentran
+   en una posición invertida respecto de su contenido.
+   Aplica una modificación del algoritmo de ordenación por
+   inserción, de eficiencia O(n^2).
+*/
+int preferencias_insercion(int T[], int num_elem) {
+   return insercion_lims(T, 0, num_elem);
+}
 
 
 /**
@@ -101,7 +111,7 @@ static void insercion_lims(int T[], int inicial, int final)
 *@param final
 */
 
-const int UMBRAL_MS = 2;
+const int UMBRAL_MS = 100;
 
 static int mergesort_lims(int T[], int inicial, int final)
 {
@@ -109,51 +119,48 @@ static int mergesort_lims(int T[], int inicial, int final)
 
   if(final - inicial < UMBRAL_MS)
   {
-      merges = preferencias_trivial(T+inicial, final-inicial);
-      insercion_lims(T, inicial, final);
+    //merges = preferencias_trivial(T+inicial, final-inicial);
+    merges = insercion_lims(T, inicial, final);
   }
 
+  else {
+    int k = (final - inicial)/2;
+    int * U = new int [k - inicial + 1];
+    int l, l2;
 
-    else{
-      int k = (final - inicial)/2;
+    for (l = 0, l2 = inicial; l < k; l++, l2++)
+      U[l] = T[l2];
 
-      int * U = new int [k - inicial + 1];
+    U[l] = INT_MAX;
 
-      int l, l2;
+    int * V = new int [final - k + 1];
 
-      for (l = 0, l2 = inicial; l < k; l++, l2++)
-	     U[l] = T[l2];
+    for (l = 0, l2 = k; l < final - k; l++, l2++)
+	   V[l] = T[l2];
 
-       U[l] = INT_MAX;
+    V[l] = INT_MAX;
 
-      int * V = new int [final - k + 1];
+    merges =  mergesort_lims(U, 0, k);
+    merges += mergesort_lims(V, 0, final - k);
+    merges += fusion(T, inicial, final, U, V);
+    delete [] U;
+    delete [] V;
+  }
 
-      for (l = 0, l2 = k; l < final - k; l++, l2++)
-	     V[l] = T[l2];
-
-      V[l] = INT_MAX;
-
-      merges+=mergesort_lims(U, 0, k);
-      merges+=mergesort_lims(V, 0, final - k);
-      merges+= fusion(T, inicial, final, U, V);
-      delete [] U;
-      delete [] V;
-    };
-
-    return merges;
+  return merges;
 }
 
 /**
    @brief Calcula número de inversiones usando DyV
 
-   @param T: vector de elementos.
+   @param T: vector de elementos. ES MODIFICADO.
    @param num_elem: número de elementos. num_elem >= 0.
 
    Cambia el número de parejas de elementos que se encuentran
    en una posición invertida respecto de su contenido.
-   Aplica un algoritmo Divide y Vencerás
+   Aplica un algoritmo Divide y Vencerás de eficiencia O(n·log(n))
 */
-int preferencias_dyv( int T[], int num_elem) {
+int preferencias_dyv(int T[], int num_elem) {
    return mergesort_lims(T, 0, num_elem);
 }
 
@@ -185,9 +192,9 @@ int ejecutar(int (*f)(int*, int), int n) {
 int main(int argc, char * argv[])
 {
 
-    if (argc != 3 || (argv[2][0] != 't' && argv[2][0] != 'd'))
+    if (argc != 3 || (argv[2][0] != 't' && argv[2][0] != 'i' && argv[2][0] != 'd'))
     {
-      cerr << "Formato " << argv[0] << " <num_elem> t/d" << endl;
+      cerr << "Formato " << argv[0] << " <num_elem> t/i/d" << endl;
       return -1;
     }
 
@@ -195,6 +202,8 @@ int main(int argc, char * argv[])
 
   if (argv[2][0] == 't')
      return ejecutar(preferencias_trivial, n);
+  else if (argv[2][0] == 'i')
+     return ejecutar(preferencias_insercion, n);
   else
      return ejecutar(preferencias_dyv, n);
 }
