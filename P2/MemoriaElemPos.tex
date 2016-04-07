@@ -1,1 +1,15 @@
 \section{El elemento en su posición}
+
+La implementación de todos los algoritmos realizados es de la forma:
+\begin{description}
+ \item[Entrada:] Vector \texttt{v} y su tamaño \texttt{n}
+ \item[Salida:] Entero no negativo que indica el $i$ tal que $v[i]=i$ en caso de que exista o $-1$ en oro caso
+\end{description}
+
+\subsection{Algoritmo obvio}
+
+El algoritmo obvio que resuelve el problema de \textit{El elemento en su posición} consiste
+en recorrer cada elemento del vector y comprobar para cada uno de estos si se cumple la
+condición $v[i] = i$:
+
+\lstinputlisting[firstline=21, lastline=26]{cpps/posicion.cpp}
