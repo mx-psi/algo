@@ -11,6 +11,29 @@
 \graphicspath{{img/}} % Las imágenes están en la carpeta img
 \usepackage{accents} % Cosas de Windows
 \usepackage{framed} % Frames
+\usepackage{listings} % Códigos
+
+\definecolor{backg}{HTML}{F2F2F2}    % Fondo
+\definecolor{comments}{HTML}{BDBDBD} % Comentarios
+\definecolor{keywords}{HTML}{08388c} % Palabras clave
+\definecolor{strings}{HTML}{0489B1}  % Strings
+
+\lstset{
+language=C++,
+basicstyle=\ttfamily,
+breaklines=true,
+backgroundcolor=\color{backg},
+keywordstyle=\color{keywords},
+commentstyle=\color{comments},
+stringstyle=\color{strings},
+tabsize=2,
+% Acentos, ñ, ¿, ¡ (tex.stackexchange.com/questions/24528)
+extendedchars=true,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
+         {ú}{{\'u}}1 {ñ}{{\~n}}1 {¡}{{\textexclamdown}}1
+         {¿}{{?`}}1 {->}{{$\rightarrow$}}1 {=>}{{$\Rightarrow$}}1
+}
+
 
 \newcommand{\spec}[6]{
 \bgroup
