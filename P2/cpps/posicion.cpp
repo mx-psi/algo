@@ -15,11 +15,14 @@
     @pre `num_elem` >= 0
     @param T: vector de elementos.
     @param num_elem: número de elementos.
-    @param a_buscar: entero a buscar en el vector
     @return Posición del elemento si está, `-1` en otro caso
     @note Versión obvia (búsqueda secuencial)
  */
- int posicion_trivial(const int T[], int num_elem, int a_buscar){
+ int posicion_trivial(const int T[], int num_elem){
+  for (int i = 0; i < num_elem; i++)
+   if(T[i] == i)
+    return i;
+  return -1;
  }
 
 
@@ -28,12 +31,11 @@
     @param T: vector de elementos.
     @param ini: Posición en la que se comienza a buscar
     @param fin: Posición en la que se termina
-    @param a_buscar: entero a buscar en el vector
     @return Posición del elemento si está, `-1` en otro caso
     @note Función recursiva llamada por el *wrapper*
     @see posicion_dyv1
  */
- int posicion_dyv1_rec(const int T[], int ini, int fin, int a_buscar){
+ int posicion_dyv1_rec(const int T[], int ini, int fin){
  }
 
  /**
@@ -41,12 +43,11 @@
     @pre `num_elem` >= 0
     @param T: vector de elementos.
     @param num_elem: número de elementos.
-    @param a_buscar: entero a buscar en el vector
     @return Posición del elemento si está, `-1` en otro caso
     @note Versión divide y vencerás 1 (búsqueda binaria recursiva)
  */
- int posicion_dyv1(const int T[], int num_elem, int a_buscar){
-  return posicion_dyv1_rec(T, 0, num_elem - 1, a_buscar);
+ int posicion_dyv1(const int T[], int num_elem){
+  return posicion_dyv1_rec(T, 0, num_elem - 1);
  }
 
  /**
@@ -54,24 +55,22 @@
     @pre `num_elem` >= 0
     @param T: vector de elementos.
     @param num_elem: número de elementos.
-    @param a_buscar: entero a buscar en el vector
     @return Posición del elemento si está, `-1` en otro caso
     @note Versión divide y vencerás 2 (búsqueda binaria no recursiva)
  */
- int posicion_dyv2(const int T[], int num_elem, int a_buscar){
+ int posicion_dyv2(const int T[], int num_elem){
  }
 
 
- int ejecutar(int (*f)(const int*, int, int), int n) {
+ int ejecutar(int (*f)(const int*, int), int n) {
    int* T = new int[n];
    get_elementoensuposicion(T, n);
 
     chrono::steady_clock::time_point tantes, tdespues;
    chrono::duration<double> transcurrido;
-
-   int elemento = uniforme()*2*n;
+   
    tantes = chrono::steady_clock::now();
-   int i = f(T,n,elemento);
+   int i = f(T,n);
    tdespues = chrono::steady_clock::now();
 
    transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
