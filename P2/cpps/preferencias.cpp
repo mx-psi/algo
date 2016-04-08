@@ -111,7 +111,7 @@ int preferencias_insercion(int T[], int num_elem) {
 *@param final
 */
 
-const int UMBRAL_MS = 100;
+const int UMBRAL_MS = 2;
 
 static int mergesort_lims(int T[], int inicial, int final)
 {
