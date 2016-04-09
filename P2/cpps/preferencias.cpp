@@ -183,7 +183,7 @@ int ejecutar(int (*f)(int*, int), int n) {
   tdespues = chrono::steady_clock::now();
 
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
-  cout << n << " " << inversiones << " " << transcurrido.count() << endl;
+  cout << n << " " << transcurrido.count() << endl;
   delete [] T;
 
   return 0;
