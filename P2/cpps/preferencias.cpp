@@ -111,7 +111,10 @@ int preferencias_insercion(int T[], int num_elem) {
 *@param final
 */
 
-const int UMBRAL_MS = 2;
+// MEJOR PUTO UMBRAL X =(4.40988*10^-6+3.19053*10^-8*x*log(x))-(2.08435*10^-6+9.84525*x*10^-8+x^2*1.56413*10^-9)=0
+// => x=47
+
+const int UMBRAL_MS = 50;
 
 static int mergesort_lims(int T[], int inicial, int final)
 {
