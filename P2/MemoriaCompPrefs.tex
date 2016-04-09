@@ -1,1 +1,35 @@
 \section{Comparación de preferencias}
+\subsection{Mejorando el Algoritmo: Divide y vencerás}
+
+No pudimos evitar darnos cuenta de la proximidad de nuestro problema con la de una ordenación de datos normal y corriente. Al final para ordenar datos hay que ver si estos están invertidos con respecto a otros, y deshacer esa inversión.
+Es por esto que buscamos un algoritmo de ordenación que se pareciese lo máximo posible a nuestro problema.
+
+El primer candidato fue el \textit{quicksort} por su rapidez. Sin embargo en esta disputa no resultó vencedor pues el algoritmo de  pivotaje deshace muchas inversiones y crea otras tantas, por tanto no parecía adecuado para contar las inversiones del vector original. 
+
+A continuación probamos con el algoritmo \textit{heapsort} dado que nos pareció que las propiedades del \textit{heap}, un árbol parcialmente ordenado, podría arrojar algo de luz al problema; aunque al final resultó que precisamente la estructura de árbol no lo hacía un buen candidato.
+
+Por último llego el turno del \textit{mergesort}. Este algoritmo divide el vector original en subvectores, combinando las soluciones. Pero tiene una forma de hacerlo más simple que el resto. 
+Por debajo de un umbral aplicamos inserción, en este caso el número de inversiones es igual al de inserciones.
+
+Consideremos un vector $T$, lo partimos en dos y aplicamos inserción a cada una de sus partes: izquierda ($U$) y derecha ($V$). La gran ventaja de este algoritmo reside en lo siguiente:
+al partir los vectores las inversiones de los elementos de unos con respecto a los de otros se conservan.
+\\
+
+Veamos un ejemplo:
+
+$$ \{5,4,3,2,1\}$$
+
+El elemento $a_i$ de está lista está invertido $n-i$ veces con respecto a los demás. Apliquemos el $mergesort$:
+
+$$ \{5,4,3\} \hspace{1cm} \{2,1\}$$
+
+Si lo ordenamos los elementos del vector izquierdo siguen estando invertidos con respecto a los del derecho:
+
+$$\{3,4,5\} \hspace{1cm} \{1,2\}$$
+
+Ahora unamos las soluciones. Tomamos un índice al principio de cada vector; empezamos añadiendo elementos de $U$ hasta que encontremos uno de $V$ menor. Sí \textbf{j} es el indice de $U$ por el que nos hemos parado y $n$ su tamaño, el elemento que vamos añadir de $V$ está invertido con respecto de $n-(j-1)$ elementos del vector $U$.
+
+Por tanto el número de inserciones de un vector es igual al de $U$ más el de $V$ más el de los contados al unir las soluciones. 
+
+
+Mediante este razonamiento y una leve modificación del algoritmo $mergesort$ obtenemos una mejora sustancial al algoritmo trivial; una solución de orden O$(nlog(n))$.
