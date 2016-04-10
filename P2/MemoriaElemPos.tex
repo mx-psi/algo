@@ -10,6 +10,12 @@ La implementación de todos los algoritmos realizados es de la forma:
 
 El algoritmo obvio que resuelve el problema de \textit{El elemento en su posición} consiste
 en recorrer cada elemento del vector y comprobar para cada uno de estos si se cumple la
-condición $v[i] = i$:
+condición deseada ($v[i] = i$):
 
-\lstinputlisting[firstline=21, lastline=26]{cpps/posicion.cpp}
+% Versión obvia
+\lstinputlisting[firstline=23, lastline=28]{cpps/posicion.cpp}
+
+Las condiciones de comienzo, actualización y final del bucle son todas $O(1)$, así como el código del bucle. El bucle se ejecutará un máximo de \texttt{n} veces, por lo que es claro que la eficiencia de este algoritmo es de $\mathbf{O(n)}$. 
+
+% Versión recursiva
+\lstinputlisting[firstline=39, lastline=62]{cpps/posicion.cpp}
