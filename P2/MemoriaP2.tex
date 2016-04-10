@@ -3,16 +3,14 @@
 \usepackage[spanish]{babel} % Idioma
 \usepackage[utf8]{inputenc} % Codificación
 \usepackage[T1]{fontenc} % Codificación
-\usepackage{adjustbox} % Tamaño de tablas
-\usepackage{float} % Posicionamiento de figure
 \usepackage[vmargin=2cm,hmargin=2cm]{geometry} % Márgenes
-\usepackage{graphicx} % Imágenes
 \usepackage{hyperref} % Enlaces
-\graphicspath{{img/}} % Las imágenes están en la carpeta img
 \usepackage{accents} % Cosas de Windows
 \usepackage{framed} % Frames
+
+%% Código %%
 \usepackage{listings} % Códigos
-\usepackage{xcolor}
+\usepackage{xcolor} % Colores
 
 \definecolor{backg}{HTML}{F2F2F2}    % Fondo
 \definecolor{comments}{HTML}{BDBDBD} % Comentarios
@@ -32,34 +30,32 @@ tabsize=2,
 extendedchars=true,
 literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
          {ú}{{\'u}}1 {ñ}{{\~n}}1 {¡}{{\textexclamdown}}1
-         {¿}{{?`}}1 {->}{{$\rightarrow$}}1 {=>}{{$\Rightarrow$}}1
+         {¿}{{?`}}1
 }
 
+%% Imágenes %%
+\usepackage{float} % Posicionamiento de figure
+\usepackage{graphicx} % Imágenes
+\graphicspath{{img/}} % Las imágenes están en la carpeta img
 
-\newcommand{\spec}[6]{
-\bgroup
-\def\arraystretch{1.2}
-\begin{tabular}{|l|}
-\hline
-Ejecución en el PC de \textbf{#1} con optimización -O#6:\\
-CPU: #2 @#3 GHz\\RAM: #4 GB \hspace{0.8cm} SO: #5 \\
-\hline
-\end{tabular}
-\egroup
-\vspace*{0.2cm}
+%% Tablas %%
+\usepackage{adjustbox} % Tamaño de tablas
+\usepackage{pgfplotstable} % Incluir tablas desde .dat
+\pgfplotstableset{ % Estilo de todas las tablas
+sci zerofill,
+column type/.add={|}{},
+every last column/.style={column type/.add={}{|}},
+every head row/.style={before row=\hline},
+after row=\hline,
 }
 
 \title{\Huge \textbf{Práctica 2}}
-
 \author{\textbf{Pablo Baeyens Fernández} \\ \textbf{Antonio Checa Molina} \\
 \textbf{Iñaki Madinabeitia Cabrera} \\  \textbf{José Manuel Muñoz Fuentes} \\
 \textbf{Darío Sierra Martínez} \\ }
 \date{Algorítmica}
 
-
-
 \begin{document}
-
 \maketitle
 \tableofcontents
 \input{MemoriaElemPos}
