@@ -21,7 +21,7 @@ using namespace std;
    en una posición invertida respecto de su contenido.
    Aplica un algoritmo trivial de eficiencia O(n^2).
 */
-int preferencias_trivial( int T[], int num_elem) {
+int preferencias_trivial(int T[], int num_elem) {
    int res = 0;
    for (int i = 0; i < num_elem-1; i++)
       for (int j = i+1; j < num_elem; j++)
