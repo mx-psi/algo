@@ -8,6 +8,21 @@
 \usepackage{accents} % Cosas de Windows
 \usepackage{framed} % Frames
 
+%% Especificaciones de ordenadores
+\newcommand{\spec}[5]{
+\bgroup
+\def\arraystretch{1.2}
+\begin{tabular}{|l|}
+\hline
+PC de \textbf{#1}:\\
+%Hardware y SO empleado:\\
+CPU: #2 @#3 GHz\\RAM: #4 GB \hspace{0.8cm} SO: #5 \\
+\hline
+\end{tabular}
+\egroup
+\vspace*{0.2cm}
+}
+
 %% Código %%
 \usepackage{listings} % Códigos
 \usepackage{xcolor} % Colores
@@ -58,6 +73,7 @@ after row=\hline,
 \begin{document}
 \maketitle
 \tableofcontents
+\newpage
 \input{MemoriaElemPos}
 \input{MemoriaCompPrefs}
 \end{document}
