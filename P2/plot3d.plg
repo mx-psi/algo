@@ -1,0 +1,8 @@
+set dgrid3d
+set term pdf
+unset colorbox
+set output "img/umbral_posicion.pdf"
+unset key
+set xlabel "Tamaño"
+set ylabel "Umbral"
+splot "dats/posicion3D.dat" with pm3d

@@ -45,16 +45,20 @@ En el caso del algoritmo divide y vencerás hemos hecho un estudio del mismo par
 
 %% TODO: Antonio escribe aquí
 
+\begin{figure}[H]\includegraphics[width=13cm]{img/umbral_posicion.pdf} \centering
+	\caption{Tiempos según Umbral y Tamaño}\end{figure}
+
 \subsection{Eficiencia empírica de los algoritmos}
 
 Utilizando la librería \texttt{chrono} hemos medido los tiempos de los algoritmos para un conjunto fijo de tamaños. Aunque los algoritmos son rápidos para tamaños grandes, las funciones auxiliares utilizadas para la generación de muestras aleatorias que permitan medir el tiempo han dificultado la obtención de los datos. Los datos obtenidos pueden verse en la siguiente tabla:
+
+% tex.stackexchange.com/questions/10284
 
 \vspace*{1cm}
 
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvio
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_1.dat}\posDyV
 %\pgfplotstableread{dats/comp_umbral_posicion/posicion_2.dat}\posDyVTwo
-
 \pgfplotstablecreatecol[copy column from table={\posDyV}{[index] 1}] {par1} {\posObvio}
 %\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
 
@@ -63,7 +67,7 @@ display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
 display columns/2/.style={column name=Algoritmo DyV (r)},
 skip rows between index={25}{50}
-%display columns/3/.style={column name=DyV No recursivo},
+%display columns/3/.style={column name=Algoritmo DyV (no recursivo)},
 ]{\posObvio}
 
 \vspace*{1cm}
