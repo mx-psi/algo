@@ -1,0 +1,21 @@
+set terminal pdf
+set output "posicion_1_comparativa_umbral5.pdf"
+set title "Tiempos de ejecución de posicion_1 con y sin umbral (Híbrida, umbrales 2, 3, 4 y 5)"
+set xlabel "Tamaño"
+set ylabel "Tiempo de ejecución"
+FIT_LIMIT=1.e-14
+set key bottom right
+f(x) = a_1*log(x) + a_2
+g(x) = a_3*log(x) + a_4
+h(x) = a_5*log(x) + a_6
+y(x) = a_7*log(x) + a_8
+u(x) = a_9*log(x) + a_10
+fit f(x) "posicion_1_umbral_4.dat" via a_1, a_2
+fit g(x) "posicion_1.dat" via a_3, a_4
+fit h(x) "posicion_1_umbral_5.dat" via a_5, a_6
+fit y(x) "posicion_1_umbral_3.dat" via a_7, a_8
+fit u(x) "posicion_1_umbral_2.dat" via a_9, a_10
+set xrange [0:2.5e07]
+plot f(x) title "Función híbrida con umbral 4", g(x) title "Función híbrida sin umbral", h(x) title "Función híbrida con umbral 5", y(x) title "Función híbrida con umbral 3", u(x) title "Función híbrida con umbral 2"
+stats "posicion_1_umbral_3.dat" using 2:(y($1))
+stats "posicion_1_umbral_2.dat" using 2:(u($1))
