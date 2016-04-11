@@ -200,7 +200,7 @@ int main(int argc, char * argv[])
       cerr << "Formato " << argv[0] << " <num_elem> t/i/d" << endl;
       return -1;
     }
-
+  srand(time(0));
   int n = atoi(argv[1]);
 
   if (argv[2][0] == 't')
