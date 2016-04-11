@@ -48,13 +48,14 @@ void shuffle(int T[], int n)
 
    Rellena un vector de n componentes con una permutación
    de los n primeros números naturales.
+
+   @note Debe haberse llamado al menos una vez a srand(time(0)).
 */
 void get_preferencias(int T[], int n)
 {
   for (int i = 0; i < n; i++)
     T[i] = i;
 
-  srand(time(0));
   shuffle(T, n);
 }
 
@@ -67,6 +68,8 @@ void get_preferencias(int T[], int n)
 
    Rellena un vector de n componentes con n enteros
    distintos ordenados de forma creciente.
+
+   @note Debe haberse llamado al menos una vez a srand(time(0)).
 */
 void get_elementoensuposicion(int T[], int n)
 {
@@ -99,6 +102,8 @@ void get_elementoensuposicion(int T[], int n)
 
    Rellena un vector de n componentes con n enteros ordenados
    (sin tener que se distintos) de forma creciente.
+
+   @note Debe haberse llamado al menos una vez a srand(time(0)).
 */
 void get_elementoensuposicion2(int T[], int n)
 {

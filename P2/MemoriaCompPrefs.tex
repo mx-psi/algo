@@ -6,18 +6,20 @@ En esta sección se presentan algoritmos que cumplen:
 	\item[Salida:] Entero no negativo que indica el número de pares $i,j$ de posiciones del vector tales que $i < j$ y $v[i] > v[j]$
 \end{description}
 
+Es decir, estos algoritmos deberán contar el número de elementos que se encuentran invertidos en el vector.
+
 \subsection{Algoritmo obvio}
 
-El algoritmo que hemos considerado obvio para comprobar el número de inversiones es el siguiente, que simplemente comprueba todas las parejas posibles y añade $1$ a un contador para cada pareja invertida:
+El algoritmo que hemos considerado obvio para comprobar el número de inversiones es el siguiente, que simplemente comprueba todas las parejas posibles de elementos del vector y añade $1$ a un contador para cada pareja invertida, devolviendo el valor del contador al final de la ejecución. Esta es su implementación en C++:
 
 \lstinputlisting[firstline=24, lastline=32]{cpps/preferencias.cpp}
 
-Como consecuencia de que el contenido del bucle interno se ejecuta $\displaystyle \sum_{i=0}^{n-2} n-i+1 = \frac{n^2}{2}+\frac{(3n)}{2}-2 $ veces, es un algoritmo de orden de eficiencia $O(n^2)$.
+Como consecuencia de que el contenido del bucle interno se ejecuta $\displaystyle \sum_{i=0}^{n-2} n-i+1 = \frac{n^2}{2}+\frac{3n}{2}-2 $ veces, es un algoritmo de orden de eficiencia $O(n^2)$.
 
 \subsection{Inversiones y algoritmos de ordenación: Divide y Vencerás}
 
 No pudimos evitar darnos cuenta de la proximidad de nuestro problema con la de una ordenación de datos normal y corriente. Al ordenar datos, se deshacen las inversiones, y si hay un algoritmo de ordenación que facilite seguir la pista al proceso de deshacer inversiones, podemos aprovecharlo para contar el número de inversiones efectuado.
-Es por esto que buscamos un algoritmo de ordenación que se pareciese lo máximo posible a nuestro problema. \\
+Es por esto que buscamos un algoritmo de ordenación con un orden de eficiencia mejor que el cuadrático que se pareciese lo máximo posible a nuestro problema. \\
 
 El primer candidato fue el \textit{quicksort} por su rapidez. Sin embargo, no es adecuado para ayudarnos con esta cuestión, pues presenta un comportamiento difícil de controlar en cuanto a inversiones, dado que puede añadir inversiones en el proceso. \\ 
 
@@ -55,44 +57,91 @@ Se ha hallado el umbral óptimo en el siguiente contexto:
 
 Para hallar el umbral se han obtenido los tiempos de ejecución del algoritmo de inserción con conteo de número de inversiones (que se usará como caso básico para el Divide y Vencerás) y los tiempos de ejecución del algoritmo Divide y Vencerás basado en \textit{mergesort} con umbral 2 (es decir, aplicando Divide y Vencerás siempre excepto con subvectores de tamaño 2), con los siguientes tiempos en segundos:
 
-\begin{tabular}{|l|l|l|}
-	\hline
-	Tamaño & Inserción & Mergesort \\
-	\hline
-	$10 $ & $1.854\cdot 10^{-6} $ & $3.202\cdot 10^{-6} $ \\ \hline
-	$20 $ & $3.563\cdot 10^{-6} $ & $4.32\cdot 10^{-6}  $ \\ \hline
-	$30 $ & $6.224\cdot 10^{-6} $ & $5.936\cdot 10^{-6} $ \\ \hline
-	$40 $ & $8.78\cdot 10^{-6}  $ & $7.335\cdot 10^{-6} $ \\ \hline
-	$50 $ & $1.7545\cdot 10^{-5}$ & $9.148\cdot 10^{-6} $ \\ \hline
-	$60 $ & $1.1386\cdot 10^{-5}$ & $1.1253\cdot 10^{-5}$ \\ \hline
-	$70 $ & $1.445\cdot 10^{-5} $ & $1.2554\cdot 10^{-5}$ \\ \hline
-	$80 $ & $1.9508\cdot 10^{-5}$ & $1.4165\cdot 10^{-5}$ \\ \hline
-	$90 $ & $2.6295\cdot 10^{-5}$ & $1.623\cdot 10^{-5} $ \\ \hline
-	$100$ & $2.8818\cdot 10^{-5}$ & $1.701\cdot 10^{-5} $ \\ \hline
-	$110$ & $3.0415\cdot 10^{-5}$ & $1.9441\cdot 10^{-5}$ \\ \hline
-	$120$ & $3.6658\cdot 10^{-5}$ & $2.1167\cdot 10^{-5}$ \\ \hline
-	$130$ & $4.206\cdot 10^{-5} $ & $2.2692\cdot 10^{-5}$ \\ \hline
-	$140$ & $4.5831\cdot 10^{-5}$ & $2.4568\cdot 10^{-5}$ \\ \hline
-	$150$ & $4.7527\cdot 10^{-5}$ & $2.6135\cdot 10^{-5}$ \\ \hline
-	$160$ & $5.6566\cdot 10^{-5}$ & $2.8087\cdot 10^{-5}$ \\ \hline
-	$170$ & $6.4559\cdot 10^{-5}$ & $3.0172\cdot 10^{-5}$ \\ \hline
-	$180$ & $7.1696\cdot 10^{-5}$ & $3.1465\cdot 10^{-5}$ \\ \hline
-	$190$ & $8.0769\cdot 10^{-5}$ & $6.2223\cdot 10^{-5}$ \\ \hline
-	$200$ & $8.2839\cdot 10^{-5}$ & $3.5039\cdot 10^{-5}$ \\ \hline
-\end{tabular} \\
+\vspace*{1cm}
+
+\pgfplotstableread{dats/preferencias_i.dat}\prefIns
+\pgfplotstableread{dats/preferencias_d_sinumbral.dat}\prefDVt
+\pgfplotstablecreatecol[copy column from table={\prefDVt}{[index] 1}] {par1} {\prefIns}
+
+\pgfplotstabletypeset[
+display columns/0/.style={column name=Tamaño},
+display columns/1/.style={column name=Inserción},
+display columns/2/.style={column name=Mergesort},
+]{\prefIns}
+
+\vspace*{1cm}
+
+Que se representan con la siguiente gráfica:
+
+\begin{figure}[H]\includegraphics[width=14cm]{img/umbral_preferencias.pdf} \centering
+	\caption{Tiempos según tamaño}
+\end{figure}
 
 El tiempo de ejecución del algoritmo basado en la ordenación por inserción se ajusta a la función $i(n) = 1.56413 \cdot 10^{-9} n^2 + 9.84525 \cdot 10^{-8} n + 2.08435 \cdot 10^{-6}$, mientras que el tiempo obtenido con el algoritmo derivado del \textit{mergesort} (ignorando el resultado obtenido en tamaño $190$) tiene por función de ajuste $m(n) = 3.08096 \cdot 10^{-8} n \cdot \log(n) + 3.07834 \cdot 10^{-6}$. Hallamos el punto de corte usando la función \texttt{find\_root} de Maxima: 
 
 \begin{lstlisting}
-	i(n):=1.56413*10^(-9)*n^2 + 9.84525 * 10^(-8)* n + 2.08435 *10^(-6)$
-	m(n):=3.08096*10^(-8) *n*log(n) + 3.07834*10^(-6)$
+	i(n):=1.56413*10^(-9)*n^2 + 9.84525 * 10^(-8)*n + 2.08435*10^(-6)$
+	m(n):=3.08096*10^(-8)*n*log(n) + 3.07834*10^(-6)$
 	find_root(m(x)-i(x),x,10,200);
 \end{lstlisting}
 
-Obteniendo el punto de corte $25.726267$.
-
-% TODO: gráficas, posiblemente con el ajuste añadido.
-
-% TODO: A ver qué pasa, que a Darío le salía otro ajuste distinto para el DyV (el que está en el .cpp) y 50 como umbral óptimo (yo he tenido que omitir un valor porque estaba muy fuera).
+Obteniendo el punto de corte $25.726267$. Sin embargo, en pruebas posteriores de umbrales cercanos a ese punto de corte, hemos concluido que el umbral óptimo resultó estar alrededor de $50$.
 
 \subsection{Comparación de algoritmos}
+
+La tabla anterior recogía los tiempos obtenidos con el algoritmo basado en la ordenación por inserción y con el algoritmo basado en \textit{mergesort} con umbral $2$. En la siguiente tabla se completa con los tiempos obtenidos con el umbral considerado óptimo, $50$ (el número a continuación de \textit{Mergesort} es el umbral usado), y los tiempos con el algoritmo trivial:
+
+\vspace*{1cm}
+
+\pgfplotstableread{dats/preferencias_d.dat}\prefDVf
+\pgfplotstableread{dats/preferencias_t.dat}\prefObv
+\pgfplotstablecreatecol[copy column from table={\prefDVt}{[index] 1}] {par1} {\prefDVf}
+\pgfplotstablecreatecol[copy column from table={\prefIns}{[index] 1}] {par2} {\prefDVf}
+\pgfplotstablecreatecol[copy column from table={\prefObv}{[index] 1}] {par3} {\prefDVf}
+
+\pgfplotstabletypeset[
+display columns/0/.style={column name=Tamaño},
+display columns/1/.style={column name=Mergesort $50$},
+display columns/2/.style={column name=Mergesort $2$},
+display columns/3/.style={column name=Inserción},
+display columns/4/.style={column name=Algoritmo obvio},
+]{\prefDVf}
+
+\vspace*{1cm}
+
+Que se ilustran con esta gráfica:
+
+\begin{figure}[H]\includegraphics[width=14cm]{img/comparativa_preferencias.pdf} \centering
+	\caption{Tiempos según tamaño para cada algoritmo}
+\end{figure}
+
+Además hemos repetido las ejecuciones con valores mayores para el algoritmo Divide y Vencerás con los dos umbrales, obteniendo esta tabla:
+
+\vspace*{1cm}
+
+\pgfplotstableread{dats/comp_umbral/preferencias_d_umbral.dat}\prefDVu
+\pgfplotstableread{dats/comp_umbral/preferencias_d_sinumbral.dat}\prefDVs
+\pgfplotstablecreatecol[copy column from table={\prefDVs}{[index] 1}] {par1} {\prefDVu}
+
+\pgfplotstabletypeset[
+display columns/0/.style={column name=Tamaño},
+display columns/1/.style={column name=Mergesort $50$},
+display columns/2/.style={column name=Mergesort $2$},
+skip rows between index={25}{50}
+]{\prefDVu}
+\pgfplotstabletypeset[
+display columns/0/.style={column name=Tamaño},
+display columns/1/.style={column name=Mergesort $50$},
+display columns/2/.style={column name=Mergesort $2$},
+skip rows between index={0}{25}
+]{\prefDVu}
+
+\vspace*{1cm}
+
+Y la gráfica siguiente:
+
+\begin{figure}[H]\includegraphics[width=14cm]{img/comparativa_preferencias_grande.pdf} \centering
+	\caption{Tiempos según tamaño para Divide y Vencerás}
+\end{figure}
+
+Cabe destacar que los tiempos de ejecución del algoritmo trivial para valores en torno a $50\ 000$ se encuentran aproximadamente tres órdenes de magnitud por encima de los obtenidos para el algoritmo Divide y Vencerás con el umbral $50$.
