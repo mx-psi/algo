@@ -58,23 +58,23 @@ int posicion_obvia_ajustada(const int v[], int n, int ajuste = 0){
 */
 
 int posicion_dyv_rec(const int v[], int n, int ajuste = 0){
-  if(n <=3 ){
-		return posicion_obvia_ajustada(v,n, ajuste);
-	}
+  if(n <= 3) // Caso base
+    return posicion_obvia_ajustada(v,n, ajuste);
 
-	int medio = n/2;
+  int medio = n/2;
 
-	if(medio == v[medio]-ajuste)
-		return medio;
-	else if(medio < v[medio]-ajuste)
-		return posicion_dyv_rec(v, n/2, ajuste);
-  else{
-		int pos_rel_der = posicion_dyv_rec(v+medio+1, (n-1)/2, medio+1+ajuste);
-		if(pos_rel_der != -1)
-			return pos_rel_der+medio+1;
-		else
-			return -1;
-	}
+  if(medio == v[medio]-ajuste) // Encontrado
+    return medio;
+  else if(medio < v[medio]-ajuste) // Lado izquierdo
+    return posicion_dyv_rec(v, n/2, ajuste);
+
+  // Lado derecho
+  int pos_der = posicion_dyv_rec(v+medio+1, (n-1)/2, medio+1+ajuste);
+  if(pos_der != -1)
+    return pos_der+medio+1;
+
+  // No hay elemento en su posición
+  return -1;
 }
 
 int posicion_dyv1(const int v[], int n){
