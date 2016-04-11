@@ -54,13 +54,16 @@ Sustituyendo $n = 2^k$ obtenemos que el orden de eficiencia de este algoritmo es
 \hrulefill
 \vspace*{1cm}
 
-La versión no recursiva, basada en la versión no recursiva de la búsqueda binaria queda:
+La versión no recursiva:
 
 % Versión no recursiva
-\lstinputlisting[firstline=93, lastline=94]{cpps/posicion.cpp}
+\lstinputlisting[firstline=89, lastline=115]{cpps/posicion.cpp}
 
-%% TODO: (Iñaki) Explicación y comparación del algoritmo
-%% TODO: (Iñaki) Párrafo sobre la eficiencia de la versión no recursiva
+
+Es la misma idea que la del algoritmo recursivo, dividiendo el vector en trozos más pequeños, sólo que para hacerlo iterativamente necesitamos un bucle $while$ y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector, llamados $tope\_min$ y $tope\_max$.  Si encontramos un número que coincida con su posición, devolvemos el número. Si no lo encontramos (muy necesaria la comprobación $tope\_max$ $>=$ $tope\_min$), se devuelve -1.
+
+
+Al ser la misma idea que el algoritmo recursivo, pero de forma iterativa, la $eficiencia$ teórica es la misma. Es decir, es  $\mathbf{O(\log(n))}$.
 
 \subsection{Determinación del umbral}
 
@@ -111,4 +114,4 @@ Consideremos por ejemplo el caso del vector $v = [1,2,2]$. $1 <v[1]$, por lo que
 
 Podemos plantear otro algoritmo de carácter similar para encontrar un elemento en su posición en estos casos:
 
-\lstinputlisting[firstline=101, lastline=125]{cpps/posicion.cpp}
+\lstinputlisting[firstline=126, lastline=150]{cpps/posicion.cpp}
