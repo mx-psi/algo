@@ -59,7 +59,7 @@ int posicion_obvia_ajustada(const int v[], int n, int ajuste = 0){
 
 int posicion_dyv_rec(const int v[], int n, int ajuste = 0){
   if(n <= 3) // Caso base
-    return posicion_obvia_ajustada(v,n, ajuste);
+    return posicion_obvia_ajustada(v, n, ajuste);
 
   int medio = n/2;
 
@@ -70,11 +70,7 @@ int posicion_dyv_rec(const int v[], int n, int ajuste = 0){
 
   // Lado derecho
   int pos_der = posicion_dyv_rec(v+medio+1, (n-1)/2, medio+1+ajuste);
-  if(pos_der != -1)
-    return pos_der+medio+1;
-
-  // No hay elemento en su posición
-  return -1;
+  return pos_der != -1 ? pos_der+medio+1 : -1;
 }
 
 int posicion_dyv1(const int v[], int n){
@@ -103,37 +99,28 @@ int posicion_dyv2(const int v[], int n){
  @note Versión para el caso en el que v admite repetidos
 */
 int posicion_dyv_rec3(const int v[], int n, int ajuste = 0){
- if(n <= 2)
-     return posicion_obvia_ajustada(v, n, ajuste);
- else{
-   int medio = n/2;
+  if(n <= 2)
+    return posicion_obvia_ajustada(v, n, ajuste);
 
-   if(medio == v[medio]-ajuste)
-     return medio;
-   else if(medio < v[medio]-ajuste){
-     int izquierda = posicion_dyv_rec3(v,n/2,ajuste);
-     if(izquierda != -1)
-       return izquierda;
-     else{
-       int pos_rel_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
-       if(pos_rel_der != -1)
-         return pos_rel_der+medio+1;
-       else
-         return -1;
-     }
+ int medio = n/2;
+
+ if(medio == v[medio]-ajuste)
+    return medio;
+ else if(medio < v[medio]-ajuste){
+    int izquierda = posicion_dyv_rec3(v,n/2,ajuste);
+    if(izquierda != -1)
+      return izquierda;
+    else{
+      int pos_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
+      return pos_der != -1 ? pos_der+medio+1 : -1;
    }
-   else{
-     int pos_rel_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
-     if(pos_rel_der != -1)
-       return pos_rel_der+medio+1;
-     else{
-       int izquierda = posicion_dyv_rec3(v,n/2,ajuste);
-       if(izquierda != -1)
-         return izquierda;
-       else
-         return -1;
-     }
-   }
+ }
+ else{
+   int pos_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
+   if(pos_der != -1)
+     return pos_der+medio+1;
+   else
+     return posicion_dyv_rec3(v,n/2,ajuste);
  }
 }
 

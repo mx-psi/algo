@@ -28,22 +28,45 @@ Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La 
 % Versión recursiva
 \lstinputlisting[firstline=60, lastline=77]{cpps/posicion.cpp}
 
-%% TODO: Explicación del algoritmo
-%% TODO: Párrafo sobre la eficiencia de la versión recursiva
+El parámetro \texttt{ajuste} nos sirve para ajustar la comprobación de la posición en función de la posición en la que estemos en el vector.
+El caso base utiliza el algoritmo obvio ajustado (la condición que se comprueba es en este caso $v[i]-ajuste == i$), y se utiliza para los vectores de tamaño $\leq 3$, (el umbral encontrado en la siguiente sección).
+
+Si el tamaño del vector es mayor que 3, comprobamos (ajustando) el elemento en el medio.
+Distinguimos 3 casos:
+
+\begin{itemize}
+  \item El elemento medio está en su posición. En este caso devolvemos este elemento.
+  \item $m < v[m]$ (ajustando). En este caso nos basta comprobar el lado izquierdo del vector, ya que $\forall k > 0, v[m + k] \geq v[m] + k > m + k$.
+  \item $m > v[m]$ (ajustando). En este caso basta comprobar el lado derecho por un argumento similar, ya que ya que $\forall k > 0, v[m - k] \leq v[m] - k < m - k$.
+\end{itemize}
+
+En caso de que no encontremos el elemento en lado adecuado devolvemos $-1$, que nos indica que no existe ningún elemento en su posición.
+
+La \textbf{eficiencia} teórica de este algoritmo puede calcularse a partir de su ecuación de recurrencia, de la forma:
+
+\[
+T(n) = \begin{cases} T(n/2) + O(1) & \mbox{si } n > 3 \\
+O(1) & \mbox{si } n \leq 3 \end{cases}\]
+
+Sustituyendo $n = 2^k$ obtenemos que el orden de eficiencia de este algoritmo es $\mathbf{O(\log(n))}$.
+
+\vspace*{1cm}
+\hrulefill
+\vspace*{1cm}
 
 La versión no recursiva, basada en la versión no recursiva de la búsqueda binaria queda:
 
 % Versión no recursiva
 \lstinputlisting[firstline=93, lastline=94]{cpps/posicion.cpp}
 
-%% TODO: Explicación y comparación del algoritmo
-%% TODO: Párrafo sobre la eficiencia de la versión no recursiva
+%% TODO: (Iñaki) Explicación y comparación del algoritmo
+%% TODO: (Iñaki) Párrafo sobre la eficiencia de la versión no recursiva
 
 \subsection{Determinación del umbral}
 
 En el caso del algoritmo divide y vencerás hemos hecho un estudio del mismo para determinar el umbral para el caso base (para el cual utilizamos el algoritmo obvio) que resulta más eficiente.
 
-%% TODO: Antonio escribe aquí
+%% TODO: (Antonio) Estudio del umbral
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/umbral_posicion.pdf} \centering
 	\caption{Tiempos según Umbral y Tamaño}\end{figure}
@@ -65,19 +88,27 @@ Utilizando la librería \texttt{chrono} hemos medido los tiempos de los algoritm
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
-display columns/2/.style={column name=Algoritmo DyV (r)},
+display columns/2/.style={column name=Algoritmo DyV (rec)},
 skip rows between index={25}{50}
-%display columns/3/.style={column name=Algoritmo DyV (no recursivo)},
+%display columns/3/.style={column name=Algoritmo DyV (no rec)},
 ]{\posObvio}
 
 \vspace*{1cm}
 
 Podemos ajustar estos datos con una función representativa del orden de eficiencia teórico obtenido en la sección anterior:
 
-%% TODO: Ajustes de las funciones
+%% TODO: (¿?) Ajustes de las funciones
 
 En el siguiente gráfico podemos observar además una comparativa de las eficiencias empíricas y teóricas de los algoritmos realizados:
 
-%% TODO: Gráfica con todos los algoritmos
+%% TODO: (Antonio) Gráfica con todos los algoritmos
 
 \subsection{Vectores con elementos repetidos}
+
+En el caso de que tengamos elementos repetidos el razonamiento realizado para justificar el algoritmo divide y vencerás no es válido, y es sencillo encontrar ejemplos de vectores con elementos en su posición para los cuales nuestro algoritmo no funciona.
+
+Consideremos por ejemplo el caso del vector $v = [1,2,2]$. $1 <v[1]$, por lo que nuestro algoritmo comprobaría sólo el lado izquierdo ($[1]$) y no encontraría el elemento en la posición 2, que está en su posición.
+
+Podemos plantear otro algoritmo de carácter similar para encontrar un elemento en su posición en estos casos:
+
+\lstinputlisting[firstline=101, lastline=125]{cpps/posicion.cpp}
