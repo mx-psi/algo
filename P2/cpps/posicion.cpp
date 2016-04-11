@@ -87,6 +87,31 @@ int posicion_dyv1(const int v[], int n){
   @note Versión divide y vencerás 2 (no recursiva)
 */
 int posicion_dyv2(const int v[], int n){
+	int tope_min = 0;
+	int i = (n-1)/2;
+	int tope_max = n-1;
+	bool encontrado=false;
+
+	if(i == v[i])
+		encontrado = true;
+		
+	while( (!encontrado) && (tope_max >= tope_min) ){
+		if(i == v[i])
+			encontrado = true;
+		else if(i < v[i]){
+			tope_max = i-1;
+			i = (tope_max + tope_min)/2;
+		}
+		else if(i > v[i]){
+			tope_min = i+1;
+			i = (tope_max + tope_min)/2;
+		}
+	}
+	
+	if(encontrado)
+		return i;
+	else
+		return -1;	
 }
 
 /**
