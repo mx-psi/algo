@@ -22,13 +22,13 @@ using namespace std;
    Aplica un algoritmo trivial de eficiencia O(n^2).
 */
 int preferencias_trivial(int T[], int num_elem) {
-   int res = 0;
-   for (int i = 0; i < num_elem-1; i++)
-      for (int j = i+1; j < num_elem; j++)
-         if (T[i] > T[j])
-            res++;
+  int res = 0;
+  for (int i = 0; i < num_elem-1; i++)
+    for (int j = i+1; j < num_elem; j++)
+      if (T[i] > T[j])
+        res++;
 
-   return res;
+  return res;
 }
 
 /**
@@ -100,32 +100,17 @@ static int insercion_lims(int T[], int inicial, int final)
    inserción, de eficiencia O(n^2).
 */
 int preferencias_insercion(int T[], int num_elem) {
-   return insercion_lims(T, 0, num_elem);
+  return insercion_lims(T, 0, num_elem);
 }
 
-
-/**
-*@brief
-*@param T[]
-*@param inicial
-*@param final
-*/
-
-// MEJOR PUTO UMBRAL X =(4.40988*10^-6+3.19053*10^-8*x*log(x))-(2.08435*10^-6+9.84525*x*10^-8+x^2*1.56413*10^-9)=0
-// => x=47
-
-const int UMBRAL_MS = 50;
+const int UMBRAL_DV = 50;  // Umbral óptimo para Divide y Vencerás
 
 static int mergesort_lims(int T[], int inicial, int final)
 {
   int merges = 0;
 
-  if(final - inicial < UMBRAL_MS)
-  {
-    //merges = preferencias_trivial(T+inicial, final-inicial);
+  if(final - inicial < UMBRAL_DV)
     merges = insercion_lims(T, inicial, final);
-  }
-
   else {
     int k = (final - inicial)/2;
     int * U = new int [k - inicial + 1];
@@ -164,19 +149,12 @@ static int mergesort_lims(int T[], int inicial, int final)
    Aplica un algoritmo Divide y Vencerás de eficiencia O(n·log(n))
 */
 int preferencias_dyv(int T[], int num_elem) {
-   return mergesort_lims(T, 0, num_elem);
+  return mergesort_lims(T, 0, num_elem);
 }
 
 int ejecutar(int (*f)(int*, int), int n) {
   int* T = new int[n];
   get_preferencias(T, n);
-
-  /*
-  for (int i = 0; i < n; i++)
-     cout << T[i] << " ";
-
-  cout << "\n\n";
-  */
 
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
@@ -194,12 +172,11 @@ int ejecutar(int (*f)(int*, int), int n) {
 
 int main(int argc, char * argv[])
 {
-
-    if (argc != 3 || (argv[2][0] != 't' && argv[2][0] != 'i' && argv[2][0] != 'd'))
-    {
-      cerr << "Formato " << argv[0] << " <num_elem> t/i/d" << endl;
-      return -1;
-    }
+  if (argc != 3 || (argv[2][0] != 't' && argv[2][0] != 'i' && argv[2][0] != 'd'))
+  {
+    cerr << "Formato " << argv[0] << " <num_elem> t/i/d" << endl;
+    return -1;
+  }
   srand(time(0));
   int n = atoi(argv[1]);
 
