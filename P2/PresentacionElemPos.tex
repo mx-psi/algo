@@ -141,24 +141,28 @@ display columns/3/.style={column name=Algoritmo DyV (no rec)},
 
 \begin{frame}{Ajuste de las funciones (gráfica)}
 \includegraphics[width=\textwidth]{img/posicion_t_hibrida.pdf}
+
+(*)posicion\_t referencia al algoritmo trivial
 \end{frame}
 
 \begin{frame}{Ajuste de las funciones (gráfica)}
 	\includegraphics[width=\textwidth]{img/posicion_1_hibrida.pdf}
+	
+	(*)posicion\_1 referencia al algoritmo recursivo
 \end{frame}
 
 \begin{frame}{Ajuste de las funciones (gráfica)}
 	\includegraphics[width=\textwidth]{img/posicion_2_hibrida.pdf}
+	
+	
+	(*)posicion\_2 referencia al algoritmo no recursivo
 \end{frame}
 
 \subsection{Vectores con elementos repetidos}
 
 \begin{frame}{El algoritmo falla}
-En el caso de que tengamos elementos repetidos el razonamiento realizado para justificar el algoritmo divide y vencerás no es válido, y es sencillo encontrar ejemplos de vectores con elementos en su posición para los cuales nuestro algoritmo no funciona.
-\end{frame}
-
-\begin{frame}{El algoritmo falla}
-Ejemplo:
+	Con vectores repetidos el algoritmo falla. Un ejemplo de esto:
+	
 $$Posiciones \rightarrow 0-1-2$$
 $$Vector\hspace{0.2cm} \rightarrow \hspace{0.32cm} [1,\hspace{0.23cm}2,\hspace{0.23cm}2]$$
 \note{$v = [1,2,2]$. $1 <v[1]$, por lo que nuestro algoritmo comprobaría sólo el lado izquierdo ($[1]$) y no encontraría el elemento en la posición 2, que está en su posición.}
