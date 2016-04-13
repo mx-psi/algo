@@ -2,7 +2,7 @@
 
 \begin{frame}{El elemento en su posición}
 \begin{description}
- \item[Entrada:] Vector \texttt{v} y su tamaño \texttt{n}
+ \item[Entrada:] Vector ordenado \texttt{v} (sin repetidos) y su tamaño \texttt{n}
  \item[Salida:] Entero no negativo que indica el $i$ tal que $v[i]=i$ en caso de que exista o $-1$ en otro caso
 \end{description}
 \end{frame}
@@ -48,7 +48,7 @@ O(1) & \mbox{si } n \leq 3 \end{cases}\]
 
 %% TODO: (Antonio) Estudio del umbral ¿algo más?
 
-\begin{frame}{Umbral (tablas)}
+\begin{frame}[fragile]{Umbral (tablas)}
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvioCompUmbral
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_1.dat}\posDyVUmbralOne
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_1_umbral_2.dat}\posDyVUmbralTwo
@@ -64,15 +64,14 @@ O(1) & \mbox{si } n \leq 3 \end{cases}\]
 \resizebox{\linewidth}{!}{
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
-display columns/1/.style={column name=Algoritmo Obvio},
+display columns/1/.style={column name=Obvio},
 display columns/2/.style={column name=Umbral 1},
 display columns/3/.style={column name=Umbral 2},
 display columns/4/.style={column name=Umbral 3},
 display columns/5/.style={column name=Umbral 4},
 display columns/6/.style={column name=Umbral 5},
-skip rows between index={4}{20},
-skip rows between index={25}{50}
-]{\posObvioCompUmbral}}
+]{\posObvioCompUmbral}
+}
 \end{frame}
 
 \begin{frame}{Umbral (gráficas)}
@@ -93,20 +92,21 @@ skip rows between index={25}{50}
 
 \subsection{Eficiencia empírica de los algoritmos}
 
-\begin{frame}{Eficiencia empírica (tabla)}
+\begin{frame}[fragile]{Eficiencia empírica (tabla)}
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvio
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_1.dat}\posDyV
 %\pgfplotstableread{dats/comp_umbral_posicion/posicion_2.dat}\posDyVTwo
 \pgfplotstablecreatecol[copy column from table={\posDyV}{[index] 1}] {par1} {\posObvio}
 %\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
-
+\resizebox{\linewidth}{!}{
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
 display columns/2/.style={column name=Algoritmo DyV (rec)},
-skip rows between index={25}{50}
 %display columns/3/.style={column name=Algoritmo DyV (no rec)},
 ]{\posObvio}
+}
+
 \note{Aunque los algoritmos son rápidos para tamaños grandes, las funciones auxiliares utilizadas para la generación de muestras aleatorias que permitan medir el tiempo han dificultado la obtención de los datos. Los datos obtenidos pueden verse en la tabla.}
 \end{frame}
 

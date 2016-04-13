@@ -10,6 +10,20 @@
 \graphicspath{{img/}} % Ruta de las imágenes
 \usepackage{pgfplotstable} %Tablas
 \usepackage{booktabs}% http://ctan.org/pkg/booktabs
+
+\pgfplotstableset{ % Estilo de todas las tablas
+sci zerofill,
+column type/.add={|}{},
+every last column/.style={column type/.add={}{|}},
+every head row/.style={before row=\hline},
+after row=\hline,
+% tex.stackexchange.com/questions/110233
+row predicate/.code={%
+\pgfmathparse{int(mod(#1,5))}
+\ifnum\pgfmathresult=0\relax
+\else\pgfplotstableuserowfalse\fi}
+}
+
 \usepackage{listings} % Códigos
 
 \definecolor{backg}{HTML}{F2F2F2}    % Fondo
