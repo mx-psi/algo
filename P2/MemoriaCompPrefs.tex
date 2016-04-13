@@ -1,6 +1,6 @@
 \section{Comparación de preferencias}
 
-En esta sección se presentan algoritmos que cumplen:
+25,En esta sección se presentan algoritmos que cumplen:
 \begin{description}
 	\item[Entrada:] Vector de enteros \texttt{v} y su tamaño \texttt{n}
 	\item[Salida:] Entero no negativo que indica el número de pares $i,j$ de posiciones del vector tales que $i < j$ y $v[i] > v[j]$
@@ -82,7 +82,14 @@ Que se representan con la siguiente gráfica:
 	\caption{Tiempos según tamaño}
 \end{figure}
 
-El tiempo de ejecución del algoritmo basado en la ordenación por inserción se ajusta a la función $i(n) = 1.56413 \cdot 10^{-9} n^2 + 9.84525 \cdot 10^{-8} n + 2.08435 \cdot 10^{-6}$, mientras que el tiempo obtenido con el algoritmo derivado del \textit{mergesort} (ignorando el resultado obtenido en tamaño $190$) tiene por función de ajuste $m(n) = 3.08096 \cdot 10^{-8} n \cdot \log(n) + 3.07834 \cdot 10^{-6}$. Hallamos el punto de corte usando la función \texttt{find\_root} de Maxima:
+El tiempo de ejecución del algoritmo basado en la ordenación por inserción se ajusta a la función $i(n) = 1.56413 \cdot 10^{-9} n^2 + 9.84525 \cdot 10^{-8} n + 2.08435 \cdot 10^{-6}$, mientras que el tiempo obtenido con el algoritmo derivado del \textit{mergesort} (ignorando el resultado obtenido en tamaño $190$) tiene por función de ajuste $m(n) = 3.08096 \cdot 10^{-8} n \cdot \log(n) + 3.07834 \cdot 10^{-6}$. \\
+
+Esta gráfica compara las funciones de ajuste con los datos obtenidos:
+\begin{figure}[H]\includegraphics[width=14cm]{img/ajuste_preferencias.pdf} \centering
+	\caption{Funciones de ajuste para determinar el umbral}
+\end{figure}
+
+Hallamos el punto de corte usando la función \texttt{find\_root} de Maxima:
 
 \begin{lstlisting}[language=Maxima]
 	i(n):=1.56413*10^(-9)*n^2 + 9.84525 * 10^(-8)*n + 2.08435*10^(-6)$
