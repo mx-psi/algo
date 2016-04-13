@@ -47,9 +47,9 @@ Si lo ordenamos los elementos del vector izquierdo siguen estando invertidos con
 
 Ahora unamos las soluciones. Tomamos un índice al principio de cada vector; empezamos añadiendo elementos de $U$ hasta que encontremos uno de $V$ menor. Si $j$ es el indice de $U$ por el que nos hemos parado y $n$ su tamaño, el elemento que vamos añadir de $V$ está invertido con respecto de $n-(j-1)$ elementos del vector $U$.
 
-Por tanto el número de inserciones de un vector es igual al de $U$ más el de $V$ más el de los contados al unir las soluciones.
+Por tanto, el número de inserciones de un vector es igual al de $U$ más el de $V$ más el de los contados al unir las soluciones. \\
 
-Mediante este razonamiento y una leve modificación del algoritmo \textit{mergesort} obtenemos una mejora sustancial al algoritmo trivial; una solución Divide y Vencerás de orden $O(n\cdot \log(n))$, que usa el algoritmo de inserción por debajo de cierto umbral.
+Mediante este razonamiento y una leve modificación del algoritmo \textit{mergesort} obtenemos una mejora sustancial respecto del algoritmo trivial; una solución Divide y Vencerás de orden $O(n\cdot \log(n))$, que usa el algoritmo de inserción por debajo de cierto umbral.
 
 \subsection{Determinación del umbral}
 
@@ -57,6 +57,7 @@ Se ha hallado el umbral óptimo en el siguiente contexto:
 
 \spec{Darío}{\href{http://ark.intel.com/products/75116}{Intel\textregistered\ Core\texttrademark\ i7-4700HQ}}{2.40}{12}{Ubuntu 14.04 64 bits}{0} \\
 
+Hemos reciclado el código del \textit{mergesort} usado en la Práctica 1 para implementar la modificación de este algoritmo. Las funciones \texttt{fusion}, \texttt{insercion\_lims} y \texttt{mergesort\_lims}, así como los wrappers que llaman a estas para comenzar la ordenación, devuelven un entero (en lugar de \textit{void}) que representa el número de inversiones deshechas durante la ordenación. En cada función se crea una variable local donde se suma el número de inversiones según se ha descrito anteriormente, y se devuelve. \\
 
 Para hallar el umbral se han obtenido los tiempos de ejecución del algoritmo de inserción con conteo de número de inversiones (que se usará como caso básico para el Divide y Vencerás) y los tiempos de ejecución del algoritmo Divide y Vencerás basado en \textit{mergesort} con umbral 2 (es decir, aplicando Divide y Vencerás siempre excepto con subvectores de tamaño 2), con los siguientes tiempos en segundos:
 
