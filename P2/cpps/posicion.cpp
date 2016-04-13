@@ -135,7 +135,7 @@ int pos_dyv3(const int v[], int n, int inc){
 }
 
 int pos_dyv3(const int v[], int n){
-  return pos_dyv3(v,n);
+  return pos_dyv3(v,n,0);
 }
 
  int ejecutar(int (*f)(const int*, int), int n) {
