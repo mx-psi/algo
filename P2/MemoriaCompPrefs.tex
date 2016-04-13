@@ -15,19 +15,19 @@ El algoritmo que hemos considerado \textbf{obvio} para comprobar el número de i
 \lstinputlisting[firstline=24, lastline=32]{cpps/preferencias.cpp}
 
 El contenido del bucle interno se ejecuta:
-\[\sum_{i=0}^{n-2} n-i+1 = \frac{n^2}{2}+\frac{3n}{2}-2\]
+\[\sum_{i=0}^{n-2} n-i-1 = \frac{n^2}{2}-\frac{n}{2}\]
 veces, por lo que, dado que la inicialización y actualización del bucle y las condiciones comprobadas se realizan en un tiempo constante, es un algoritmo de orden de eficiencia $O(n^2)$.
 
 \subsection{Inversiones y algoritmos de ordenación: Divide y Vencerás}
 
 No pudimos evitar darnos cuenta de la proximidad de nuestro problema con la ordenación de datos. Al ordenar datos, se deshacen las inversiones, y si hay un algoritmo de ordenación que facilite seguir la pista al proceso de deshacer inversiones, podemos aprovecharlo para contar el número de inversiones efectuado.
-Por ello buscamos un algoritmo de ordenación con un orden de eficiencia mejor que el del algoritmo obvio (cuadrático) que se pareciese lo máximo posible a nuestro problema.
+Por ello buscamos un algoritmo de ordenación con un orden de eficiencia mejor que el del algoritmo obvio (cuadrático) que se pareciese lo máximo posible a nuestro problema. \\
 
 El primer candidato fue el \textit{quicksort} por su rapidez. Sin embargo, no es adecuado para ayudarnos con esta cuestión, pues presenta un comportamiento difícil de controlar en cuanto a inversiones, dado que puede añadir inversiones en el proceso.
 
 A continuación analizamos el algoritmo \textit{heapsort} dado que nos pareció que las propiedades del \textit{heap}, un árbol parcialmente ordenado, podrían arrojar algo de luz al problema; aunque al final resultó que precisamente la estructura de árbol lo hacía un inadecuado candidato.
 
-Por último llego el turno del \textit{mergesort}. Este algoritmo divide el vector original en subvectores, combinando las soluciones. Pero tiene una forma de hacerlo más simple que el resto: tanto en el caso base (en el que se usará inserción) como en la mezcla de vectores podemos controlar el número de inversiones deshechas.
+Por último llego el turno del \textit{mergesort}. Este algoritmo divide el vector original en subvectores, combinando las soluciones. Pero tiene una forma de hacerlo más simple que el resto: tanto en el caso base (en el que se usará inserción) como en la mezcla de vectores podemos controlar el número de inversiones deshechas. \\
 
 Por debajo de un cierto umbral aplicamos el algoritmo de ordenación por inserción, un algoritmo que en cada uno de sus pasos deshace una inversión, por lo que puede usarse este mismo algoritmo para contar el número de inversiones con una variable que se incremente a cada inversión realizada. Resulta más rápido que el algoritmo trivial en este menester, pero sigue siendo $O(n^2)$, y, curiosamente, al usar optimización se invierten los papeles y el algoritmo trivial es más rápido que el algoritmo de inserción. \\
 
@@ -55,7 +55,8 @@ Mediante este razonamiento y una leve modificación del algoritmo \textit{merges
 
 Se ha hallado el umbral óptimo en el siguiente contexto:
 
-\spec{Darío}{\href{http://ark.intel.com/products/75116}{Intel\textregistered\ Core\texttrademark\ i7-4700HQ}}{2.40}{12}{Ubuntu 14.04 64 bits}{0}
+\spec{Darío}{\href{http://ark.intel.com/products/75116}{Intel\textregistered\ Core\texttrademark\ i7-4700HQ}}{2.40}{12}{Ubuntu 14.04 64 bits}{0} \\
+
 
 Para hallar el umbral se han obtenido los tiempos de ejecución del algoritmo de inserción con conteo de número de inversiones (que se usará como caso básico para el Divide y Vencerás) y los tiempos de ejecución del algoritmo Divide y Vencerás basado en \textit{mergesort} con umbral 2 (es decir, aplicando Divide y Vencerás siempre excepto con subvectores de tamaño 2), con los siguientes tiempos en segundos:
 

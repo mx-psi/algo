@@ -23,7 +23,7 @@ Las condiciones de comienzo, actualización y final del bucle son todas $O(1)$, 
 \hrulefill
 \vspace*{1cm}
 
-Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La primera de ellas realiza el algoritmo de forma recursiva mientras que la segunda de forma no recursiva. Dada la similitud de nuestro problema con la búsqueda en un vector, nos hemos inspirado en la búsqueda binaria para realizar el siguiente algoritmo:
+Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La primera de ellas realiza el algoritmo de forma recursiva mientras que la segunda lo hace de forma no recursiva. Dada la similitud de nuestro problema con la búsqueda en un vector, nos hemos inspirado en la búsqueda binaria para realizar el siguiente algoritmo:
 
 % Versión recursiva
 \lstinputlisting[firstline=60, lastline=72]{cpps/posicion.cpp}
@@ -96,7 +96,7 @@ Y las gráficas que muestran los datos:
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_todos1_g_50.pdf} \centering
 	\caption{Comparativa de tiempos en tamaños chicos para ver el umbral óptimo}\end{figure}
 
-Vimos que el punto de corte estaba cerca del 6, aunque luego cuando estuvimos probando umbrales, el óptimo apareció en el 3, como se verá justo a continuación.
+Vimos que el punto de corte estaba cerca del 6, aunque luego, cuando estuvimos probando umbrales, el óptimo apareció en el 3, como se verá justo a continuación.
 
 \subsection{Comparación de algoritmos}
 
@@ -139,11 +139,11 @@ Como poner los 5 umbrales y sus híbridas haría que la gráfica fuera un poco c
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_comparativa_umbral5.pdf} \centering
 	\caption{Tiempos y funciones híbridas de umbrales 2, 3, 4 y 5}\end{figure}
 
-En la gráfica ya podemos observar que el umbral 3 y 4 son prácticamente iguales, y los preferibles. La gráfica va aumentando conforme nos alejamos de estos dos números, como se puede ver que los umbrales 2 y 5 se encuentran un poco más arriba.
+En la gráfica ya podemos observar que los tiempos obtenidos con el umbral 3 y con el umbral 4 son prácticamente iguales, y los preferibles. La gráfica va aumentando conforme nos alejamos de estos dos números, como se puede ver que los umbrales 2 y 5 se encuentran un poco más arriba. \\
 
-Hemos conseguido bajar un cuarto el tiempo de ejecución solo jugando con el umbral, así que remarcamos la importancia de encontrar el óptimo en un algoritmo Divide y Vencerás.
+Hemos conseguido reducir en un cuarto del total el tiempo de ejecución solo jugando con el umbral, así que remarcamos la importancia de encontrar el umbral óptimo en un algoritmo Divide y Vencerás. \\
 
-Por último colocamos una gráfica 3D de cómo varían los tiempos en función del umbral y del tamaño.
+Por último presentamos una gráfica 3D de cómo varían los tiempos en función del umbral y del tamaño.
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/umbral_posicion.pdf} \centering
 	\caption{Tiempos según Umbral y Tamaño}\end{figure}
@@ -178,7 +178,7 @@ Podemos ajustar estos datos con una función representativa del orden de eficien
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_hibrida.pdf} \centering
 	\caption{Híbrida de la función recursiva}\end{figure}
 
-Aquí la función recursiva, que era logarítmica. El fit nos daba la función $f(x) = 3.92\cdot10^{-8}\cdot log(x) - 3.86\cdot 10^{-7}$, con un coeficiente de correlación del 0.95.
+Aquí la función recursiva, que era logarítmica. El fit nos daba la función $f(x) = 3.92\cdot10^{-8}\cdot \log(x) - 3.86\cdot 10^{-7}$, con un coeficiente de correlación del 0.95.
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_t_hibrida.pdf} \centering
 	\caption{Híbrida del algoritmo obvio}\end{figure}
