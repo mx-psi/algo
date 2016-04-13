@@ -2,7 +2,7 @@
 
 En esta sección se presentan algoritmos que cumplen:
 \begin{description}
-	\item[Entrada:] Vector \texttt{v} y su tamaño \texttt{n}
+	\item[Entrada:] Vector de enteros \texttt{v} y su tamaño \texttt{n}
 	\item[Salida:] Entero no negativo que indica el número de pares $i,j$ de posiciones del vector tales que $i < j$ y $v[i] > v[j]$
 \end{description}
 
@@ -16,7 +16,7 @@ El algoritmo que hemos considerado \textbf{obvio} para comprobar el número de i
 
 El contenido del bucle interno se ejecuta:
 \[\sum_{i=0}^{n-2} n-i+1 = \frac{n^2}{2}+\frac{3n}{2}-2\]
-veces, por lo que, dado que la inicialización e actualización del bucle y las condiciones comprobadas se realizan en un tiempo constante, es un algoritmo de orden de eficiencia $O(n^2)$.
+veces, por lo que, dado que la inicialización y actualización del bucle y las condiciones comprobadas se realizan en un tiempo constante, es un algoritmo de orden de eficiencia $O(n^2)$.
 
 \subsection{Inversiones y algoritmos de ordenación: Divide y Vencerás}
 
