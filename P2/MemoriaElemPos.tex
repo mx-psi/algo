@@ -85,7 +85,8 @@ Para poder estabilizar los datos y poder compararlos tuvimos que realizar una me
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
-display columns/2/.style={column name=Algoritmo DyV (rec)}
+display columns/2/.style={column name=Algoritmo DyV (rec)},
+skip rows between index={25}{50}
 %display columns/3/.style={column name=Algoritmo DyV (no rec)},
 ]{\posObvioComp}
 
@@ -131,14 +132,14 @@ skip rows between index={25}{50}
 Y las gráficas de los mismos:
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_comparativa_umbral2.pdf} \centering
-	\caption{Tiempos y funciones híbridas de umbrales 4 y 5}\end{figure}
+	\caption{Tiempos y funciones híbridas de umbrales 3 y 4}\end{figure}
 
 Como poner los 5 umbrales y sus híbridas haría que la gráfica fuera un poco caótica, hemos decidido poner una gráfica solo con las híbridas de los algoritmos, para que se vea la tendencia de los tiempos, que es lo que importa:
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_comparativa_umbral5.pdf} \centering
 	\caption{Tiempos y funciones híbridas de umbrales 2, 3, 4 y 5}\end{figure}
 
-En la gráfica ya podemos observar que el umbral 3 y 2 son prácticamente iguales, y los preferibles. La gráfica va aumentando conforme nos alejamos de estos dos números, como se puede ver que los umbrales 4 y 5 se encuentran un poco más arriba.
+En la gráfica ya podemos observar que el umbral 3 y 4 son prácticamente iguales, y los preferibles. La gráfica va aumentando conforme nos alejamos de estos dos números, como se puede ver que los umbrales 2 y 5 se encuentran un poco más arriba.
 
 Hemos conseguido bajar un cuarto el tiempo de ejecución solo jugando con el umbral, así que remarcamos la importancia de encontrar el óptimo en un algoritmo Divide y Vencerás.
 
@@ -156,29 +157,47 @@ Utilizando la librería \texttt{chrono} hemos medido los tiempos de los algoritm
 
 \vspace*{1cm}
 
-\pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvio
-\pgfplotstableread{dats/comp_umbral_posicion/posicion_1.dat}\posDyV
-%\pgfplotstableread{dats/comp_umbral_posicion/posicion_2.dat}\posDyVTwo
+\pgfplotstableread{dats/posicion_t_500.dat}\posObvio
+\pgfplotstableread{dats/posicion_1_500.dat}\posDyV
+\pgfplotstableread{dats/posicion_2_500.dat}\posDyVTwo
 \pgfplotstablecreatecol[copy column from table={\posDyV}{[index] 1}] {par1} {\posObvio}
-%\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
+\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
 
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
 display columns/2/.style={column name=Algoritmo DyV (rec)},
+display columns/3/.style={column name=Algoritmo DyV (no rec)},
 skip rows between index={25}{50}
-%display columns/3/.style={column name=Algoritmo DyV (no rec)},
 ]{\posObvio}
 
 \vspace*{1cm}
 
 Podemos ajustar estos datos con una función representativa del orden de eficiencia teórico obtenido en la sección anterior:
 
+\begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_hibrida.pdf} \centering
+	\caption{Híbrida de la función recursiva}\end{figure}
+
+Aquí la función recursiva, que era logarítmica. El fit nos daba la función $f(x) = 3.92\cdot10^{-8}\cdot log(x) - 3.86\cdot 10^{-7}$, con un coeficiente de correlación del 0.95.
+
+\begin{figure}[H]\includegraphics[width=13cm]{img/posicion_t_hibrida.pdf} \centering
+	\caption{Híbrida del algoritmo obvio}\end{figure}
+
+Por otro lado, el algoritmo obvio era lineal, así que le hicimos fit con una recta. La recta nos salía $f(x) = 2.9\cdot 10^{-9} x - 0.00112$, con un coeficiente de correlación del 0.9997.
+
+\begin{figure}[H]\includegraphics[width=13cm]{img/posicion_2_hibrida.pdf} \centering
+\caption{Hibrida del algoritmo no recursivo}\end{figure}
+
+Por último, el algoritmo no recursivo, de nuevo logarítmico.
+
 %% TODO: (¿?) Ajustes de las funciones
 
 En el siguiente gráfico podemos observar además una comparativa de las eficiencias empíricas y teóricas de los algoritmos realizados:
 
+\begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_comparativa_todos.pdf} \centering
+	\caption{Tiempos de ejecución de los tres algoritmos}\end{figure}
 
+Nótese que el rango de valores en la $x$ está colocado bajo para que pueda verse al menos una mínima diferencia entre el recursivo y el no recursivo. Si nos fijamos, el no recursivo se encuentra un poco por encima. Esto puede deberse a que el no recursivo necesita de variables y de cambios en la memoria que el recursivo ahorra en llamadas a la pila.
 
 %% TODO: (Antonio) Gráfica con todos los algoritmos
 
@@ -196,4 +215,26 @@ Este algoritmo realiza la búsqueda en el mismo orden en el que la haría el rec
 
 Por tanto, la eficiencia de este algoritmo depende drásticamente en la probabilidad de que un elemento esté en su posición y en la probabilidad de repetidos. Cuando más repetidos y menos en su posición, peor. Como en una distribución uniforme sobre el rango de elementos en los que trabajamos la probabilidad de que un elemento caiga en su posición es bastante baja, por mucho que a veces sea logarítmico, no compensa las veces que es peor que lineal.
 
-Para comparar este algoritmo con los demás hemos necesitado de nuevo realizar una media de varios miles de ejecuciones para que se pudiera ver de forma decente lo que pasaba. A continuación dejamos las tablas y gráficos que lo muestran:
+Para comparar este algoritmo con los demás hemos necesitado de nuevo realizar una media de varios miles de ejecuciones para que se pudiera ver de forma decente lo que pasaba. A continuación dejamos las tablas que lo muestran:
+
+\vspace*{1cm}
+
+\pgfplotstableread{dats/posicion_t_rep.dat}\posObvioRep
+\pgfplotstableread{dats/posicion_3_rep.dat}\posDyVRep
+\pgfplotstablecreatecol[copy column from table={\posDyVRep}{[index] 1}] {par1} {\posObvioRep}
+
+\pgfplotstabletypeset[
+display columns/0/.style={column name=Tamaño},
+display columns/1/.style={column name=Algoritmo Obvio},
+display columns/2/.style={column name=Algoritmo DyV (repetidos)},
+skip rows between index={25}{50}
+]{\posObvioRep}
+
+\vspace*{1cm}
+
+Y aquí la gráfica de los datos:
+
+\begin{figure}[H]\includegraphics[width=13cm]{img/posicion_1_comparativa_repetidos} \centering
+	\caption{Comparativa de tiempos para los algoritmos que admiten elementos repetidos}\end{figure}
+
+En la gráfica podemos ver claramente que, aunque las intenciones son copiar al logarítmico, al final el divide y vencerás gasta tanto en recorrer el vector de otra forma que el lineal le gana por casi el doble en la ejecución.
