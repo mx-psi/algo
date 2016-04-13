@@ -16,7 +16,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmo Divide y Vencerás}
-	Se aplica \textit{mergesort} modificado: se obtiene el número de inversiones sumando:
+	El número de inversiones es igual a la suma de:
 	\begin{itemize}
 		\item El número de pares invertidos en el subvector a la izquierda.
 		\item El número de pares invertidos en el subvector a la derecha.
@@ -28,8 +28,10 @@
 	
 	\pause
 	
-	Por debajo de un cierto umbral, usaremos el algoritmo de ordenación por inserción, que también puede usarse para contar el número de inversiones.
-	No podemos usar el algoritmo obvio para esto porque, al mezclar, el \textit{mergesort} supone que los subvectores se encuentran ordenados, así que deben estar ordenados.
+	Por debajo de un cierto umbral usaremos la ordenación por inserción, que también puede usarse para contar el número de inversiones.
+	
+	\textbf{Eficiencia:} $O(n \cdot \log(n))$.
+	%No podemos usar el algoritmo obvio para esto porque, al mezclar, el \textit{mergesort} supone que los subvectores se encuentran ordenados, así que deben estar ordenados.
 \end{frame}
 
 % TODO: ¿Códigos? (son larguillos y divididos en trozos) ¿Presentar también inserción modificado? ¿Es necesario justificar que es O(n·log(n))?
@@ -78,4 +80,97 @@
 	\end{tikzpicture}
 \end{frame}
 
-% TODO: ¿Comentar algo del umbral? Tablas. Gráficas. Más tablas. Más gráficas.
+\subsection{Determinación del umbral}
+
+\begin{frame}[fragile]{Umbral (tablas)}
+	\pgfplotstableset{
+		row predicate/.code={}
+	}
+	\pgfplotstableread{dats/preferencias_i.dat}\prefIns
+	\pgfplotstableread{dats/preferencias_d_sinumbral.dat}\prefDVt
+	\pgfplotstablecreatecol[copy column from table={\prefDVt}{[index] 1}] {par1} {\prefIns}
+	
+	\pgfplotstabletypeset[
+	display columns/0/.style={column name=Tamaño},
+	display columns/1/.style={column name=Inserción},
+	display columns/2/.style={column name=Mergesort},
+	skip rows between index={14}{20}
+	]{\prefIns}
+\end{frame}
+
+\begin{frame}{Umbral (gráficas)}
+	\includegraphics[width=\textwidth]{img/umbral_preferencias.pdf} \centering
+\end{frame}
+
+% TODO: ¿Poner cosas derivadas de cómo se obtiene el umbral?
+
+\subsection{Comparación de algoritmos}
+
+\begin{frame}[fragile]{Comparación (tablas)}
+	\pgfplotstableset{
+		row predicate/.code={}
+	}
+	\pgfplotstableread{dats/preferencias_i.dat}\prefIns
+	\pgfplotstableread{dats/preferencias_d_sinumbral.dat}\prefDVt
+	\pgfplotstableread{dats/preferencias_d.dat}\prefDVf
+	\pgfplotstableread{dats/preferencias_t.dat}\prefObv
+	\pgfplotstablecreatecol[copy column from table={\prefDVt}{[index] 1}] {par1} {\prefDVf}
+	\pgfplotstablecreatecol[copy column from table={\prefIns}{[index] 1}] {par2} {\prefDVf}
+	\pgfplotstablecreatecol[copy column from table={\prefObv}{[index] 1}] {par3} {\prefDVf}
+	
+	\resizebox{\linewidth}{!}{
+		\pgfplotstabletypeset[
+		display columns/0/.style={column name=Tamaño},
+		display columns/1/.style={column name=\ \ Mergesort umbral $50$\ \ },
+		display columns/2/.style={column name=\ \ Mergesort umbral $2$\ \ },
+		display columns/3/.style={column name=\ \ \ \ Inserción\ \ \ \ },
+		display columns/4/.style={column name=\ Algoritmo obvio\ },
+		]{\prefDVf}
+	}
+\end{frame}
+
+\begin{frame}{Comparación (gráficas)}
+	\includegraphics[width=\textwidth]{img/comparativa_preferencias.pdf} \centering
+\end{frame}
+
+\begin{frame}[fragile]{Comparación (tablas)}
+	\pgfplotstableset{
+		row predicate/.code={
+			\pgfmathparse{int(mod(#1,2))}
+			\ifnum\pgfmathresult=1\relax
+			\else\pgfplotstableuserowfalse\fi
+		}
+	}
+	\pgfplotstableread{dats/comp_umbral/preferencias_d_umbral.dat}\prefDVu
+	\pgfplotstableread{dats/comp_umbral/preferencias_d_sinumbral.dat}\prefDVs
+	\pgfplotstablecreatecol[copy column from table={\prefDVs}{[index] 1}] {par1} {\prefDVu}
+	{\footnotesize
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\pgfplotstabletypeset[
+			display columns/0/.style={column name=Tamaño},
+			display columns/1/.style={column name=Umbral $50$},
+			display columns/2/.style={column name=Umbral $2$},
+			skip rows between index={0}{2},
+			skip rows between index={26}{50}
+			]{\prefDVu}
+		\end{column}
+		\hspace{-0.4cm}
+		\begin{column}{0.4\textwidth}
+			\pgfplotstabletypeset[
+			display columns/0/.style={column name=Tamaño},
+			display columns/1/.style={column name=Umbral $50$},
+			display columns/2/.style={column name=Umbral $2$},
+			skip rows between index={0}{26}
+			]{\prefDVu}
+		\end{column}
+	\end{columns}
+	}
+	
+	\pause
+	El algoritmo trivial tarda aproximadamente \textbf{6 segundos} en terminar para un vector de $50\ 000$ componentes.
+\end{frame}
+
+\begin{frame}{Comparación (gráficas)}
+	\includegraphics[width=\textwidth]{img/comparativa_preferencias_grande.pdf} \centering
+\end{frame}
