@@ -20,7 +20,7 @@
    @return Posición del elemento si está, `-1` en otro caso
    @note Versión obvia (búsqueda secuencial)
 */
-int posicion_obvia(const int v[], int n){
+int pos_obvia(const int v[], int n){
  for(int i = 0; i < n; i++)
   if(v[i] == i)
    return i;
@@ -38,7 +38,7 @@ int posicion_obvia(const int v[], int n){
    @return Posición del elemento si está, `-1` en otro caso
    @note Versión obvia (búsqueda secuencial)
 */
-int posicion_obvia_ajustada(const int v[], int n, int ajuste = 0){
+int pos_obvia_ajustada(const int v[], int n, int ajuste = 0){
   for(int i = 0; i < n; i++)
     if(v[i]-ajuste == i)
       return i;
@@ -57,24 +57,22 @@ int posicion_obvia_ajustada(const int v[], int n, int ajuste = 0){
   Realmente, se puede llamar como las demás, pero no como parámetro en "ejecutar" y "ejecutar_media"
 */
 
-int posicion_dyv_rec(const int v[], int n, int ajuste = 0){
-  if(n <= 3) // Caso base
-    return posicion_obvia_ajustada(v, n, ajuste);
+int pos_dyv_rec(const int v[], int n, int ajuste = 0){
+  if(n <= 3)
+    return pos_obvia_ajustada(v, n, ajuste);
 
   int medio = n/2;
-
-  if(medio == v[medio]-ajuste) // Encontrado
+  if(medio == v[medio]-ajuste)
     return medio;
-  else if(medio < v[medio]-ajuste) // Lado izquierdo
-    return posicion_dyv_rec(v, n/2, ajuste);
+  else if(medio < v[medio]-ajuste)
+    return pos_dyv_rec(v, n/2, ajuste);
 
-  // Lado derecho
-  int pos_der = posicion_dyv_rec(v+medio+1, (n-1)/2, medio+1+ajuste);
-  return pos_der != -1 ? pos_der+medio+1 : -1;
+  int pos_d = pos_dyv_rec(v+medio+1, (n-1)/2, medio+1+ajuste);
+  return pos_d != -1 ? pos_d+medio+1 : -1;
 }
 
-int posicion_dyv1(const int v[], int n){
-  return posicion_dyv_rec(v,n);
+int pos_dyv1(const int v[], int n){
+  return pos_dyv_rec(v,n);
 }
 
  /**
@@ -86,7 +84,7 @@ int posicion_dyv1(const int v[], int n){
   @return Posición del elemento si está, `-1` en otro caso
   @note Versión divide y vencerás 2 (no recursiva)
 */
-int posicion_dyv2(const int v[], int n){
+int pos_dyv2(const int v[], int n){
 	int tope_min = 0;
 	int i = (n-1)/2;
 	int tope_max = n-1;
@@ -94,7 +92,7 @@ int posicion_dyv2(const int v[], int n){
 
 	if(i == v[i])
 		encontrado = true;
-		
+
 	while( (!encontrado) && (tope_max >= tope_min) ){
 		if(i == v[i])
 			encontrado = true;
@@ -107,11 +105,11 @@ int posicion_dyv2(const int v[], int n){
 			i = (tope_max + tope_min)/2;
 		}
 	}
-	
+
 	if(encontrado)
 		return i;
 	else
-		return -1;	
+		return -1;
 }
 
 /**
@@ -123,34 +121,34 @@ int posicion_dyv2(const int v[], int n){
  @return Posición del elemento si está, `-1` en otro caso
  @note Versión para el caso en el que v admite repetidos
 */
-int posicion_dyv_rec3(const int v[], int n, int ajuste = 0){
+int pos_dyv_rec3(const int v[], int n, int ajuste = 0){
   if(n <= 2)
-    return posicion_obvia_ajustada(v, n, ajuste);
+    return pos_obvia_ajustada(v, n, ajuste);
 
  int medio = n/2;
 
  if(medio == v[medio]-ajuste)
     return medio;
  else if(medio < v[medio]-ajuste){
-    int izquierda = posicion_dyv_rec3(v,n/2,ajuste);
+    int izquierda = pos_dyv_rec3(v,n/2,ajuste);
     if(izquierda != -1)
       return izquierda;
     else{
-      int pos_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
+      int pos_der = pos_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
       return pos_der != -1 ? pos_der+medio+1 : -1;
    }
  }
  else{
-   int pos_der = posicion_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
+   int pos_der = pos_dyv_rec3(v+medio+1,(n-1)/2,ajuste+medio+1);
    if(pos_der != -1)
      return pos_der+medio+1;
    else
-     return posicion_dyv_rec3(v,n/2,ajuste);
+     return pos_dyv_rec3(v,n/2,ajuste);
  }
 }
 
-int posicion_dyv3(const int v[], int n){
-  return posicion_dyv_rec3(v,n);
+int pos_dyv3(const int v[], int n){
+  return pos_dyv_rec3(v,n);
 }
 
  int ejecutar(int (*f)(const int*, int), int n) {
@@ -211,11 +209,11 @@ for(int k = 0; k<MAX2; k++){
  int n = atoi(argv[1]);
 
  if (argv[2][0] == 't')
-    return ejecutar_media(posicion_obvia, n, MAX);
+    return ejecutar_media(pos_obvia, n, MAX);
  else if (argv[2][0] == '1')
-    return ejecutar_media(posicion_dyv1, n, MAX);
+    return ejecutar_media(pos_dyv1, n, MAX);
  else if (argv[2][0] == '2')
-    return ejecutar_media(posicion_dyv2, n, MAX);
+    return ejecutar_media(pos_dyv2, n, MAX);
   else
-    return ejecutar_media(posicion_dyv3, n, MAX);
+    return ejecutar_media(pos_dyv3, n, MAX);
  }

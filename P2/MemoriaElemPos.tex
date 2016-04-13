@@ -26,7 +26,7 @@ Las condiciones de comienzo, actualización y final del bucle son todas $O(1)$, 
 Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La primera de ellas realiza el algoritmo de forma recursiva mientras que la segunda de forma no recursiva. Dada la similitud de nuestro problema con la búsqueda en un vector, nos hemos inspirado en la búsqueda binaria para realizar el siguiente algoritmo:
 
 % Versión recursiva
-\lstinputlisting[firstline=60, lastline=77]{cpps/posicion.cpp}
+\lstinputlisting[firstline=60, lastline=72]{cpps/posicion.cpp}
 
 El parámetro \texttt{ajuste} nos sirve para ajustar la comprobación de la posición en función de la posición en la que estemos en el vector.
 El caso base utiliza el algoritmo obvio ajustado (la condición que se comprueba es en este caso $v[i]-ajuste == i$), y se utiliza para los vectores de tamaño $\leq 3$, (el umbral encontrado en la siguiente sección).
@@ -37,7 +37,7 @@ Distinguimos 3 casos:
 \begin{itemize}
   \item El elemento medio está en su posición. En este caso devolvemos este elemento.
   \item $m < v[m]$ (ajustando). En este caso nos basta comprobar el lado izquierdo del vector, ya que $\forall k > 0, v[m + k] \geq v[m] + k > m + k$.
-  \item $m > v[m]$ (ajustando). En este caso basta comprobar el lado derecho por un argumento similar, ya que ya que $\forall k > 0, v[m - k] \leq v[m] - k < m - k$.
+  \item $m > v[m]$ (ajustando). En este caso basta comprobar el lado derecho por un argumento similar, ya que $\forall k > 0, v[m - k] \leq v[m] - k < m - k$.
 \end{itemize}
 
 En caso de que no encontremos el elemento en lado adecuado devolvemos $-1$, que nos indica que no existe ningún elemento en su posición.
@@ -60,10 +60,9 @@ La versión no recursiva:
 \lstinputlisting[firstline=89, lastline=115]{cpps/posicion.cpp}
 
 
-Es la misma idea que la del algoritmo recursivo, dividiendo el vector en trozos más pequeños, sólo que para hacerlo iterativamente necesitamos un bucle $while$ y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector, llamados $tope\_min$ y $tope\_max$.  Si encontramos un número que coincida con su posición, devolvemos el número. Si no lo encontramos (muy necesaria la comprobación $tope\_max$ $>=$ $tope\_min$), se devuelve -1.
+Es la misma idea que la del algoritmo recursivo, dividiendo el vector en trozos más pequeños, sólo que para hacerlo iterativamente necesitamos un bucle \texttt{while} y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector, llamados \texttt{tope_min} y \texttt{tope_max}.  Si encontramos un número que coincida con su posición, devolvemos el número. Si no lo encontramos (muy necesaria la comprobación $\texttt{tope_max} \geq \texttt{tope_min}$), se devuelve -1.
 
-
-Al ser la misma idea que el algoritmo recursivo, pero de forma iterativa, la $eficiencia$ teórica es la misma. Es decir, es  $\mathbf{O(\log(n))}$.
+Al ser la misma idea que el algoritmo recursivo, pero de forma iterativa, la \texbf{eficiencia} teórica es la misma. Es decir, es  $\mathbf{O(\log(n))}$.
 
 \subsection{Determinación del umbral}
 
