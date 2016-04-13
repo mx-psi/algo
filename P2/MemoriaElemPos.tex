@@ -57,7 +57,7 @@ Sustituyendo $n = 2^k$ obtenemos que el orden de eficiencia de este algoritmo es
 La versión no recursiva:
 
 % Versión no recursiva
-\lstinputlisting[firstline=89, lastline=115]{cpps/posicion.cpp}
+\lstinputlisting[firstline=87, lastline=101]{cpps/posicion.cpp}
 
 
 Es la misma idea que la del algoritmo recursivo, dividiendo el vector en trozos más pequeños, sólo que para hacerlo iterativamente necesitamos un bucle \texttt{while} y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector, llamados \texttt{tope_min} y \texttt{tope_max}.  Si encontramos un número que coincida con su posición, devolvemos el número. Si no lo encontramos (muy necesaria la comprobación $\texttt{tope_max} \geq \texttt{tope_min}$), se devuelve -1.
@@ -190,7 +190,7 @@ Consideremos por ejemplo el caso del vector $v = [1,2,2]$. $1 <v[1]$, por lo que
 
 Podemos plantear otro algoritmo de carácter similar para encontrar un elemento en su posición en estos casos:
 
-\lstinputlisting[firstline=126, lastline=150]{cpps/posicion.cpp}
+\lstinputlisting[firstline=111, lastline=135]{cpps/posicion.cpp}
 
 Este algoritmo realiza la búsqueda en el mismo orden en el que la haría el recursivo, solo que si no encuentra el número, hace también la otra mitad del vector. Este comportamiento provoca que se comporte casi logarítmico cuando hay un elemento en su posición, y peor que lineal cuando no se encuentra.
 

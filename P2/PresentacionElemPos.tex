@@ -17,8 +17,7 @@ Recorre cada elemento y comprueba si $v[i] = i$:
 
 \begin{frame}[fragile]{Algoritmo recursivo}
 \lstinputlisting[firstline=60, lastline=72]{cpps/posicion.cpp}
-\note{
-\texttt{ajuste}: ajusta la comprobación en función de la posición.
+\note{\texttt{ajuste}: ajusta la comprobación en función de la posición.
 El caso base utiliza el algoritmo obvio ajustado.}
 \end{frame}
 
@@ -40,8 +39,8 @@ O(1) & \mbox{si } n \leq 3 \end{cases}\]
 \end{frame}
 
 \begin{frame}[fragile]{Versión no recursiva}
-\lstinputlisting[firstline=89, lastline=115]{cpps/posicion.cpp}
-\textbf{Eficiencia:} $\mathbf{O(\log(n))}$
+\lstinputlisting[firstline=87, lastline=101]{cpps/posicion.cpp}
+\textbf{Eficiencia:} $O(\log(n))$
 \end{frame}
 
 \subsection{Determinación del umbral}
@@ -125,9 +124,11 @@ En el caso de que tengamos elementos repetidos el razonamiento realizado para ju
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmo}
-\lstinputlisting[firstline=126, lastline=150]{cpps/posicion.cpp}
+\resizebox{0.6\linewidth}{!}{
+\lstinputlisting[firstline=111, lastline=135]{cpps/posicion.cpp}}
+\note{
 Casi logarítmico cuando hay un elemento en su posición, y peor que lineal cuando no se encuentra.
-\note{Como en una distribución uniforme sobre el rango de elementos en los que trabajamos la probabilidad de que un elemento caiga en su posición es bastante baja, por mucho que a veces sea logarítmico, no compensa las veces que es peor que lineal.}
+Como en una distribución uniforme sobre el rango de elementos en los que trabajamos la probabilidad de que un elemento caiga en su posición es bastante baja, por mucho que a veces sea logarítmico, no compensa las veces que es peor que lineal.}
 \end{frame}
 
 \begin{frame}{Comparación (tablas)}
