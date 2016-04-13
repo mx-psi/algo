@@ -1,1 +1,81 @@
 \section{Comparación de preferencias}
+
+\begin{frame}{Comparación de preferencias}
+	\begin{description}
+		\item[Entrada:] Vector de enteros \texttt{v} y su tamaño \texttt{n}
+		\item[Salida:] Entero no negativo que indica el número de pares $i,j$ de posiciones del vector tales que $i < j$ y $v[i] > v[j]$
+	\end{description}
+\end{frame}
+
+\subsection{Algoritmos}
+
+\begin{frame}[fragile]{Algoritmo obvio}
+	Recorre cada par de elementos $i,j : i < j$ y comprueba si $v[i] > v[j]$, sumando a un contador en tal caso:
+	\lstinputlisting[firstline=24, lastline=32]{cpps/preferencias.cpp}
+	\textbf{Eficiencia:} $O(n^2)$.
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo Divide y Vencerás}
+	Se aplica \textit{mergesort} modificado: se obtiene el número de inversiones sumando:
+	\begin{itemize}
+		\item El número de pares invertidos en el subvector a la izquierda.
+		\item El número de pares invertidos en el subvector a la derecha.
+		\item El número de pares invertidos de subvectores distintos.
+	\end{itemize}
+	
+	\pause
+	Usando \textit{mergesort}, el tercer sumando se reduce a sumar cuántos elementos del primer subvector están pendientes de ser insertados en la mezcla cada vez que se inserta un elemento del segundo subvector.
+	
+	\pause
+	
+	Por debajo de un cierto umbral, usaremos el algoritmo de ordenación por inserción, que también puede usarse para contar el número de inversiones.
+	No podemos usar el algoritmo obvio para esto porque, al mezclar, el \textit{mergesort} supone que los subvectores se encuentran ordenados, así que deben estar ordenados.
+\end{frame}
+
+% TODO: ¿Códigos? (son larguillos y divididos en trozos) ¿Presentar también inserción modificado? ¿Es necesario justificar que es O(n·log(n))?
+
+\begin{frame}[fragile]{Ejemplo}
+	\begin{tikzpicture}
+		\node (T0) at (0,0) {$[5,2,3,4,1]_?$};
+		\pause
+		\node (Uu) at (-1,-1) {$[5,2,3]_?$};
+		\node (Vu) at (1,-1) {$[4,1]_?$};
+		\draw [->] (T0) -- (Uu);
+		\draw [->] (T0) -- (Vu);
+		\pause
+		\node (Uo) at (-1,-2) {$[2,3,5]_2$};
+		\node (Vo) at (1,-2) {$[1,4]_1$};
+		\draw [->] (Uu) -- (Uo);
+		\draw [->] (Vu) -- (Vo);
+		\pause
+		\node (T1) at (-3,-2) {$[\ ]_{2+1=3}$};
+		\pause
+		\node (T1) at (-3,-3) {$[1]_{3+3=6}$};
+		\draw [->] (Vo) -- (T1);
+		\node (Uo) at (-1,-3) {$[2,3,5]$};
+		\node (Vo) at (1,-3) {$[4]$};
+		\pause
+		\node (T1) at (-3,-4) {$[1,2]_{6}$};
+		\draw [->] (Uo) -- (T1);
+		\node (Uo) at (-1,-4) {$[3,5]$};
+		\node (Vo) at (1,-4) {$[4]$};
+		\pause
+		\node (T1) at (-3,-5) {$[1,2,3]_{6}$};
+		\draw [->] (Uo) -- (T1);
+		\node (Uo) at (-1,-5) {$[5]$};
+		\node (Vo) at (1,-5) {$[4]$};
+		\pause
+		\node (T1) at (-3,-6) {$[1,2,3,4]_{6+1=7}$};
+		\draw [->] (Vo) -- (T1);
+		\node (Uo) at (-1,-6) {$[5]$};
+		\node (Vo) at (1,-6) {$[\ ]$};
+		\pause
+		\node (T1) at (-3,-7) {$[1,2,3,4,5]_{7}$};
+		\draw [->] (Uo) -- (T1);
+		\pause
+		\node (R) at (0, -7) {Inversiones: $7$};
+		\draw [->] (T1) -- (R);
+	\end{tikzpicture}
+\end{frame}
+
+% TODO: ¿Comentar algo del umbral? Tablas. Gráficas. Más tablas. Más gráficas.
