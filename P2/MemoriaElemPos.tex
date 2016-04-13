@@ -6,7 +6,7 @@ La implementación de todos los algoritmos realizados es de la forma:
  \item[Salida:] Entero no negativo que indica el $i$ tal que $v[i]=i$ en caso de que exista o $-1$ en otro caso.
 \end{description}
 
-Es decir, estos algoritmos deberán encontrar un elemento en su posición o deducir que no existe tal elemento. En el caso del algoritmo recursivo necesitamos un parámetro adicional para pasar información adicional, pero utilizamos una función \textit{wrapper} (una función que simplemente llama a otra función) que incializa este parámetro adecuadamente.
+Es decir, estos algoritmos deberán encontrar un elemento en su posición o deducir que no existe tal elemento. En el caso del algoritmo recursivo necesitamos un parámetro adicional para pasar información adicional, pero utilizamos una función \textit{wrapper} (una función que simplemente llama a otra función) que inicializa este parámetro adecuadamente.
 
 \subsection{Descripción de los algoritmos y eficiencia teórica}
 
@@ -19,9 +19,9 @@ condición deseada ($v[i] = i$):
 
 Las condiciones de comienzo, actualización y final del bucle son todas $O(1)$, así como el código del interior del bucle. El bucle se ejecutará un máximo de \texttt{n} veces, por lo que es claro que la eficiencia de este algoritmo es de $\mathbf{O(n)}$.
 
-\vspace*{1cm}
-\hrulefill
-\vspace*{1cm}
+\vspace*{0.3cm}
+\noindent\hrulefill
+\vspace*{0.3cm}
 
 Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La primera de ellas realiza el algoritmo de forma recursiva mientras que la segunda lo hace de forma no recursiva. Dada la similitud de nuestro problema con la búsqueda en un vector, nos hemos inspirado en la búsqueda binaria para realizar el siguiente algoritmo:
 
@@ -29,15 +29,17 @@ Para el algoritmo \textbf{divide y vencerás} hemos realizado dos versiones. La 
 \lstinputlisting[firstline=60, lastline=72]{cpps/posicion.cpp}
 
 El parámetro \texttt{ajuste} nos sirve para ajustar la comprobación de la posición en función de la posición en la que estemos en el vector.
-El caso base utiliza el algoritmo obvio ajustado (la condición que se comprueba es en este caso $v[i]-ajuste == i$), y se utiliza para los vectores de tamaño $\leq 3$, (el umbral encontrado en la siguiente sección).
+El caso base utiliza el algoritmo obvio ajustado (la condición que se comprueba es en este caso $v[i]-\texttt{ajuste} == i$), y se utiliza para los vectores de tamaño $\leq 3$, (el umbral encontrado en la siguiente sección).
 
-Si el tamaño del vector es mayor que 3, comprobamos (ajustando) el elemento en el medio.
+\newpage
+
+Si el tamaño del vector es mayor que 3, comprobamos el elemento en el medio ($m$).
 Distinguimos 3 casos:
 
 \begin{itemize}
   \item El elemento medio está en su posición. En este caso devolvemos este elemento.
-  \item $m < v[m]$ (ajustando). En este caso nos basta comprobar el lado izquierdo del vector, ya que $\forall k > 0, v[m + k] \geq v[m] + k > m + k$.
-  \item $m > v[m]$ (ajustando). En este caso basta comprobar el lado derecho por un argumento similar, ya que $\forall k > 0, v[m - k] \leq v[m] - k < m - k$.
+  \item $m < v[m]$ (ajustando). En este caso nos basta comprobar el lado izquierdo del vector, ya que $v[m + k] \geq v[m] + k > m + k$.
+  \item $m > v[m]$ (ajustando). En este caso basta comprobar el lado derecho por un argumento similar, ya que $v[m - k] \leq v[m] - k < m - k$.
 \end{itemize}
 
 En caso de que no encontremos el elemento en lado adecuado devolvemos $-1$, que nos indica que no existe ningún elemento en su posición.
@@ -50,25 +52,24 @@ O(1) & \mbox{si } n \leq 3 \end{cases}\]
 
 Sustituyendo $n = 2^k$ obtenemos que el orden de eficiencia de este algoritmo es $\mathbf{O(\log(n))}$.
 
-\vspace*{1cm}
-\hrulefill
-\vspace*{1cm}
+\vspace*{0.3cm}
+\noindent\hrulefill
+\vspace*{0.3cm}
 
 La versión no recursiva:
 
 % Versión no recursiva
 \lstinputlisting[firstline=87, lastline=101]{cpps/posicion.cpp}
 
-
-Es la misma idea que la del algoritmo recursivo, dividiendo el vector en trozos más pequeños, sólo que para hacerlo iterativamente necesitamos un bucle \texttt{while} y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector, llamados \texttt{min} y \texttt{max}.  Si encontramos un número que coincida con su posición, devolvemos el número. Si no lo encontramos (muy necesaria la comprobación \texttt{max} $\geq$ \texttt{min}), se devuelve -1.
+Parte de la misma idea que el algoritmo recursivo, dividiendo el vector en trozos más pequeños. Para hacerlo iterativamente necesitamos un bucle \texttt{while} y unos límites que controlen las dimensiones de los trozos con los que nos vamos quedando del vector (\texttt{min} y \texttt{max}). Si encontramos un elemento en su posición lo devolvemos. Si no lo encontramos (muy necesaria la comprobación \texttt{max} $\geq$ \texttt{min}), se devuelve -1.
 
 Al ser la misma idea que el algoritmo recursivo, pero de forma iterativa, la \textbf{eficiencia} teórica es la misma. Es decir, es  $\mathbf{O(\log(n))}$.
+
+\newpage
 
 \subsection{Determinación del umbral}
 
 En el caso del algoritmo divide y vencerás hemos hecho un estudio del mismo para determinar el umbral para el caso base (para el cual utilizamos el algoritmo obvio) que resulta más eficiente.
-
-%% TODO: (Antonio) Estudio del umbral
 
 Hemos buscado el punto de corte entre ambos algoritmos, para ver cuándo el algoritmo obvio empieza a ser menos eficiente que el divide y vencerás. Para sacar los datos del lineal no hemos tenido problemas, pero sí surgieron errores cuando queríamos compararlo con el divide y vencerás, que tardaba demasiado poco, y cualquier mínimo error movía la gráfica lo suficiente para que no se pudiera determinar nada.
 
@@ -78,19 +79,16 @@ Para poder estabilizar los datos y poder compararlos tuvimos que realizar una me
 
 \pgfplotstableread{dats/posicion_t_50.dat}\posObvioComp
 \pgfplotstableread{dats/posicion_1_50.dat}\posDyVComp
-%\pgfplotstableread{dats/comp_umbral_posicion/posicion_2.dat}\posDyVTwo
 \pgfplotstablecreatecol[copy column from table={\posDyVComp}{[index] 1}] {par1} {\posObvioComp}
-%\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
-
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
 display columns/2/.style={column name=Algoritmo DyV (rec)},
-skip rows between index={25}{50}
-%display columns/3/.style={column name=Algoritmo DyV (no rec)},
+skip rows between index={30}{50}
 ]{\posObvioComp}
 
-\vspace*{1cm}
+
+\newpage
 
 Y las gráficas que muestran los datos:
 \begin{figure}[H]\includegraphics[width=13cm]{img/posicion_todos1_g_50.pdf} \centering
@@ -127,7 +125,7 @@ display columns/6/.style={column name=Umbral 5},
 skip rows between index={25}{50}
 ]{\posObvioCompUmbral}
 
-\vspace*{1cm}
+\newpage
 
 Y las gráficas de los mismos:
 
@@ -143,10 +141,14 @@ En la gráfica ya podemos observar que los tiempos obtenidos con el umbral 3 y c
 
 Hemos conseguido reducir en un cuarto del total el tiempo de ejecución solo jugando con el umbral, así que remarcamos la importancia de encontrar el umbral óptimo en un algoritmo Divide y Vencerás. \\
 
+\newpage
+
 Por último presentamos una gráfica 3D de cómo varían los tiempos en función del umbral y del tamaño.
 
 \begin{figure}[H]\includegraphics[width=13cm]{img/umbral_posicion.pdf} \centering
 	\caption{Tiempos según Umbral y Tamaño}\end{figure}
+
+\newpage
 
 \subsection{Eficiencia empírica de los algoritmos}
 
@@ -171,7 +173,7 @@ display columns/3/.style={column name=Algoritmo DyV (no rec)},
 skip rows between index={25}{50}
 ]{\posObvio}
 
-\vspace*{1cm}
+\newpage
 
 Podemos ajustar estos datos con una función representativa del orden de eficiencia teórico obtenido en la sección anterior:
 
@@ -199,7 +201,7 @@ En el siguiente gráfico podemos observar además una comparativa de las eficien
 
 Nótese que el rango de valores en la $x$ está colocado bajo para que pueda verse al menos una mínima diferencia entre el recursivo y el no recursivo. Si nos fijamos, el no recursivo se encuentra un poco por encima. Esto puede deberse a que el no recursivo necesita de variables y de cambios en la memoria que el recursivo ahorra en llamadas a la pila.
 
-%% TODO: (Antonio) Gráfica con todos los algoritmos
+\newpage
 
 \subsection{Vectores con elementos repetidos}
 
@@ -217,8 +219,6 @@ Por tanto, la eficiencia de este algoritmo depende drásticamente en la probabil
 
 Para comparar este algoritmo con los demás hemos necesitado de nuevo realizar una media de varios miles de ejecuciones para que se pudiera ver de forma decente lo que pasaba. A continuación dejamos las tablas que lo muestran:
 
-\vspace*{1cm}
-
 \pgfplotstableread{dats/posicion_t_rep.dat}\posObvioRep
 \pgfplotstableread{dats/posicion_3_rep.dat}\posDyVRep
 \pgfplotstablecreatecol[copy column from table={\posDyVRep}{[index] 1}] {par1} {\posObvioRep}
@@ -230,7 +230,7 @@ display columns/2/.style={column name=Algoritmo DyV (repetidos)},
 skip rows between index={25}{50}
 ]{\posObvioRep}
 
-\vspace*{1cm}
+\newpage
 
 Y aquí la gráfica de los datos:
 

@@ -93,7 +93,7 @@ int pos_dyv2(const int v[], int n){
       return med;
     else if(med < v[med])
       max = med-1;
-    else if(med > v[med])
+    else
       min = med+1;
   }
   return -1;
