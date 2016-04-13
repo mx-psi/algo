@@ -43,9 +43,23 @@ O(1) & \mbox{si } n \leq 3 \end{cases}\]
 \textbf{Eficiencia:} $O(\log(n))$
 \end{frame}
 
+
+\begin{frame}{Comparativa (gráficas)}
+	\includegraphics[width=\textwidth]{img/posicion_1_comparativa_todos.pdf}
+\end{frame}
+
+
 \subsection{Determinación del umbral}
 
 %% TODO: (Antonio) Estudio del umbral ¿algo más?
+
+\begin{frame}{Umbral, acercamiento}
+	Punto de corte de los dos algoritmos:
+	
+	
+	\includegraphics[width=\textwidth]{img/posicion_todos1_g_50.pdf}
+	
+\end{frame}
 
 \begin{frame}[fragile]{Umbral (tablas)}
 \pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvioCompUmbral
@@ -89,17 +103,17 @@ display columns/6/.style={column name=Umbral 5},
 \subsection{Eficiencia empírica de los algoritmos}
 
 \begin{frame}[fragile]{Eficiencia empírica (tabla)}
-\pgfplotstableread{dats/comp_umbral_posicion/posicion_t.dat}\posObvio
-\pgfplotstableread{dats/comp_umbral_posicion/posicion_1.dat}\posDyV
-%\pgfplotstableread{dats/comp_umbral_posicion/posicion_2.dat}\posDyVTwo
+\pgfplotstableread{dats/posicion_t_500.dat}\posObvio
+\pgfplotstableread{dats/posicion_1_500.dat}\posDyV
+\pgfplotstableread{dats/posicion_2_500.dat}\posDyVTwo
 \pgfplotstablecreatecol[copy column from table={\posDyV}{[index] 1}] {par1} {\posObvio}
-%\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
+\pgfplotstablecreatecol[copy column from table={\posDyVTwo}{[index] 1}] {par2} {\posObvio}
 \resizebox{\linewidth}{!}{
 \pgfplotstabletypeset[
 display columns/0/.style={column name=Tamaño},
 display columns/1/.style={column name=Algoritmo Obvio},
 display columns/2/.style={column name=Algoritmo DyV (rec)},
-%display columns/3/.style={column name=Algoritmo DyV (no rec)},
+display columns/3/.style={column name=Algoritmo DyV (no rec)},
 ]{\posObvio}
 }
 
@@ -107,20 +121,50 @@ display columns/2/.style={column name=Algoritmo DyV (rec)},
 \end{frame}
 
 \begin{frame}{Ajuste de las funciones (tabla)}
-%% TODO: (¿?) Ajustes de las funciones
+\noindent\adjustbox{max width=\textwidth}{
+	\begin{tabular}{|l|l|c|}
+		\hline
+		Algoritmos & Funciones híbridas & Coeficiente de correlación \\
+		\hline
+		\hline
+		Obvio & $2.9\cdot10^{-9}x-0.00112$ & $0.9997$ \\
+		\hline
+		Recursivo & $3.92\cdot10^{-8}log(x)-1.94\cdot10^{-7}$ & $0.9621$ \\
+		\hline
+		No recursivo & $2.28\cdot10^{-8}log(x)-1.33\cdot10^{-7}$ & $0.9867$ \\
+		\hline
+		
+	\end{tabular}
+}
+	
 \end{frame}
 
-\begin{frame}{Ajuste de las funciones (tabla)}
-%% TODO: (Antonio) Gráfica con todos los algoritmos
+\begin{frame}{Ajuste de las funciones (gráfica)}
+\includegraphics[width=\textwidth]{img/posicion_t_hibrida.pdf}
+\end{frame}
+
+\begin{frame}{Ajuste de las funciones (gráfica)}
+	\includegraphics[width=\textwidth]{img/posicion_1_hibrida.pdf}
+\end{frame}
+
+\begin{frame}{Ajuste de las funciones (gráfica)}
+	\includegraphics[width=\textwidth]{img/posicion_2_hibrida.pdf}
 \end{frame}
 
 \subsection{Vectores con elementos repetidos}
 
+\begin{frame}{El algoritmo falla}
 En el caso de que tengamos elementos repetidos el razonamiento realizado para justificar el algoritmo divide y vencerás no es válido, y es sencillo encontrar ejemplos de vectores con elementos en su posición para los cuales nuestro algoritmo no funciona.
+\end{frame}
 
 \begin{frame}{El algoritmo falla}
-%% TODO: Poner bonico
+Ejemplo:
+$$Posiciones \rightarrow 0-1-2$$
+$$Vector\hspace{0.2cm} \rightarrow \hspace{0.32cm} [1,\hspace{0.23cm}2,\hspace{0.23cm}2]$$
 \note{$v = [1,2,2]$. $1 <v[1]$, por lo que nuestro algoritmo comprobaría sólo el lado izquierdo ($[1]$) y no encontraría el elemento en la posición 2, que está en su posición.}
+
+\pause
+Reutilizaremos la estrategia de antes para el nuevo algoritmo.
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmo}
@@ -132,9 +176,18 @@ Como en una distribución uniforme sobre el rango de elementos en los que trabaj
 \end{frame}
 
 \begin{frame}{Comparación (tablas)}
-  %%TODO: Comparación
+\pgfplotstableread{dats/posicion_t_rep.dat}\posObvioRep
+\pgfplotstableread{dats/posicion_3_rep.dat}\posDyVRep
+\pgfplotstablecreatecol[copy column from table={\posDyVRep}{[index] 1}] {par1} {\posObvioRep}
+\resizebox{\linewidth}{!}{
+	\pgfplotstabletypeset[
+	display columns/0/.style={column name=Tamaño},
+	display columns/1/.style={column name=Algoritmo Obvio},
+	display columns/2/.style={column name=Algoritmo DyV (repetidos)},
+	]{\posObvioRep}
+}
 \end{frame}
 
 \begin{frame}{Comparación (gráficas)}
-  %%TODO: Comparación
+	\includegraphics[width=\textwidth]{img/posicion_1_comparativa_repetidos.pdf}
 \end{frame}
