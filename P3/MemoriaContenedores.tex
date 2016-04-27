@@ -10,6 +10,11 @@ La implementación de los algoritmos es de la forma:
  \item[Salida:] Vector con los contenedores elegidos
 \end{description}
 
+Utilizaremos también una estructura de datos simple llamada \texttt{Cont} que almacena un
+contenedor:
+
+\lstinputlisting[firstline=12, lastline=20]{cpps/contenedores.cpp}
+
 \subsection{Maximizar el número de contenedores cargados}
 
 Para este caso nos basta coger siempre el contenedor de menor peso disponible de entre los
@@ -18,6 +23,8 @@ Para hacer que el algoritmo sea eficiente emparejamos cada elemento
 del vector de entrada con su posición (el contenedor que representa)
 y ordenamos este vector en función de los pesos:
 
-%\lstinputlisting[firstline=, lastline=]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=30, lastline=47]{cpps/contenedores.cpp}
+
+La función \texttt{compara} nos permite comparar dos contenedores, en este caso respecto de su peso.
 
 \subsection{Maximizar el número de toneladas cargadas}
