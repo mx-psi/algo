@@ -1,3 +1,23 @@
 
-\section{Maximizar el número de contenedores cargados}
-\section{Maximizar el número de toneladas cargadas}
+\section{Contenedores en un barco}
+
+El problema consiste en rellenar un buque con carga limitada ($K$) con un conjunto
+de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$ con un cierto objetivo
+
+La implementación de los algoritmos es de la forma:
+\begin{description}
+ \item[Entrada:] Vector de pesos de los contenedores, $p$ y capacidad total $K$
+ \item[Salida:] Vector con los contenedores elegidos
+\end{description}
+
+\subsection{Maximizar el número de contenedores cargados}
+
+Para este caso nos basta coger siempre el contenedor de menor peso disponible de entre los
+que no hemos elegido ya.
+Para hacer que el algoritmo sea eficiente emparejamos cada elemento
+del vector de entrada con su posición (el contenedor que representa)
+y ordenamos este vector en función de los pesos:
+
+%\lstinputlisting[firstline=, lastline=]{cpps/contenedores.cpp}
+
+\subsection{Maximizar el número de toneladas cargadas}
