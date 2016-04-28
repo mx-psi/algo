@@ -52,11 +52,11 @@ peso_t longitud(const vector<int> ids, const Grafo& g) {
   return l;
 }
 
-void print(const vector<int> ids) {
+void print(const vector<int> ids, ostream& os = cout) {
   for (vector<int>::const_iterator i = ids.begin(); i != ids.end(); ++i)
-    cout << *i << " ";
+    os << *i << " ";
  
-  cout << '\n';
+  os << '\n';
 }
 
 string nombre_optimo(const char* nombre) {

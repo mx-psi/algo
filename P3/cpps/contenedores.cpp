@@ -112,20 +112,20 @@ vector<int> max_peso_bruto(vector<peso_t> v, peso_t K){
   return v3;
 }
 
-void print(const vector<int> v, const vector<peso_t> p) {
-  cout << "Suma total: " << suma(v, p) << " |-> ";
+void print(const vector<int> v, const vector<peso_t> p, ostream& os = cout) {
+  os << "Suma total: " << suma(v, p) << " |-> ";
   for(int i = 0; i < v.size(); i++)
-    cout << v[i] << " (" << p[v[i]] << ") ";
-  cout << '\n';
+    os << v[i] << " (" << p[v[i]] << ") ";
+  os << '\n';
 }
 
-void print(peso_t c, const vector<peso_t> v) {
+void print(peso_t c, const vector<peso_t> v, ostream& os = cout) {
   if (v.empty())
      return;
-  cout << c << ": [" << v[0];
+  os << c << ": [" << v[0];
   for(int i = 1; i < v.size(); i++)
-    cout << ", " << v[i];
-  cout << "]\n";
+    os << ", " << v[i];
+  os << "]\n";
 }
 
 const int SMIN = 3, SMAX = 12, PMIN = 10, PMAX = 100;
