@@ -3,6 +3,7 @@
  */
 
 #include <iostream>
+#include <sstream>
 #include "gen_contenedores.h"
 using namespace std;
 
@@ -118,13 +119,40 @@ void print(const vector<int> v, const vector<peso_t> p) {
   cout << '\n';
 }
 
-const int SMIN = 1, SMAX = 10, PMIN = 10, PMAX = 100;
+void print(peso_t c, const vector<peso_t> v) {
+  if (v.empty())
+     return;
+  cout << c << ": [" << v[0];
+  for(int i = 1; i < v.size(); i++)
+    cout << ", " << v[i];
+  cout << "]\n";
+}
 
-int main(){
-  srand(time(0));
-  pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX);
-  vector<int> pesos = datos.first;
-  peso_t capacidad = datos.second;
+const int SMIN = 1, SMAX = 12, PMIN = 10, PMAX = 100;
+const double RATIO = 1.0/3;
+
+int main(int argc, char* argv[]){
+  vector<peso_t> pesos;
+  peso_t capacidad;
+  
+  if (argc == 1) {
+    srand(time(0));
+    rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
+    pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO);
+    pesos = datos.first;
+    capacidad = datos.second;
+  }
+  else if (argc == 2){
+    stringstream str(argv[1]);
+    str >> capacidad;
+    peso_t p;
+    while(str >> p)
+      pesos.push_back(p);
+  }
+  else {
+    return -1;
+  }
+  print(capacidad, pesos);
 
   vector<int> res1 = max_num_conts(pesos, capacidad);
   vector<int> res2 = max_peso_greedy(pesos, capacidad);

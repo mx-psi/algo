@@ -17,14 +17,14 @@ double uniforme(){
  return (double)t/f;
 }
 
-pair<vector<peso_t>,peso_t> gen_contenedores(int s_min, int s_max, int p_min, int p_max){
+pair<vector<peso_t>,peso_t> gen_contenedores(int s_min, int s_max, int p_min, int p_max, double r){
   int n = uniforme()*(s_max- s_min) + s_min;
   vector<peso_t> p(n);
 
   for(int i = 0; i < n; i++)
     p[i] = uniforme()*(p_max- p_min) + p_min;
 
-  int K = (p_min + p_max)*n/2.0;
+  int K = (p_min + p_max)*n*r;
   return pair<vector<peso_t>,peso_t>(p,K);
 }
 
