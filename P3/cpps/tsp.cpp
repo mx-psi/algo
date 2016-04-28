@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <list>
 #include <ctime>
 #include <cstdlib>
 #include <chrono>
@@ -12,22 +13,50 @@
 using namespace std;
 
 vector<int> tsp_1(const Grafo& g) {
-   return {0,1}; // TODO: algoritmo 1
+  vector<int> trayecto(1, 0);    // Empieza por un nodo arbitrario
+  list<int> disponibles;
+  for (int i = g.numNodos(); i > 0; i--)
+    disponibles.push_front(i);
+
+  while(!disponibles.empty()) {
+    list<int>::const_iterator it = disponibles.begin(), cercano = it, fin = disponibles.end();
+    int actual = trayecto.back();
+    peso_t d_actual = g.peso(actual, *cercano);
+    for (++it; it != fin; ++it) {
+      peso_t d_candidato = g.peso(actual, *it);
+      if (d_candidato < d_actual) {
+        cercano = it;
+        d_actual = d_candidato;
+      }
+    }
+     
+    trayecto.push_back(*cercano);
+    disponibles.erase(cercano);
+  }
+
+  return trayecto;
 }
 
 vector<int> tsp_2(const Grafo& g) {
-   return {24,13,15}; // TODO: algoritmo 2
+  return {24,13,15}; // TODO: algoritmo 2
 }
 
 vector<int> tsp_3(const Grafo& g) {
-   return {19,20,21}; // TODO: algoritmo 3
+  return {19,20,21}; // TODO: algoritmo 3
 }
 
 peso_t longitud(const vector<int> ids, const Grafo& g) {
-   peso_t l = g.peso(ids.back(), ids.front());
-   for (int i = 1; i < ids.size(); i++)
-      l += g.peso(ids[i], ids[i-1]);
-   return l;
+  peso_t l = g.peso(ids.back(), ids.front());
+  for (int i = 1; i < ids.size(); i++)
+    l += g.peso(ids[i], ids[i-1]);
+  return l;
+}
+
+void print(const vector<int> ids) {
+  for (vector<int>::const_iterator i = ids.begin(); i != ids.end(); ++i)
+    cout << *i << " ";
+ 
+  cout << '\n';
 }
 
 int ejecutar(vector<int> (*f)(const Grafo&), const Grafo& g) {
@@ -39,6 +68,7 @@ int ejecutar(vector<int> (*f)(const Grafo&), const Grafo& g) {
   ciclo = f(g);
   tdespues = chrono::steady_clock::now();
 
+  print(ciclo);
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
   cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
 
@@ -62,7 +92,8 @@ int main(int argc, char * argv[])
   f >> n;
   Grafo g(n);
   peso_t coordenadas[n][2];
-  int id, x, y;
+  int id;
+  peso_t x, y;
   while(f >> id >> x >> y) {
      coordenadas[id-1][0] = x;
      coordenadas[id-1][1] = y;
