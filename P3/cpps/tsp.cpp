@@ -15,7 +15,7 @@ using namespace std;
 vector<int> tsp_1(const Grafo& g) {
   vector<int> trayecto(1, 0);    // Empieza por un nodo arbitrario
   list<int> disponibles;
-  for (int i = g.numNodos(); i > 0; i--)
+  for (int i = g.numNodos()-1; i > 0; i--)
     disponibles.push_front(i);
 
   while(!disponibles.empty()) {
@@ -59,6 +59,25 @@ void print(const vector<int> ids) {
   cout << '\n';
 }
 
+string nombre_optimo(const char* nombre) {
+  return string(nombre).substr(0, string(nombre).find_last_of(".")) + ".opt.tour";
+}
+
+peso_t longitud_desde_archivo(string nombre, const Grafo& g) {
+  ifstream f(nombre);
+  f.ignore(1024, '\n');
+  int primero, actual, anterior;
+  peso_t l = 0;
+  f >> actual;
+  primero = anterior = actual;
+  while(f >> actual) {
+    l += g.peso(anterior-1, actual-1);
+    anterior = actual;
+  }
+
+  return l + g.peso(primero-1,actual-1);
+}
+
 int ejecutar(vector<int> (*f)(const Grafo&), const Grafo& g) {
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
@@ -100,6 +119,7 @@ int main(int argc, char * argv[])
   }
   g.pesosDesdeCoordenadas(coordenadas);
 
+  cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << '\n';
   if (argv[2][0] == '1')
      return ejecutar(tsp_1, g);
   else if (argv[2][0] == '2')
