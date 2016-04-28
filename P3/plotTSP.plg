@@ -1,0 +1,7 @@
+set terminal pdf
+set output OUT
+set style data linespoints
+set title TITLE
+set xlabel "X"
+set ylabel "Y"
+plot DATA every ::2 using 2:3 title LEGEND

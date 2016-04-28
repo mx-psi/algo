@@ -29,7 +29,7 @@ vector<int> tsp_1(const Grafo& g) {
         d_actual = d_candidato;
       }
     }
-     
+
     trayecto.push_back(*cercano);
     disponibles.erase(cercano);
   }
@@ -103,7 +103,7 @@ int main(int argc, char * argv[])
   }
   srand(time(0));
   int n;
-  
+
   ifstream f(argv[1]);
   string s;
   if (!(f >> s))
