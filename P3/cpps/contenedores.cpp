@@ -70,6 +70,13 @@ peso_t suma(vector<Cont> v){
   return suma;
 }
 
+peso_t suma(vector<int> pos, vector<peso_t> v){
+  peso_t suma = 0;
+  for(vector<int>::iterator it = pos.begin(); it != pos.end(); ++it)
+    suma += v[*it];
+  return suma;
+}
+
 vector<Cont> bruto_sub(vector<Cont> p, peso_t K){
   if(p.empty() || K == 0)
     return vector<Cont>();
@@ -105,6 +112,7 @@ vector<int> max_peso_bruto(vector<peso_t> v, peso_t K){
 }
 
 void print(const vector<int> v, const vector<peso_t> p) {
+  cout << "Suma total: " << suma(v, p) << " |-> ";
   for(int i = 0; i < v.size(); i++)
     cout << v[i] << " (" << p[v[i]] << ") ";
   cout << '\n';
