@@ -128,7 +128,7 @@ void print(peso_t c, const vector<peso_t> v) {
   cout << "]\n";
 }
 
-const int SMIN = 1, SMAX = 12, PMIN = 10, PMAX = 100;
+const int SMIN = 3, SMAX = 12, PMIN = 10, PMAX = 100;
 const double RATIO = 1.0/3;
 
 int main(int argc, char* argv[]){
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]){
   if (argc == 1) {
     srand(time(0));
     rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
-    pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO);
+    pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO,uniforme);
     pesos = datos.first;
     capacidad = datos.second;
   }
