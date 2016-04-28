@@ -3,12 +3,9 @@
  */
 
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <utility>
+#include "gen_contenedores.h"
 using namespace std;
 
-typedef int peso_t;
 
 struct Cont{
   int id;
@@ -110,23 +107,20 @@ vector<int> max_peso_bruto(vector<peso_t> v, peso_t K){
 void print(const vector<int> v, const vector<peso_t> p) {
   for(int i = 0; i < v.size(); i++)
     cout << v[i] << " (" << p[v[i]] << ") ";
-
   cout << '\n';
 }
 
+const int SMIN = 1, SMAX = 10, PMIN = 10, PMAX = 100;
+
 int main(){
-  vector<peso_t> pesos;
-  peso_t capacidad;
-  vector<int> res1, res2, res3;
-  peso_t k;
-  cin >> capacidad;
-  for(int i = 0; i < 10; i++){
-    cin >> k;
-    pesos.push_back(k);
-  }
-  res1 = max_num_conts(pesos, capacidad);
-  res2 = max_peso_greedy(pesos, capacidad);
-  res3 = max_peso_bruto(pesos, capacidad);
+  srand(time(0));
+  pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX);
+  vector<int> pesos = datos.first;
+  peso_t capacidad = datos.second;
+
+  vector<int> res1 = max_num_conts(pesos, capacidad);
+  vector<int> res2 = max_peso_greedy(pesos, capacidad);
+  vector<int> res3 = max_peso_bruto(pesos, capacidad);
   print(res1, pesos);
   print(res2, pesos);
   print(res3, pesos);
