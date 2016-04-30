@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <chrono>
 #include "grafo.h"
+#include "colonia.h"
 using namespace std;
 
 vector<int> tsp_1(const Grafo& g) {
@@ -42,14 +43,10 @@ vector<int> tsp_2(const Grafo& g) {
 }
 
 vector<int> tsp_3(const Grafo& g) {
-  return {19,20,21}; // TODO: algoritmo 3
-}
-
-peso_t longitud(const vector<int> ids, const Grafo& g) {
-  peso_t l = g.peso(ids.back(), ids.front());
-  for (int i = 1; i < ids.size(); i++)
-    l += g.peso(ids[i], ids[i-1]);
-  return l;
+   Colonia c(g);
+   for (int i = 0; i < 64; i++)
+      c.itera(64);
+   return c.itera(512);
 }
 
 void print(const vector<int> ids, ostream& os = cout) {
