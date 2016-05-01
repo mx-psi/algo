@@ -1,5 +1,8 @@
 CXXFLAGS = -std=gnu++0x
 CPPS = $(wildcard cpps/*.cpp)
+TSPS = $(wildcard datosTSP/*.tsp)
+TOURS = $(TSPS:datosTSP/%.tsp=resultadosTSP/%_1.tour) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_2.tour) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_3.tour)
+DATS = $(TSPS:datosTSP/%.tsp=resultadosTSP/%_1.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_2.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_3.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_opt.dat)
 
 ifdef SystemRoot  # Windows
 	RM = del /q
@@ -12,21 +15,34 @@ endif
 
 all: PresentacionP1.pdf MemoriaP1.pdf
 .PHONY: all clean mrproper
-.PRECIOUS: $(DATS) $(IMGS)
+.PRECIOUS: $(TOURS) $(DATS) $(IMGS)
 
 exes: $(CPPS:cpps/%.cpp=%.exe)
 %.exe: cpps/%.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 
-# Nota: requiere cambiar la salida de tsp.exe para funcionar
-%_tsp.pdf: datosTSP/%.tsp datosTSP/%.opt.tour tsp.exe tsp_coord.exe
-	.$(BAR)tsp $< 1 > resultadosTSP$(BAR)$(@:_tsp.pdf=_1.tour)
-	.$(BAR)tsp $< 2 > resultadosTSP$(BAR)$(@:_tsp.pdf=_2.tour)
-	.$(BAR)tsp $< 3 > resultadosTSP$(BAR)$(@:_tsp.pdf=_3.tour)
-	.$(BAR)tsp_coord $< $(@:_tsp.pdf=_1.tour) > resultadosTSP$(BAR)$(@:_tsp.pdf=_1.dat)
-	.$(BAR)tsp_coord $< $(@:_tsp.pdf=_2.tour) > resultadosTSP$(BAR)$(@:_tsp.pdf=_2.dat)
-	.$(BAR)tsp_coord $< $(@:_tsp.pdf=_3.tour) > resultadosTSP$(BAR)$(@:_tsp.pdf=_3.dat)
-	.$(BAR)tsp_coord $< $(word 2, $^) > resultadosTSP$(BAR)$(@:_tsp.pdf=_opt.dat)
+resultadosTSP/%_1.tour: datosTSP/%.tsp tsp.exe
+	.$(BAR)tsp $< 1 t > $@
+
+resultadosTSP/%_2.tour: datosTSP/%.tsp tsp.exe
+	.$(BAR)tsp $< 2 t > $@
+
+resultadosTSP/%_3.tour: datosTSP/%.tsp tsp.exe
+	.$(BAR)tsp $< 3 t > $@
+
+resultadosTSP/%_opt.dat: datosTSP/%.tsp datosTSP/%.opt.tour tsp_coord.exe
+	.$(BAR)tsp_coord $< $(word 2, $^) > $@
+
+resultadosTSP/%_1.dat: datosTSP/%.tsp resultadosTSP/%_1.tour tsp_coord.exe
+	.$(BAR)tsp_coord $< $(word 2, $^) > $@
+
+resultadosTSP/%_2.dat: datosTSP/%.tsp resultadosTSP/%_2.tour tsp_coord.exe
+	.$(BAR)tsp_coord $< $(word 2, $^) > $@
+
+resultadosTSP/%_3.dat: datosTSP/%.tsp resultadosTSP/%_3.tour tsp_coord.exe
+	.$(BAR)tsp_coord $< $(word 2, $^) > $@
+
+%_tsp.pdf: resultadosTSP/%_1.dat resultadosTSP/%_2.dat resultadosTSP/%_3.dat resultadosTSP/%_opt.dat
 	gnuplot -e "OUT='$(@:.pdf=_1.pdf)'; TITLE='ASDF'; LEGEND='JKLM'; DATA='resultadosTSP$(BAR)$(@:_tsp.pdf=_1.dat)'" plotTSP.plg
 	gnuplot -e "OUT='$(@:.pdf=_2.pdf)'; TITLE='ASDF'; LEGEND='JKLM'; DATA='resultadosTSP$(BAR)$(@:_tsp.pdf=_2.dat)'" plotTSP.plg
 	gnuplot -e "OUT='$(@:.pdf=_3.pdf)'; TITLE='ASDF'; LEGEND='JKLM'; DATA='resultadosTSP$(BAR)$(@:_tsp.pdf=_3.dat)'" plotTSP.plg

@@ -21,7 +21,7 @@ class Colonia {
       return pow(1.0/distancias.peso(n1, n2), BETA) * pow(feromonas.peso(n1, n2), ALPHA);
    }
 
-   vector<int> un_trayecto() {
+   vector<int> un_trayecto() const {
       int inicial = uniforme()*nodos();
       vector<int> trayecto(1, inicial);
       vector<int> disponibles;
@@ -31,7 +31,6 @@ class Colonia {
          disponibles.push_back(i);
 
       int actual = inicial;
-      peso_t longitud = 0;
       while(!disponibles.empty()) {
          int siguiente_pos;
          if (uniforme() < P) {
@@ -78,7 +77,7 @@ public:
    
    // Itera y devuelve el mejor camino encontrado
    vector<int> itera(int iteraciones) {
-      vector<vector<int> > trayectos;
+      list<vector<int> > trayectos;
       for (int i = 0; i < iteraciones; i++)
          trayectos.push_back(un_trayecto());
       
@@ -86,23 +85,22 @@ public:
          for (int j = 0; j < i; j++)
             feromonas.setPeso(i, j, feromonas.peso(i, j)*EVAPORACION);
       
-      double mayor_suma = 0;
-      int mejor_camino = -1;
-      for (int t = 0; t < iteraciones; t++) {
-         vector<int>& tr_actual = trayectos[t];
-         double suma = C/longitud(tr_actual, distancias);
+      double mayor_suma = -1;
+      list<vector<int> >::const_iterator mejor_camino, t;
+      for (t = trayectos.cbegin(); t != trayectos.cend(); ++t) {
+         double suma = C/longitud(*t, distancias);
          if (suma > mayor_suma) {
             mayor_suma = suma;
             mejor_camino = t;
          }
          
-         for (int i = 1; i < tr_actual.size(); i++)
-            feromonas.setPeso(tr_actual[i-1], tr_actual[i], feromonas.peso(tr_actual[i-1], tr_actual[i])+suma);
+         for (int i = 1; i < (*t).size(); i++)
+            feromonas.setPeso((*t)[i-1], (*t)[i], feromonas.peso((*t)[i-1], (*t)[i])+suma);
             
-         feromonas.setPeso(tr_actual.front(), tr_actual.back(), feromonas.peso(tr_actual.front(), tr_actual.back())+suma);
+         feromonas.setPeso((*t).front(), (*t).back(), feromonas.peso((*t).front(), (*t).back())+suma);
       }
       
-      return trayectos[mejor_camino];
+      return *mejor_camino;
    }
 };
 
