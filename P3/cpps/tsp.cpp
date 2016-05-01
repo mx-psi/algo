@@ -13,7 +13,7 @@
 #include "colonia.h"
 using namespace std;
 
-vector<int> tsp_1(const Grafo& g) {
+vector<int> tsp_1(const Grafo<peso_t>& g) {
   vector<int> trayecto(1, 0);    // Empieza por un nodo arbitrario
   list<int> disponibles;
   for (int i = g.numNodos()-1; i > 0; i--)
@@ -38,11 +38,11 @@ vector<int> tsp_1(const Grafo& g) {
   return trayecto;
 }
 
-vector<int> tsp_2(const Grafo& g) {
+vector<int> tsp_2(const Grafo<peso_t>& g) {
   return {24,13,15}; // TODO: algoritmo 2
 }
 
-vector<int> tsp_3(const Grafo& g) {
+vector<int> tsp_3(const Grafo<peso_t>& g) {
    Colonia c(g);
    for (int i = 0; i < 64; i++)
       c.itera(64);
@@ -60,7 +60,7 @@ string nombre_optimo(const char* nombre) {
   return string(nombre).substr(0, string(nombre).find_last_of(".")) + ".opt.tour";
 }
 
-peso_t longitud_desde_archivo(string nombre, const Grafo& g) {
+peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
   ifstream f(nombre);
   f.ignore(1024, '\n');
   int primero, actual, anterior;
@@ -75,7 +75,7 @@ peso_t longitud_desde_archivo(string nombre, const Grafo& g) {
   return l + g.peso(primero-1,actual-1);
 }
 
-int ejecutar(vector<int> (*f)(const Grafo&), const Grafo& g, bool a_archivo) {
+int ejecutar(vector<int> (*f)(const Grafo<peso_t>&), const Grafo<peso_t>& g, bool a_archivo) {
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
@@ -108,10 +108,10 @@ int main(int argc, char * argv[])
   if (!(f >> s))
      return -1;
   f >> n;
-  Grafo g(n);
-  peso_t coordenadas[n][2];
+  Grafo<peso_t> g(n);
+  double coordenadas[n][2];
   int id;
-  peso_t x, y;
+  double x, y;
   while(f >> id >> x >> y) {
      coordenadas[id-1][0] = x;
      coordenadas[id-1][1] = y;

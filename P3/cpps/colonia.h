@@ -12,7 +12,8 @@ double uniforme(){
 }
 
 class Colonia {
-   Grafo distancias, feromonas;
+   Grafo<peso_t> distancias;
+   Grafo<double> feromonas;
    static const double ALPHA, BETA, EVAPORACION, C, P;
 
    inline int nodos() const { return distancias.numNodos(); }
@@ -67,7 +68,7 @@ class Colonia {
    }
 
 public:
-   Colonia(const Grafo& g) :distancias(g), feromonas(g.numNodos()) {
+   Colonia(const Grafo<peso_t>& g) :distancias(g), feromonas(g.numNodos()) {
       for (int i = 1; i < nodos(); i++)
          for (int j = 0; j < i; j++)
             feromonas.setPeso(i, j, 1.0); // Arbitrario, pero no puede ser 0
