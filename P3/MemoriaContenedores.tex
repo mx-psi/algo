@@ -2,7 +2,7 @@
 \section{Contenedores en un barco}
 
 El problema consiste en rellenar un buque con carga limitada ($K$) con un conjunto
-de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$ con un cierto objetivo
+de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$ con un cierto objetivo.
 
 La implementación de los algoritmos es de la forma:
 \begin{description}
@@ -13,7 +13,7 @@ La implementación de los algoritmos es de la forma:
 Utilizaremos también una estructura de datos simple llamada \texttt{Cont} que almacena un
 contenedor:
 
-\lstinputlisting[firstline=12, lastline=20]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=11, lastline=19]{cpps/contenedores.cpp}
 
 \subsection{Maximizar el número de contenedores cargados}
 
@@ -23,8 +23,31 @@ Para hacer que el algoritmo sea eficiente emparejamos cada elemento
 del vector de entrada con su posición (el contenedor que representa)
 y ordenamos este vector en función de los pesos:
 
-\lstinputlisting[firstline=30, lastline=47]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=38, lastline=51]{cpps/contenedores.cpp}
 
-La función \texttt{compara} nos permite comparar dos contenedores, en este caso respecto de su peso.
+La función \texttt{compara} nos permite comparar dos contenedores, en este caso respecto de su peso, indicando cuál es menor.
+
+La eficiencia del algoritmo es $O(n\log(n))$, ya que la operación de ordenado es
+$O(n\log(n))$ y el bucle posterior es de eficiencia lineal.
+
+\newpage
+
+\subsubsection{Optimalidad de la solución}
+
+Este criterio (coger el de menor peso hasta que no quepan más) \textbf{siempre obtiene la
+mejor solución} (la solución con un mayor número de contenedores).
+Llamemos a nuestra solución $o_1, \dots, o_k$ y sea $s_1, \dots, s_m$ otra solución
+cualquiera. Supongamos que $m > k$. Podemos asumir sin pérdida de generalidad que las
+soluciones están ordenadas por pesos de menor a mayor.
+
+Como los pesos de nuestra solución son mínimos, es claro que $\forall i < k: o_k \leq s_k$.
+Por tanto también tendríamos como posible la solución $o_1, \dots o_k, s_{k+1}, \dots s_m$.
+Sea $o_{k+1}$ el contenedor que no está en nuestra solución que tenga el menor peso.
+Es claro que $o_{k+1} \leq \sum_{i > k} s_i$, por lo que tendríamos que
+$o_1, \dots, o_{k+1}$ es solución.
+
+Esto es una contradicción ya que por construcción nuestra solución toma los contenedores
+de peso mínimo hasta que añadir uno más suponga sobrepasar la capacidad. Por tanto nuestra
+solución es la solución con el mayor número de contenedores posibles.
 
 \subsection{Maximizar el número de toneladas cargadas}
