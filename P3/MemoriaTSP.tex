@@ -11,6 +11,8 @@ La implementación de los algoritmos es de la forma:
  \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades.
 \end{description}
 
+En la salida nos ahorraremos repetir el primer nodo al final del recorrido.
+
 Para todos los algoritmos utilizaremos una estructura de datos que nos permita manejar
 el problema: la clase \texttt{Grafo} (en el fichero \texttt{grafo.h}). Un grafo consta
 de:
@@ -28,10 +30,18 @@ la distancia entre cualesquiera dos ciudades y añadir esta como peso de ese lad
 
 \lstinputlisting[firstline=47, lastline=51]{cpps/grafo.h}
 
-Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado.
+Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado,
+teniendo en cuenta la distancia del último nodo al primero:
 
+\lstinputlisting[firstline=54, lastline=59]{cpps/grafo.h}
 
-\subsection{Vecino más cercano}
+Siendo \texttt{peso\_t} el tipo de dato con el que se manejen las distancias entre
+nodos. Según el enunciado del problema (que pide que se redondee la distancia
+euclídea al entero más próximo), será de tipo \texttt{int}.
+
+\subsection{Algoritmos}
+
+\subsubsection{Vecino más cercano}
 
 Utilizando la estructura de datos explicada anteriormente, la resolución del problema
 utilizando la heurística del vecino más cercano quedará:
@@ -40,11 +50,12 @@ utilizando la heurística del vecino más cercano quedará:
 
 Tomamos como ciudad inicial el nodo 0 y almacenamos en la lista \texttt{disponibles}
 las ciudades no visitadas. A continuación, mientras queden ciudades disponibles,
-recorremos la lista buscando aquella ciudad con distancia mínima a la última.
+recorremos la lista buscando aquella ciudad con distancia mínima a la última, la
+cual añadimos al trayecto y eliminamos de la lista de disponibles.
 
-\subsection{Estrategias de inserción}
+\subsubsection{Estrategias de inserción}
 
-\subsection{Colonia de hormigas}
+\subsubsection{Colonia de hormigas}
 
 Como solución adicional propuesta por el equipo utilizamos un algoritmo basado en
 colonias de hormigas. Este algoritmo se inspira en la comunicación por feromonas
