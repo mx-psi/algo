@@ -1,0 +1,69 @@
+\section{El problema del viajante de comercio}
+
+El problema del viajante de comercio consiste en hallar el recorrido con distancia
+mínima en un conjunto de ciudades que pase por todas las ciudades y regrese al punto
+inicial.
+
+La implementación de los algoritmos es de la forma:
+\begin{description}
+ \item[Entrada:] Ficheros con: número de ciudades y
+ ciudades indicadas como puntos en el plano.
+ \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades
+\end{description}
+
+Para todos los algoritmos utilizaremos una estructura de datos que nos permita manejar
+el problema: la clase \texttt{Grafo} (en el fichero \texttt{grafo.h}). Un grafo consta
+de:
+
+\begin{itemize}
+  \item Una \textbf{cantidad de nodos}, almacenada en el atributo \texttt{nodos}.
+  \item Una \textbf{matriz de lados}, almacenada en el vector \texttt{lados}.
+\end{itemize}
+
+La interfaz nos permite acceder y modificar estos datos con mayor facilidad.
+Mediante los métodos \texttt{setPeso} y \texttt{peso} accederemos al peso de un
+lado del grafo, y el método \texttt{pesosDesdeCoordenadas} nos permite inicializar el
+grafo utilizando el formato de datos en el que aparece el problema: calculando
+la distancia entre cualesquiera dos ciudades y añadir esta como peso de ese lado:
+
+\lstinputlisting[firstline=47, lastline=51]{cpps/grafo.h}
+
+Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado.
+
+
+\subsection{Vecino más cercano}
+
+Utilizando la estructura de datos explicada anteriormente, la resolución del problema
+utilizando la heurística del vecino más cercano quedará:
+
+\lstinputlisting[firstline=16, lastline=39]{cpps/tsp.cpp}
+
+Tomamos como ciudad inicial el nodo 0 y almacenamos en la lista \texttt{disponibles}
+las ciudades no visitadas. A continuación, mientras queden ciudades disponibles,
+recorremos la lista buscando aquella ciudad con distancia mínima a la última.
+
+\subsection{Estrategias de inserción}
+
+\subsection{Colonia de hormigas}
+
+Como solución adicional propuesta por el equipo utilizamos el algoritmo basado en
+colonias de hormigas. Este algoritmo se inspira en la comunicación por feromonas
+de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida.
+
+Implementamos la Colonia (en el fichero \texttt{colonia.h}). Una Colonia consta de:
+
+\begin{itemize}
+  \item Un grafo de \textbf{distancias} entre las ciudades.
+  \item Un grafo con las \textbf{feromonas} de cada camino, inicialmente arbitrarias.
+  \item Una serie de constantes $\alpha, \beta, \texttt{EVAPORACION}, C, P$.
+\end{itemize}
+
+Las constantes controlan el comportamiento del algoritmo:
+
+\begin{description}
+  \item[$\alpha$] es el peso que tienen las feromonas.
+  \item[$\beta$] es el peso que tiene la distancias
+  \item[\texttt{EVAPORACION}] es el coeficiente de evaporación de las feromonas.
+  \item[$C$]
+  \item[$P$]
+\end{description}
