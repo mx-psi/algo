@@ -2,13 +2,13 @@
 
 El problema del viajante de comercio consiste en hallar el recorrido con distancia
 mínima en un conjunto de ciudades que pase por todas las ciudades y regrese al punto
-inicial.
+inicial. \\
 
 La implementación de los algoritmos es de la forma:
 \begin{description}
- \item[Entrada:] Ficheros con: número de ciudades y
- ciudades indicadas como puntos en el plano.
- \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades
+ \item[Entrada:] Ficheros con ciudades indicadas como puntos en el plano según sus
+ coordenadas.
+ \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades.
 \end{description}
 
 Para todos los algoritmos utilizaremos una estructura de datos que nos permita manejar
@@ -17,7 +17,7 @@ de:
 
 \begin{itemize}
   \item Una \textbf{cantidad de nodos}, almacenada en el atributo \texttt{nodos}.
-  \item Una \textbf{matriz de lados}, almacenada en el vector \texttt{lados}.
+  \item Una \textbf{matriz de pesos}, almacenada en el vector \texttt{lados}.
 \end{itemize}
 
 La interfaz nos permite acceder y modificar estos datos con mayor facilidad.
@@ -46,9 +46,9 @@ recorremos la lista buscando aquella ciudad con distancia mínima a la última.
 
 \subsection{Colonia de hormigas}
 
-Como solución adicional propuesta por el equipo utilizamos el algoritmo basado en
+Como solución adicional propuesta por el equipo utilizamos un algoritmo basado en
 colonias de hormigas. Este algoritmo se inspira en la comunicación por feromonas
-de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida.
+de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida. \\
 
 Implementamos la Colonia (en el fichero \texttt{colonia.h}). Una Colonia consta de:
 
@@ -62,8 +62,10 @@ Las constantes controlan el comportamiento del algoritmo:
 
 \begin{description}
   \item[$\alpha$] es el peso que tienen las feromonas.
-  \item[$\beta$] es el peso que tiene la distancias
+  \item[$\beta$] es el peso que tienen la distancias.
   \item[\texttt{EVAPORACION}] es el coeficiente de evaporación de las feromonas.
-  \item[$C$]
-  \item[$P$]
+  \item[$C$] determina cuánta feromona se añade a un camino.
+  \item[$P$] es un flotante entre $0$ y $1$. Durante el progreso de un recorrido, hay
+  una probabilidad de $1-P$ de que la hormiga opte por tomar directamente el camino
+  más corto a otro nodo.
 \end{description}
