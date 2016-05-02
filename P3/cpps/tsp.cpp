@@ -38,8 +38,51 @@ vector<int> tsp_1(const Grafo<peso_t>& g) {
   return trayecto;
 }
 
-vector<int> tsp_2(const Grafo<peso_t>& g) {
-  return {24,13,15}; // TODO: algoritmo 2
+vector<int> tsp_2(const Grafo<peso_t>& g){
+
+  int longitudTotalCircuito = 0;
+
+  /*
+    RECORRIDO PARCIAL
+
+    Como primera aproximación al recorrido inicial tomo el primer y último nodo.
+    Según el pdf hay que coger los nodos más al "sur","este"y "oeste". Pero no pillo como sacar las coordenadas
+    de los nodos. Las siguientes partes del algoritmo no dependen del recorrido inicial.
+  */
+
+
+  vector<int> trayecto; trayecto.push_front(0); trayecto.push_front(g.numNodos()-1);  //Metemos el primer nodo y el último;
+  longitudTotalCircuito = g.peso(trayecto.back(),trayecto.front());
+
+  list<int> disponibles;
+  for (int i = g.numNodos()-1; i > 0; i--)
+    disponibles.push_front(i);
+
+    while (!disponibles.empty()){
+      int actual = disponibles.back();
+
+      pair<int,int> LongitudMinima;
+      LongitudMinima.first=g.peso(actual,trayecto.front());  LongitudMinima.second = g.peso(actual,trayecto.back());
+      vector<int>::const_iterator PosInsercion = trayecto.begin();
+
+      for(vector<int>::const_iterator it = trayecto.begin(); i !=trayecto.end(); i++){
+        pair<int,int> tmp;
+        vector<int>::const_iterator itCpy = it; itCpy--;
+        tmp.first=g.peso(actual,it*); tmp.second=g.peso(actual,itCpy*);
+        int suma = tmp.first+tmp.second;
+
+        if (suma < LongitudMinima.first+LongitudMinima.second){
+          LongitudMinima = tmp;
+          PosInsercion = i;
+        }
+
+      }
+
+      trayecto.insert(PosInsercion,actual);
+      disponibles.erase(actual);
+    }
+
+  return trayecto; // TODO: algoritmo 2
 }
 
 vector<int> tsp_3(const Grafo<peso_t>& g) {
@@ -52,7 +95,7 @@ vector<int> tsp_3(const Grafo<peso_t>& g) {
 void print(const vector<int> ids, bool a_archivo, ostream& os = cout) {
   for (vector<int>::const_iterator i = ids.begin(); i != ids.end(); ++i)
     os << (a_archivo ? (*i)+1 : *i) << (a_archivo ? '\n' : ' ');
- 
+
   os << '\n';
 }
 
