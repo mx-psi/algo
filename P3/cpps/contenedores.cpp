@@ -54,7 +54,9 @@ vector<int> max_peso_greedy(vector<peso_t> p, peso_t capacidad){
   vector<Cont> conts = a_cont(p);
 
   sort(conts.begin(), conts.end(), mayor);
+
   vector<int> elegidos;
+
   for(int i = 0; i < conts.size() && capacidad > 0; i++){
     if(conts[i].peso <= capacidad){
       elegidos.push_back(conts[i].id);
@@ -134,7 +136,7 @@ const double RATIO = 1.0/3;
 int main(int argc, char* argv[]){
   vector<peso_t> pesos;
   peso_t capacidad;
-  
+
   if (argc == 1) {
     srand(time(0));
     rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
