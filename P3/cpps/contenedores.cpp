@@ -4,8 +4,9 @@
 
 #include <iostream>
 #include <sstream>
+#include <chrono>
 #include "gen_contenedores.h"
-using namespace std;
+using namespace std::chrono;
 
 
 struct Cont{
@@ -137,10 +138,17 @@ int main(int argc, char* argv[]){
   vector<peso_t> pesos;
   peso_t capacidad;
 
-  if (argc == 1) {
+  if (argc == 1 || (argc == 2 && argv[1][0] == 'n')) {
     srand(time(0));
     rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
-    pair<vector<peso_t>,peso_t> datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO,uniforme);
+    pair<vector<peso_t>,peso_t> datos;
+    int cantidad;
+    if (argc == 1)
+      datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO,box_muller);
+    else {
+      stringstream(argv[1]+1) >> cantidad;
+      datos = gen_contenedores(cantidad,cantidad,PMIN,PMAX,RATIO,box_muller);
+    }
     pesos = datos.first;
     capacidad = datos.second;
   }
@@ -152,14 +160,31 @@ int main(int argc, char* argv[]){
       pesos.push_back(p);
   }
   else {
+    cerr << "Uso:\n  " << argv[0] << "                                    o\n  "
+                       << argv[0] << " n(cantidad de contenedores)        o\n  "
+                       << argv[0] << " \"(capacidad) (peso1) (peso2)...\"";
     return -1;
   }
   print(capacidad, pesos);
+  vector<int> res1, res2, res3;
+    chrono::steady_clock::time_point ta, tb;
+  chrono::duration<double> t1, t2, t3;
 
-  vector<int> res1 = max_num_conts(pesos, capacidad);
-  vector<int> res2 = max_peso_greedy(pesos, capacidad);
-  vector<int> res3 = max_peso_bruto(pesos, capacidad);
+  ta = chrono::steady_clock::now();
+  res1 = max_num_conts(pesos, capacidad);
+  tb = chrono::steady_clock::now();
   print(res1, pesos);
+  t1 = chrono::duration_cast<chrono::duration<double>>(tb - ta);
+  ta = chrono::steady_clock::now();
+  res2 = max_peso_greedy(pesos, capacidad);
+  tb = chrono::steady_clock::now();
   print(res2, pesos);
+  t2 = chrono::duration_cast<chrono::duration<double>>(tb - ta);
+  ta = chrono::steady_clock::now();
+  res3 = max_peso_bruto(pesos, capacidad);
+  tb = chrono::steady_clock::now();
   print(res3, pesos);
+  t3 = chrono::duration_cast<chrono::duration<double>>(tb - ta);
+
+  cout << "Tiempos (s): " << t1.count() << " " << t2.count() << " " << t3.count();
 }
