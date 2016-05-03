@@ -51,3 +51,18 @@ de peso mínimo hasta que añadir uno más suponga sobrepasar la capacidad. Por 
 solución es la solución con el mayor número de contenedores posibles.
 
 \subsection{Maximizar el número de toneladas cargadas}
+
+En este caso empleamos como estrategia \textit{greedy} coger los contenedores en orden
+decreciente de peso: empezamos con el contenedor más pesado que quepa en el buque
+y continuamos ordenadamente añadiendo el contenedor más pesado de entre los que quepan.
+
+El código es muy similar a la solución anterior, salvo que cambiamos la condición
+que ordena la lista inicialmente para ordenarla de forma decreciente en función del peso
+y porque necesitamos realizar, en cada paso, la comprobación de que el contenedor que
+queremos añadir no exceda la capacidad restante del buque:
+
+\lstinputlisting[firstline=53, lastline=67]{cpps/contenedores.cpp}
+
+%% TODO: Justificación chusquera de por qué hemos elegido esta heurística
+
+%% TODO: Explicar el algoritmo de fuerza bruta
