@@ -55,6 +55,19 @@ cual añadimos al trayecto y eliminamos de la lista de disponibles.
 
 \subsubsection{Estrategias de inserción}
 
+Para las estrategias de inserción realizamos el trabajo en 3 etapas.
+En primer lugar hallamos las 3 ciudades que conforman el \textbf{recorrido inicial}.
+Para ello basta tomar las ciudades como coordenadas en el plano y tomar las ciudades
+más al norte, este y oeste (tomando los puntos con menor y mayor coordenada x y mayor
+coordenada y):
+
+\lstinputlisting[firstline=41, lastline=64]{cpps/tsp.cpp}
+
+En el caso en el que el punto de mayor coordenada y sea también el de mayor (o menor)
+coordenada x cogeremos el segundo con mayor (o menor) coordenada x.
+
+%% TODO: Explicación del resto de la estrategia
+
 \subsubsection{Colonia de hormigas}
 
 Como solución adicional propuesta por el equipo utilizamos un algoritmo basado en
@@ -80,3 +93,5 @@ Las constantes controlan el comportamiento del algoritmo:
   una probabilidad de $1-P$ de que la hormiga opte por tomar directamente el camino
   más corto a otro nodo.
 \end{description}
+
+\subsection{Comparativa de los algoritmos}

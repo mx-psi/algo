@@ -1,1 +1,52 @@
+\section{Contenedores en un barco}
 
+\begin{frame}{Problema}
+Rellenar un buque con carga limitada ($K$) con un conjunto
+de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$.
+
+\begin{description}
+ \item[Entrada:] Vector de pesos de los contenedores, $p$ y capacidad total $K$
+ \item[Salida:] Vector con los contenedores elegidos
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Estructura de datos}
+\lstinputlisting[firstline=11, lastline=19]{cpps/contenedores.cpp}
+\end{frame}
+
+\subsection{Maximizar el número de contenedores cargados}
+
+\begin{frame}{Solución}
+\begin{itemize}
+  \item Basta coger los contenedores de menor peso hasta rellenar el buque
+  \item Emparejamos cada elemento con su posición y ordenamos en función de los pesos.
+  \item \textbf{Eficiencia:} $O(n\log(n))$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Código}
+\lstinputlisting[firstline=38, lastline=51]{cpps/contenedores.cpp}
+\note{\texttt{menor} compara dos contenedores según su peso, indicando cuál es menor}
+\end{frame}
+
+\begin{frame}{Optimalidad de la solución}
+Este criterio siempre halla la solución con un mayor número de contenedores.
+%%TODO: ¿Lo ponemos? ¿Cómo?
+\end{frame}
+
+\subsection{Maximizar el número de toneladas cargadas}
+
+\begin{frame}{Estrategia}
+\begin{itemize}
+  \item Cogemos el contenedor de mayor peso que quepa en el buque
+  \item El algoritmo es muy similar al apartado anterior.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Código}
+\lstinputlisting[firstline=53, lastline=67]{cpps/contenedores.cpp}
+\end{frame}
+
+%% TODO: Justificación chusquera de por qué hemos elegido esta heurística
+
+%% TODO: Explicar el algoritmo de fuerza bruta
