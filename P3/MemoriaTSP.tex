@@ -2,14 +2,16 @@
 
 El problema del viajante de comercio consiste en hallar el recorrido con distancia
 mínima en un conjunto de ciudades que pase por todas las ciudades y regrese al punto
-inicial.
+inicial. \\
 
 La implementación de los algoritmos es de la forma:
 \begin{description}
- \item[Entrada:] Ficheros con: número de ciudades y
- ciudades indicadas como puntos en el plano.
- \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades
+ \item[Entrada:] Ficheros con ciudades indicadas como puntos en el plano según sus
+ coordenadas.
+ \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades.
 \end{description}
+
+En la salida nos ahorraremos repetir el primer nodo al final del recorrido.
 
 Para todos los algoritmos utilizaremos una estructura de datos que nos permita manejar
 el problema: la clase \texttt{Grafo} (en el fichero \texttt{grafo.h}). Un grafo consta
@@ -17,7 +19,7 @@ de:
 
 \begin{itemize}
   \item Una \textbf{cantidad de nodos}, almacenada en el atributo \texttt{nodos}.
-  \item Una \textbf{matriz de lados}, almacenada en el vector \texttt{lados}.
+  \item Una \textbf{matriz de pesos}, almacenada en el vector \texttt{lados}.
 \end{itemize}
 
 La interfaz nos permite acceder y modificar estos datos con mayor facilidad.
@@ -28,10 +30,18 @@ la distancia entre cualesquiera dos ciudades y añadir esta como peso de ese lad
 
 \lstinputlisting[firstline=47, lastline=51]{cpps/grafo.h}
 
-Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado.
+Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado,
+teniendo en cuenta la distancia del último nodo al primero:
 
+\lstinputlisting[firstline=54, lastline=59]{cpps/grafo.h}
 
-\subsection{Vecino más cercano}
+Siendo \texttt{peso\_t} el tipo de dato con el que se manejen las distancias entre
+nodos. Según el enunciado del problema (que pide que se redondee la distancia
+euclídea al entero más próximo), será de tipo \texttt{int}.
+
+\subsection{Algoritmos}
+
+\subsubsection{Vecino más cercano}
 
 Utilizando la estructura de datos explicada anteriormente, la resolución del problema
 utilizando la heurística del vecino más cercano quedará:
@@ -40,15 +50,16 @@ utilizando la heurística del vecino más cercano quedará:
 
 Tomamos como ciudad inicial el nodo 0 y almacenamos en la lista \texttt{disponibles}
 las ciudades no visitadas. A continuación, mientras queden ciudades disponibles,
-recorremos la lista buscando aquella ciudad con distancia mínima a la última.
+recorremos la lista buscando aquella ciudad con distancia mínima a la última, la
+cual añadimos al trayecto y eliminamos de la lista de disponibles.
 
-\subsection{Estrategias de inserción}
+\subsubsection{Estrategias de inserción}
 
-\subsection{Colonia de hormigas}
+\subsubsection{Colonia de hormigas}
 
-Como solución adicional propuesta por el equipo utilizamos el algoritmo basado en
+Como solución adicional propuesta por el equipo utilizamos un algoritmo basado en
 colonias de hormigas. Este algoritmo se inspira en la comunicación por feromonas
-de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida.
+de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida. \\
 
 Implementamos la Colonia (en el fichero \texttt{colonia.h}). Una Colonia consta de:
 
@@ -62,8 +73,10 @@ Las constantes controlan el comportamiento del algoritmo:
 
 \begin{description}
   \item[$\alpha$] es el peso que tienen las feromonas.
-  \item[$\beta$] es el peso que tiene la distancias
+  \item[$\beta$] es el peso que tienen la distancias.
   \item[\texttt{EVAPORACION}] es el coeficiente de evaporación de las feromonas.
-  \item[$C$]
-  \item[$P$]
+  \item[$C$] determina cuánta feromona se añade a un camino.
+  \item[$P$] es un flotante entre $0$ y $1$. Durante el progreso de un recorrido, hay
+  una probabilidad de $1-P$ de que la hormiga opte por tomar directamente el camino
+  más corto a otro nodo.
 \end{description}

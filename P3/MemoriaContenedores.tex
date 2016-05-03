@@ -3,6 +3,7 @@
 
 El problema consiste en rellenar un buque con carga limitada ($K$) con un conjunto
 de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$ con un cierto objetivo.
+\\
 
 La implementación de los algoritmos es de la forma:
 \begin{description}
@@ -25,7 +26,8 @@ y ordenamos este vector en función de los pesos:
 
 \lstinputlisting[firstline=38, lastline=51]{cpps/contenedores.cpp}
 
-La función \texttt{compara} nos permite comparar dos contenedores, en este caso respecto de su peso, indicando cuál es menor.
+La función \texttt{menor} nos permite comparar dos contenedores según su peso,
+indicando cuál es menor.
 
 La eficiencia del algoritmo es $O(n\log(n))$, ya que la operación de ordenado es
 $O(n\log(n))$ y el bucle posterior es de eficiencia lineal.
