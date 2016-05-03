@@ -13,7 +13,7 @@
 #include "colonia.h"
 using namespace std;
 
-vector<int> tsp_1(const Grafo<peso_t>& g) {
+vector<int> tsp_1(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
   vector<int> trayecto(1, 0);    // Empieza por un nodo arbitrario
   list<int> disponibles;
   for (int i = g.numNodos()-1; i > 0; i--)
@@ -38,7 +38,32 @@ vector<int> tsp_1(const Grafo<peso_t>& g) {
   return trayecto;
 }
 
-vector<int> tsp_2(const Grafo<peso_t>& g){
+vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
+  vector<int> iniciales = {0,1,2};
+  if (coordenadas[0][1] < coordenadas[1][1])
+     swap(iniciales[0], iniciales[1]);
+  if (coordenadas[iniciales[0]][1] < coordenadas[2][1])
+     swap(iniciales[0], iniciales[2]);
+  
+  if (coordenadas[iniciales[1]][0] > coordenadas[iniciales[2]][0])
+     swap(iniciales[1], iniciales[2]);
+  for (int i = 3; i < n; i++)
+     if (coordenadas[i][1] > coordenadas[iniciales[0]][1]) {
+        if (coordenadas[iniciales[0]][0] < coordenadas[iniciales[1]][0])
+           iniciales[1] = iniciales[0];
+        else if (coordenadas[iniciales[0]][0] > coordenadas[iniciales[2]][0])
+           iniciales[2] = iniciales[0];
+        iniciales[0] = i;
+     }
+     else if (coordenadas[i][0] < coordenadas[iniciales[1]][0])
+        iniciales[1] = i;
+     else if (coordenadas[i][0] > coordenadas[iniciales[2]][0])
+        iniciales[2] = i;
+
+  return iniciales;
+}
+
+vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
 
   int longitudTotalCircuito = 0;
 
@@ -51,7 +76,7 @@ vector<int> tsp_2(const Grafo<peso_t>& g){
   */
 
 
-  vector<int> trayecto; trayecto.push_front(0); trayecto.push_front(g.numNodos()-1);  //Metemos el primer nodo y el último;
+  vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());
   longitudTotalCircuito = g.peso(trayecto.back(),trayecto.front());
 
   list<int> disponibles;
@@ -85,7 +110,7 @@ vector<int> tsp_2(const Grafo<peso_t>& g){
   return trayecto; // TODO: algoritmo 2
 }
 
-vector<int> tsp_3(const Grafo<peso_t>& g) {
+vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    Colonia c(g);
    for (int i = 0; i < 64; i++)
       c.itera(64);
@@ -118,13 +143,13 @@ peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
   return l + g.peso(primero-1,actual-1);
 }
 
-int ejecutar(vector<int> (*f)(const Grafo<peso_t>&), const Grafo<peso_t>& g, bool a_archivo) {
+int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Grafo<peso_t>& g, const double coordenadas[][2], bool a_archivo) {
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
   vector<int> ciclo;
   tantes = chrono::steady_clock::now();
-  ciclo = f(g);
+  ciclo = f(g, coordenadas);
   tdespues = chrono::steady_clock::now();
 
   print(ciclo, a_archivo);
@@ -165,10 +190,11 @@ int main(int argc, char * argv[])
     cout << "DIMENSION: " << g.numNodos() << '\n';
   else
     cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << '\n';
+
   if (argv[2][0] == '1')
-     return ejecutar(tsp_1, g, a_archivo);
+     return ejecutar(tsp_1, g, coordenadas, a_archivo);
   else if (argv[2][0] == '2')
-     return ejecutar(tsp_2, g, a_archivo);
+     return ejecutar(tsp_2, g, coordenadas, a_archivo);
   else
-     return ejecutar(tsp_3, g, a_archivo);
+     return ejecutar(tsp_3, g, coordenadas, a_archivo);
 }
