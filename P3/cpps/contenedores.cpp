@@ -22,7 +22,7 @@ struct Cont{
 bool menor(Cont p1, Cont p2){ return p1.peso < p2.peso; }
 bool mayor(Cont p1, Cont p2){ return p1.peso > p2.peso; }
 
-vector<Cont> a_cont(vector<peso_t> v) {
+vector<Cont> a_cont(const vector<peso_t> v) {
   vector<Cont> conts;
   for(int i = 0; i < v.size(); i++)
     conts.push_back(Cont(i,v[i]));
@@ -36,7 +36,7 @@ vector<Cont> a_cont(vector<peso_t> v) {
    @param K: Capacidad máxima
    @return Vector de contenedores elegidos
 */
-vector<int> max_num_conts(vector<peso_t> p, peso_t K){
+vector<int> max_num_conts(const vector<peso_t> p, peso_t K){
   vector<Cont> conts = a_cont(p);
 
   sort(conts.begin(), conts.end(), menor);
@@ -51,7 +51,7 @@ vector<int> max_num_conts(vector<peso_t> p, peso_t K){
   return elegidos;
 }
 
-vector<int> max_peso_greedy(vector<peso_t> p, peso_t capacidad){
+vector<int> max_peso_greedy(const vector<peso_t> p, peso_t capacidad){
   vector<Cont> conts = a_cont(p);
 
   sort(conts.begin(), conts.end(), mayor);
@@ -67,29 +67,29 @@ vector<int> max_peso_greedy(vector<peso_t> p, peso_t capacidad){
   return elegidos;
 }
 
-peso_t suma(vector<Cont> v){
+peso_t suma(const vector<Cont> v){
   peso_t suma = 0;
-  for(vector<Cont>::iterator it = v.begin(); it != v.end(); ++it)
+  for(vector<Cont>::const_iterator it = v.cbegin(); it != v.cend(); ++it)
     suma += it->peso;
   return suma;
 }
 
-peso_t suma(vector<int> pos, vector<peso_t> v){
+peso_t suma(const vector<int> pos, const vector<peso_t> v){
   peso_t suma = 0;
-  for(vector<int>::iterator it = pos.begin(); it != pos.end(); ++it)
+  for(vector<int>::const_iterator it = pos.cbegin(); it != pos.cend(); ++it)
     suma += v[*it];
   return suma;
 }
 
-vector<Cont> bruto_sub(vector<Cont> p, peso_t K){
+vector<Cont> bruto_sub(const vector<Cont> p, peso_t K){
   if(p.empty() || K == 0)
     return vector<Cont>();
 
   peso_t max = 0;
   vector<Cont> max_v;
-  for(vector<Cont>::iterator it = p.begin(); it != p.end() && max < K; ++it){
-    vector<Cont>::iterator next(it);
-    vector<Cont> orig_copy(++next, p.end());   // Copia todos los posteriores
+  for(vector<Cont>::const_iterator it = p.cbegin(); it != p.cend() && max < K; ++it){
+    vector<Cont>::const_iterator next(it);
+    vector<Cont> orig_copy(++next, p.cend());   // Copia todos los posteriores
     vector<Cont> v_candidato;
     if(it->peso > K)
       v_candidato = bruto_sub(orig_copy, K);
@@ -106,7 +106,7 @@ vector<Cont> bruto_sub(vector<Cont> p, peso_t K){
   return max_v;
 }
 
-vector<int> max_peso_bruto(vector<peso_t> v, peso_t K){
+vector<int> max_peso_bruto(const vector<peso_t> v, peso_t K){
   vector<Cont> v1 = a_cont(v);
   vector<Cont> v2 = bruto_sub(v1, K);
   vector<int> v3;
@@ -144,10 +144,10 @@ int main(int argc, char* argv[]){
     pair<vector<peso_t>,peso_t> datos;
     int cantidad;
     if (argc == 1)
-      datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO,box_muller);
+      datos = gen_contenedores(SMIN,SMAX,PMIN,PMAX,RATIO,uniforme);
     else {
       stringstream(argv[1]+1) >> cantidad;
-      datos = gen_contenedores(cantidad,cantidad,PMIN,PMAX,RATIO,box_muller);
+      datos = gen_contenedores(cantidad,cantidad,PMIN,PMAX,RATIO,uniforme);
     }
     pesos = datos.first;
     capacidad = datos.second;
@@ -167,7 +167,7 @@ int main(int argc, char* argv[]){
   }
   print(capacidad, pesos);
   vector<int> res1, res2, res3;
-    chrono::steady_clock::time_point ta, tb;
+  chrono::steady_clock::time_point ta, tb;
   chrono::duration<double> t1, t2, t3;
 
   ta = chrono::steady_clock::now();
@@ -186,5 +186,5 @@ int main(int argc, char* argv[]){
   print(res3, pesos);
   t3 = chrono::duration_cast<chrono::duration<double>>(tb - ta);
 
-  cout << "Tiempos (s): " << t1.count() << " " << t2.count() << " " << t3.count();
+  cout << "Tiempos (s): " << t1.count() << " " << t2.count() << " " << t3.count() << endl;
 }
