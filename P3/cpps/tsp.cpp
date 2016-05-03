@@ -44,7 +44,7 @@ vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
      swap(iniciales[0], iniciales[1]);
   if (coordenadas[iniciales[0]][1] < coordenadas[2][1])
      swap(iniciales[0], iniciales[2]);
-  
+
   if (coordenadas[iniciales[1]][0] > coordenadas[iniciales[2]][0])
      swap(iniciales[1], iniciales[2]);
   for (int i = 3; i < n; i++)
@@ -65,50 +65,60 @@ vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
 
 vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
 
-  int longitudTotalCircuito = 0;
+  // // // int longitudTotalCircuito = 0;
+  // vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
+  //
+  // // for(int i = 1; i <= trayecto.size(); i++)
+  // //   longitudTotalCircuito += g.peso(trayecto[(i-1)%trayecto.size()],trayecto[i%trayecto.size()]); // Con esto sumamos los pesos de todos los nodos del ciclo.
+  // //   //Lo del módulo es una mamonada porque me habeis pegado eso de poner menos lineas. Es para sumar la distancia entre el primero y el último y cerrar el ciclo.
+  //
+  // list<int> disponibles;
+  // for (int i = 0; i < g.numNodos(); i++){
+  //   if (i != trayecto[0] && i!= trayecto[1] && i!= trayecto[2])
+  //       disponibles.push_front(i);
+  // }
+  //
+  //   while (!disponibles.empty()){
+  //     int Minimo = disponibles.back();
+  //     pair<int,int> PesoIndiceMin = PesoNuevoCircuito(Minimo,trayecto);
+  //
+  //     for(list<int>::const_iterator::it = disponibles.begin(); it != disponibles.end(); it++){
+  //       pair<int,int> PesoIndicetmp = PesoNuevoCircuito(*it,trayecto);
+  //       if(PesoIndiceMin.first > PesoIndicetmp.first){
+  //         Minimo = *it;
+  //         PesoIndiceMin=PesoIndicetmp;
+  //       }
+  //     }
+  //
+  //     disponibles.erase(Minimo);
+  //     trayecto.insert(trayecto.begin()+PesoIndiceMin.second,Minimo);
+  //   }
+  //
+  // return trayecto; // TODO: algoritmo 2
 
-  /*
-    RECORRIDO PARCIAL
-
-    Como primera aproximación al recorrido inicial tomo el primer y último nodo.
-    Según el pdf hay que coger los nodos más al "sur","este"y "oeste". Pero no pillo como sacar las coordenadas
-    de los nodos. Las siguientes partes del algoritmo no dependen del recorrido inicial.
-  */
-
-
-  vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());
-  longitudTotalCircuito = g.peso(trayecto.back(),trayecto.front());
-
-  list<int> disponibles;
-  for (int i = g.numNodos()-1; i > 0; i--)
-    disponibles.push_front(i);
-
-    while (!disponibles.empty()){
-      int actual = disponibles.back();
-
-      pair<int,int> LongitudMinima;
-      LongitudMinima.first=g.peso(actual,trayecto.front());  LongitudMinima.second = g.peso(actual,trayecto.back());
-      vector<int>::const_iterator PosInsercion = trayecto.begin();
-
-      for(vector<int>::const_iterator it = trayecto.begin(); i !=trayecto.end(); i++){
-        pair<int,int> tmp;
-        vector<int>::const_iterator itCpy = it; itCpy--;
-        tmp.first=g.peso(actual,it*); tmp.second=g.peso(actual,itCpy*);
-        int suma = tmp.first+tmp.second;
-
-        if (suma < LongitudMinima.first+LongitudMinima.second){
-          LongitudMinima = tmp;
-          PosInsercion = i;
-        }
-
-      }
-
-      trayecto.insert(PosInsercion,actual);
-      disponibles.erase(actual);
-    }
-
-  return trayecto; // TODO: algoritmo 2
+  return {-1};
 }
+
+// pair<int,int> PesoNuevoCircuito(int nodo,vector<int> trayecto,const Grafo<peso_t> & g){
+//
+//   int PesoMin = g.peso(trayecto.back(),nodo);
+//   PesoMin += g.peso(nodo,trayecto.front());
+//   int IndiceInsercion = 0;
+//
+//   for(int i = 1; i <= trayecto.size(); i++)
+//   {
+//     int Peso = g.peso(trayecto[(i-1)%trayecto.size()],nodo);
+//     Peso += g.peso(nodo,trayecto[i%trayecto.size()]);
+//
+//     if (Peso < PesoMin){
+//       PesoMin = Peso;
+//       IndiceInsercion = i;
+//     }
+//   }
+//
+//   pair<int,int> PesoIndice(PesoMin,IndiceInsercion);
+//   return PesoIndice;
+// }
 
 vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    Colonia c(g);
@@ -126,6 +136,7 @@ void print(const vector<int> ids, bool a_archivo, ostream& os = cout) {
 
 string nombre_optimo(const char* nombre) {
   return string(nombre).substr(0, string(nombre).find_last_of(".")) + ".opt.tour";
+
 }
 
 peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
