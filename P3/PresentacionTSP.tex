@@ -46,11 +46,18 @@ Recorremos la lista buscando aquella ciudad con distancia mínima:
 \lstinputlisting[firstline=23, lastline=37]{cpps/tsp.cpp}
 \end{frame}
 
-%% BEGIN DARIO
-\begin{frame}{Estrategias de inserción}
-%% TODO: Explicación del resto de la estrategia
+\begin{frame}{Inserción (algoritmo)}
+  \begin{itemize}
+    \item Toma las ciudades más al norte, este y oeste
+    \item Para cada nodo, halla el índice que aumente menos el recorrido
+    \item Inserta en dicho índice el nodo que aumente menos el recorrido
+  \end{itemize}
 \end{frame}
-%% END DARIO
+
+\begin{frame}[fragile]{Inserción (código)}
+\vspace*{-.5cm}
+\lstinputlisting[firstline = 95, lastline = 109]{cpps/tsp.cpp}
+\end{frame}
 
 \begin{frame}{Colonia de hormigas}
 Este algoritmo se inspira en la comunicación por feromonas
@@ -74,7 +81,7 @@ Una Colonia consta de:
   \item[$\beta$] Peso que tienen la distancias.
   \item[$\rho$] Coeficiente de evaporación de las feromonas.
   \item[$C$] Cuántas feromonas se añaden a un camino.
-  \item[$P$] Probabilidad de tomar directamente el camino más corto.
+  \item[$P$] Probabilidad de tomar el camino más corto.
 \end{description}
 \note{Explicar cada constante}
 \end{frame}

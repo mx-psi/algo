@@ -66,18 +66,17 @@ coordenada y):
 En el caso en el que el punto de mayor coordenada y sea también el de mayor (o menor)
 coordenada x cogeremos el segundo con mayor (o menor) coordenada x.
 
-
 Una vez conseguido un triángulo en el grafo lo suficientemente grande lo siguiente es añadir el resto de ciudades. Utilizaremos el siguiente procedmiento a la hora de insertar.
 
 \begin{itemize}
-	\item{Recorrer la lista de nodos disponibles}
-	\item{Para cada nodo seleccionar el indice en el que, de insertarse aumente lo menos posible el peso del grafo}
-	\item{Insertamos en dicho indice el nodo que menos aumente el peso total}
+  \item Recorrer la lista de nodos disponibles
+  \item Para cada nodo seleccionar el índice en el que, de insertarse aumente lo menos posible el peso del grafo
+  \item Insertamos en dicho índice el nodo que menos aumente el peso total
 \end{itemize}
 
 \lstinputlisting[firstline = 93, lastline = 126]{cpps/tsp.cpp}
 \newpage
-El verdadero coraz\'on del algoritmo reside en saber qu\'e cómo varía el peso del grafo al insertar un nodo.
+El verdadero corazón del algoritmo reside en saber cómo varía el peso del grafo al insertar un nodo.
 Consideremos lo siguiente: \\
 
 Sea $y_0$ el nodo a insertar entre los nodos $n_i$ y $n_{i-1}$. Al hacer esta inserción el vértice que une los dos nuevos nodos desaparece y aparecen dos más: $(y_0 \vee n_i)$ y $(y_0 \vee n_{i-1})$.\\
@@ -86,7 +85,6 @@ Por tanto el peso de la inserción de $n_0$ en el indice $i$ es:
 $$ \operatorname{PesoInsercion}_i = \operatorname{Peso}(y_0 \vee n_i)+\operatorname{Peso}(y_0 \vee n_i)-\operatorname{Peso}(n_i\vee n_{i-1})$$
 
 Primero buscamos cual es el peso mínimo de insertar el nodo $n_i$ y lo comparamos con los demás. Insertamos el nodo cuyo peso mínimo sea menor en su índice correspondiente.
-
 
 %% TODO: Explicación del resto de la estrategia
 
