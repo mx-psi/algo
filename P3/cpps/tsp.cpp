@@ -7,6 +7,7 @@
 #include <vector>
 #include <list>
 #include <ctime>
+#include <utility>
 #include <cstdlib>
 #include <chrono>
 #include "grafo.h"
@@ -20,7 +21,7 @@ vector<int> tsp_1(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
     disponibles.push_front(i);
 
   while(!disponibles.empty()) {
-    list<int>::const_iterator it = disponibles.begin(), cercano = it, fin = disponibles.end();
+    list<int>::iterator it = disponibles.begin(), cercano = it, fin = disponibles.end();
     int actual = trayecto.back();
     peso_t d_actual = g.peso(actual, *cercano);
     for (++it; it != fin; ++it) {
@@ -63,62 +64,73 @@ vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
   return iniciales;
 }
 
-vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
 
-  // // // int longitudTotalCircuito = 0;
-  // vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
-  //
-  // // for(int i = 1; i <= trayecto.size(); i++)
-  // //   longitudTotalCircuito += g.peso(trayecto[(i-1)%trayecto.size()],trayecto[i%trayecto.size()]); // Con esto sumamos los pesos de todos los nodos del ciclo.
-  // //   //Lo del módulo es una mamonada porque me habeis pegado eso de poner menos lineas. Es para sumar la distancia entre el primero y el último y cerrar el ciclo.
-  //
-  // list<int> disponibles;
-  // for (int i = 0; i < g.numNodos(); i++){
-  //   if (i != trayecto[0] && i!= trayecto[1] && i!= trayecto[2])
-  //       disponibles.push_front(i);
-  // }
-  //
-  //   while (!disponibles.empty()){
-  //     int Minimo = disponibles.back();
-  //     pair<int,int> PesoIndiceMin = PesoNuevoCircuito(Minimo,trayecto);
-  //
-  //     for(list<int>::const_iterator::it = disponibles.begin(); it != disponibles.end(); it++){
-  //       pair<int,int> PesoIndicetmp = PesoNuevoCircuito(*it,trayecto);
-  //       if(PesoIndiceMin.first > PesoIndicetmp.first){
-  //         Minimo = *it;
-  //         PesoIndiceMin=PesoIndicetmp;
-  //       }
-  //     }
-  //
-  //     disponibles.erase(Minimo);
-  //     trayecto.insert(trayecto.begin()+PesoIndiceMin.second,Minimo);
-  //   }
-  //
-  // return trayecto; // TODO: algoritmo 2
+pair<int,vector<int>::iterator> PesoNuevoCircuito(list<int>::iterator nodo,vector<int> & trayecto,const Grafo<peso_t> & g){
 
-  return {-1};
+  int PesoMin = g.peso(trayecto.back(),*nodo);
+  PesoMin += g.peso(*nodo,trayecto.front());
+
+  int IndiceInsercion = 0;
+
+  for(int i = 1; i <= trayecto.size(); i++)
+  {
+    int Peso = g.peso(trayecto[(i-1)%trayecto.size()],*nodo);
+    Peso += g.peso(*nodo,trayecto[i%trayecto.size()]);
+
+    if (Peso < PesoMin){
+      PesoMin = Peso;
+      IndiceInsercion = i;
+    }
+  }
+
+    pair<int,vector<int>::iterator> PesoIndice(PesoMin,trayecto.begin()+IndiceInsercion);
+    return PesoIndice;
 }
 
-// pair<int,int> PesoNuevoCircuito(int nodo,vector<int> trayecto,const Grafo<peso_t> & g){
-//
-//   int PesoMin = g.peso(trayecto.back(),nodo);
-//   PesoMin += g.peso(nodo,trayecto.front());
-//   int IndiceInsercion = 0;
-//
-//   for(int i = 1; i <= trayecto.size(); i++)
-//   {
-//     int Peso = g.peso(trayecto[(i-1)%trayecto.size()],nodo);
-//     Peso += g.peso(nodo,trayecto[i%trayecto.size()]);
-//
-//     if (Peso < PesoMin){
-//       PesoMin = Peso;
-//       IndiceInsercion = i;
-//     }
-//   }
-//
-//   pair<int,int> PesoIndice(PesoMin,IndiceInsercion);
-//   return PesoIndice;
-// }
+vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
+
+  // // int longitudTotalCircuito = 0;
+  vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
+
+  // for(int i = 1; i <= trayecto.size(); i++)
+  //   longitudTotalCircuito += g.peso(trayecto[(i-1)%trayecto.size()],trayecto[i%trayecto.size()]); // Con esto sumamos los pesos de todos los nodos del ciclo.
+  //   //Lo del módulo es una mamonada porque me habeis pegado eso de poner menos lineas. Es para sumar la distancia entre el primero y el último y cerrar el ciclo.
+
+  list<int> disponibles;
+  for (int i = 0; i < g.numNodos(); i++){
+    if (i != trayecto[0] && i!= trayecto[1] && i!= trayecto[2])
+        disponibles.push_front(i);
+  }
+
+    while (!disponibles.empty()){
+      list<int>::iterator Minimo = disponibles.begin();
+      pair<int,vector<int>::iterator> PesoIndiceMin = PesoNuevoCircuito(Minimo,trayecto,g);
+
+      for(list<int>::iterator it = ++disponibles.begin(); it != disponibles.end(); it++){
+        pair<int,vector<int>::iterator> PesoIndicetmp = PesoNuevoCircuito(it,trayecto,g);
+        if(PesoIndiceMin.first > PesoIndicetmp.first){
+          Minimo = it;
+          PesoIndiceMin=PesoIndicetmp;
+        }
+      }
+
+      // cout << "PesoIndiceMin.second "<<*PesoIndiceMin.second<<endl<< "\t size\t"<<trayecto.size()<<"\n\n";
+      // cout << "llega hasa aqui \n\n insert minimo\n" << (PesoIndiceMin.second == trayecto.end() ? "sí" : "no");
+
+      if (PesoIndiceMin.second == trayecto.end())
+        trayecto.push_back(*Minimo);
+      else
+        trayecto.insert(PesoIndiceMin.second,*Minimo);
+
+
+      disponibles.erase(Minimo);
+      //  cout<< "llega hasta aqui \n\n erase MINImo\n"<<endl;
+      // cout << "Minimo"<<" "<<*Minimo<<endl;
+
+    }
+
+  return trayecto; // TODO: algoritmo 2
+}
 
 vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    Colonia c(g);
@@ -127,16 +139,21 @@ vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    return c.itera(512);
 }
 
-void print(const vector<int> ids, bool a_archivo, ostream& os = cout) {
-  for (vector<int>::const_iterator i = ids.begin(); i != ids.end(); ++i)
-    os << (a_archivo ? (*i)+1 : *i) << (a_archivo ? '\n' : ' ');
+void print(const vector<int> ids, ostream& os = cout) {
+  for (vector<int>::const_iterator i = ids.cbegin(); i != ids.cend(); ++i)
+    os << ((*i)+1) << '\n';
 
   os << '\n';
 }
 
 string nombre_optimo(const char* nombre) {
-  return string(nombre).substr(0, string(nombre).find_last_of(".")) + ".opt.tour";
+  string nm(nombre);
+  return nm.substr(0, nm.find_last_of(".")) + ".opt.tour";
+}
 
+string nombre_salida(const char* nombre, char num) {
+  string nm(nombre);
+  return "resultados" + nm.substr(nm.find("TSP"), nm.find(".tsp")-nm.find("TSP")) + "_" + num + ".tour";
 }
 
 peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
@@ -154,7 +171,7 @@ peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
   return l + g.peso(primero-1,actual-1);
 }
 
-int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Grafo<peso_t>& g, const double coordenadas[][2], bool a_archivo) {
+int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Grafo<peso_t>& g, const double coordenadas[][2], ostream& fo) {
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
@@ -163,49 +180,52 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Gr
   ciclo = f(g, coordenadas);
   tdespues = chrono::steady_clock::now();
 
-  print(ciclo, a_archivo);
+  print(ciclo, fo);
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
-  if (!a_archivo)
-    cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
+  cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
 
   return 0;
 }
 
 int main(int argc, char * argv[])
 {
-  if ((argc != 3 && argc != 4) || (argv[2][0] != '1' && argv[2][0] != '2' && argv[2][0] != '3') || (argc == 4 && argv[3][0] != 't'))
+  if ((argc != 3 && argc != 4) || (argv[2][0] != '1' && argv[2][0] != '2' && argv[2][0] != '3' && argv[2][0] != 'o') || (argc == 4 && argv[3][0] != 't'))
   {
-    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3 [t]" << endl;
+    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3/o [t]" << endl;
     return -1;
   }
   bool a_archivo = argc == 4;
   srand(time(0));
   int n;
 
-  ifstream f(argv[1]);
+  ifstream fin(argv[1]);
   string s;
-  if (!(f >> s))
+  if (!(fin >> s))
      return -1;
-  f >> n;
+  fin >> n;
   Grafo<peso_t> g(n);
   double coordenadas[n][2];
   int id;
   double x, y;
-  while(f >> id >> x >> y) {
+  while(fin >> id >> x >> y) {
      coordenadas[id-1][0] = x;
      coordenadas[id-1][1] = y;
   }
   g.pesosDesdeCoordenadas(coordenadas);
 
-  if (a_archivo)
-    cout << "DIMENSION: " << g.numNodos() << '\n';
-  else
-    cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << '\n';
+  ofstream fout;
+  if (argv[2][0] != 'o') {
+    fout.open(nombre_salida(argv[1], argv[2][0]));
+    fout << "DIMENSION: " << g.numNodos() << '\n';
 
   if (argv[2][0] == '1')
-     return ejecutar(tsp_1, g, coordenadas, a_archivo);
-  else if (argv[2][0] == '2')
-     return ejecutar(tsp_2, g, coordenadas, a_archivo);
-  else
-     return ejecutar(tsp_3, g, coordenadas, a_archivo);
+    return ejecutar(tsp_1, g, coordenadas, fout);
+  if (argv[2][0] == '2')
+    return ejecutar(tsp_2, g, coordenadas, fout);
+  if (argv[2][0] == '3')
+    return ejecutar(tsp_3, g, coordenadas, fout);
+  }
+
+  cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << endl;
+  return 0;
 }

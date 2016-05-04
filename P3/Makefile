@@ -22,13 +22,13 @@ exes: $(CPPS:cpps/%.cpp=%.exe)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 resultadosTSP/%_1.tour: datosTSP/%.tsp tsp.exe
-	.$(BAR)tsp $< 1 t > $@
+	.$(BAR)tsp $< 1
 
 resultadosTSP/%_2.tour: datosTSP/%.tsp tsp.exe
-	.$(BAR)tsp $< 2 t > $@
+	.$(BAR)tsp $< 2
 
 resultadosTSP/%_3.tour: datosTSP/%.tsp tsp.exe
-	.$(BAR)tsp $< 3 t > $@
+	.$(BAR)tsp $< 3
 
 resultadosTSP/%_opt.dat: datosTSP/%.tsp datosTSP/%.opt.tour tsp_coord.exe
 	.$(BAR)tsp_coord $< $(word 2, $^) > $@
