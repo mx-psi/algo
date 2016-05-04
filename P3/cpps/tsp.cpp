@@ -15,7 +15,7 @@
 using namespace std;
 
 vector<int> tsp_1(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
-  vector<int> trayecto(1, 0);    // Empieza por un nodo arbitrario
+  vector<int> trayecto(1, 0);
   list<int> disponibles;
   for (int i = g.numNodos()-1; i > 0; i--)
     disponibles.push_front(i);
