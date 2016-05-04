@@ -53,9 +53,7 @@ vector<int> max_num_conts(const vector<peso_t> p, peso_t K){
 
 vector<int> max_peso_greedy(const vector<peso_t> p, peso_t capacidad){
   vector<Cont> conts = a_cont(p);
-
   sort(conts.begin(), conts.end(), mayor);
-
   vector<int> elegidos;
 
   for(int i = 0; i < conts.size() && capacidad > 0; i++){

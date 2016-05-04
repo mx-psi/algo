@@ -66,52 +66,67 @@ coordenada y):
 En el caso en el que el punto de mayor coordenada y sea también el de mayor (o menor)
 coordenada x cogeremos el segundo con mayor (o menor) coordenada x.
 
-Una vez conseguido un triángulo en el grafo lo suficientemente grande lo siguiente es añadir el resto de ciudades. Utilizaremos el siguiente procedmiento a la hora de insertar.
+Una vez conseguido un triángulo en el grafo lo suficientemente grande lo siguiente es añadir el resto de ciudades. Utilizaremos el siguiente procedmiento a la hora de insertar:
 
 \begin{itemize}
-  \item Recorrer la lista de nodos disponibles
-  \item Para cada nodo seleccionar el índice en el que, de insertarse aumente lo menos posible el peso del grafo
-  \item Insertamos en dicho índice el nodo que menos aumente el peso total
+  \item Recorrer la lista de nodos disponibles.
+  \item Para cada nodo seleccionar el índice donde, de insertarse, aumente lo menos posible el peso del grafo.
+  \item Insertamos en dicho índice el nodo que menos aumente el peso total.
 \end{itemize}
 
-\lstinputlisting[firstline = 93, lastline = 126]{cpps/tsp.cpp}
+\lstinputlisting[firstline = 85, lastline = 114]{cpps/tsp.cpp}
 \newpage
 El verdadero corazón del algoritmo reside en saber cómo varía el peso del grafo al insertar un nodo.
 Consideremos lo siguiente: \\
 
-Sea $y_0$ el nodo a insertar entre los nodos $n_i$ y $n_{i-1}$. Al hacer esta inserción el vértice que une los dos nuevos nodos desaparece y aparecen dos más: $(y_0 \vee n_i)$ y $(y_0 \vee n_{i-1})$.\\
+Sea $y_0$ el nodo a insertar entre los nodos $n_i$ y $n_{i-1}$, que se encuentran seguidos, separados por un segmento $\overline{n_i \ n_{i-1}}$. Al hacer esta inserción el segmento que une los dos nuevos nodos deja de ser relevante en la longitud del recorrido y aparecen dos segmentos nuevos: $\overline{y_0 \ n_i}$ y $\overline{y_0 \ n_{i-1}}$.\\
 
-Por tanto el peso de la inserción de $n_0$ en el indice $i$ es:
-$$ \operatorname{PesoInsercion}_i = \operatorname{Peso}(y_0 \vee n_i)+\operatorname{Peso}(y_0 \vee n_i)-\operatorname{Peso}(n_i\vee n_{i-1})$$
+Por tanto, el peso de la inserción de $n_0$ en el indice $i$ es:
+$$ \operatorname{PesoInsercion}_i = \operatorname{Peso}(\overline{y_0 \ n_i})+\operatorname{Peso}(\overline{y_0 \ n_{i-1}})-\operatorname{Peso}(\overline{n_i \ n_{i-1}})$$
 
-Primero buscamos cual es el peso mínimo de insertar el nodo $n_i$ y lo comparamos con los demás. Insertamos el nodo cuyo peso mínimo sea menor en su índice correspondiente.
+Primero buscamos cuál es el mínimo incremento de insertar el nodo $n_i$ y lo comparamos con los demás. Insertamos el nodo cuyo peso mínimo añadido sea menor en su índice correspondiente.
 
 %% TODO: Explicación del resto de la estrategia
 
 \subsubsection{Colonia de hormigas}
 
-Como solución adicional propuesta por el equipo utilizamos un algoritmo basado en
+Como solución adicional propuesta por el equipo utilizamos una heurística basado en
 colonias de hormigas. Este algoritmo se inspira en la comunicación por feromonas
-de una colonia de hormigas para encontrar el camino mínimo hacia una fuente de comida. \\
+de una colonia de hormigas para encontrar el camino óptimo hacia una fuente de comida. \\
 
-Implementamos la Colonia (en el fichero \texttt{colonia.h}). Una Colonia consta de:
+Implementamos la Colonia (en el fichero \texttt{colonia.h}) mediante una clase. Una Colonia consta de:
 
 \begin{itemize}
   \item Un grafo de \textbf{distancias} entre las ciudades.
-  \item Un grafo con las \textbf{feromonas} de cada camino, inicialmente arbitrarias.
-  \item Una serie de constantes $\alpha, \beta, \rho, C, P$.
+  \item Un grafo con las \textbf{feromonas} de cada camino, inicialmente a un valor arbitrario.
+  \item Una serie de constantes $\alpha, \beta, \rho, \xi, C, P, I$.
 \end{itemize}
 
 Las constantes controlan el comportamiento del algoritmo:
 
 \begin{description}
-  \item[$\alpha$] es el peso que tienen las feromonas.
-  \item[$\beta$] es el peso que tienen la distancias.
+  \item[$\alpha$] es el peso que tienen las feromonas a la hora de decantarse por un camino u otro.
+  \item[$\beta$] es el peso que tienen la distancias en la circunstancia anterior.
   \item[$\rho$] es el coeficiente de evaporación de las feromonas.
+  \item[$\xi$] es el coeficiente de debilitamiento de las feromonas.
   \item[$C$] determina cuánta feromona se añade a un camino.
   \item[$P$] es un flotante entre $0$ y $1$. Durante el progreso de un recorrido, hay
-  una probabilidad de $1-P$ de que la hormiga opte por tomar directamente el camino
-  más corto a otro nodo.
+  una probabilidad de $1-P$ de que la hormiga opte por elegir el siguiente nodo de forma no aleatoria.
+  \item[$I$] es la cantidad de feromona inicial en cada nodo.
 \end{description}
+
+Este algoritmo genera una serie de ciclos. En cada ciclo se empieza en un nodo al azar y se añaden nodos adicionales, formando un trayecto que termina cerrándose, decidiendo el siguiente nodo en función de la distancia al nodo actual y de la cantidad de feromona depositada en la arista entre ambos nodos.
+
+Se define una fórmula que determina la probabilidad de escoger un nodo. Sea $i$ el nodo actual, $j$ un nodo candidato y $K$ la lista de nodos candidatos, la probabilidad de que se escoja el nodo $j$ a continuación del $i$ es:
+
+$$P_{j}^i = \frac{(\tau_{i,j})^\alpha \cdot (1/d(i,j))^\beta}{\displaystyle \sum_{k \in K} (\tau_{i,k})^\alpha \cdot (1/d(i,k))^\beta}$$
+
+Donde $\tau_{a,b}$ denota la cantidad de feromona depositada en la arista que une $a$ con $b$, y $d(a,b)$ es la distancia entre dos nodos $a$ y $b$. \\
+
+En cada nodo, hay una probabilidad de $P$ de que se escoja un elemento a partir de la lista de probabilidades acumuladas (generando un flotante entre $0$ y $1$ y buscando la posición donde es superado), y una probabilidad de $1-P$ de que se tome directamente el elemento con mayor probabilidad de ser escogido. En la práctica no calcularemos el denominador de la expresión anterior y simplemente normalizaremos el flotante respecto del último elemento de la lista de probabilidades acumuladas. \\
+
+Cada vez que una serie de hormigas termina su recorrido, se actualizan las feromonas de los nodos por los que han pasado. Para el mejor recorrido obtenido, la feromona de cada arista atravesada se multiplica por $1-\rho$ y se le suma $\rho C L^{-1}$, siendo $L^{-1}$ la inversa de la longitud del recorrido. En todos los recorridos, la feromona de cada arista recorrida se multiplica por $1-\xi$ y se le suma $\xi \cdot I$. Con esto se pretende potenciar el mejor recorrido y reducir el interés en las aristas que no han intervenido en ese camino, de forma que la próxima generación de hormigas optará por repetir caminos similares al óptimo evitando tomar aristas que no dieron resultado. \\
+
+El algoritmo ejecuta varias generaciones de hormigas. Pueden usarse distintos criterios de parada, como por ejemplo detenerse cuando el mejor recorrido no se haya modificado en las últimas iteraciones, aunque optaremos por fijar el número de generaciones a un múltiplo del número de nodos del grafo.
 
 \subsection{Comparativa de los algoritmos}

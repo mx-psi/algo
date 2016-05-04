@@ -14,7 +14,7 @@ double uniforme(){
 class Colonia {
    const Grafo<peso_t> distancias;
    Grafo<double> feromonas;
-   static const double ALPHA, BETA, RHO, C, P, I, XI;
+   static const double ALPHA, BETA, RHO, XI, C, P, I;
 
    inline int nodos() const { return distancias.numNodos(); }
 
@@ -105,6 +105,6 @@ public:
    }
 };
 
-const double Colonia::ALPHA = 1, Colonia::BETA = 6, Colonia::RHO = 0.1, Colonia::C = 2, Colonia::P = 0.1 , Colonia::I = 0.00001, Colonia::XI = 0.02;
+const double Colonia::ALPHA = 1, Colonia::BETA = 6, Colonia::RHO = 0.1, Colonia::XI = 0.02, Colonia::C = 2, Colonia::P = 0.1 , Colonia::I = 0.00001;
 
 #endif
