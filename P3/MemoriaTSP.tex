@@ -135,7 +135,9 @@ El algoritmo ejecuta varias generaciones de hormigas. Pueden usarse distintos cr
 
 \subsection{Comparativa de los algoritmos}
 
-Para ver mejor las diferencias entre los tres algoritmos, hemos decidido ejecutarlos en algunos de los ejemplos propuestos, y hacer gráficos con los resultados. A continuación presentamos los caminos óptimos que deberían dar en cada uno de los ejemplos junto a lo que da cada algoritmo. Se adjunta, además, un diagrama de barras para poder apreciar mejor la eficacia de los resultados.
+Para ver mejor las diferencias entre los tres algoritmos, hemos decidido ejecutarlos en algunos de los ejemplos propuestos, y hacer gráficos con los resultados. A continuación presentamos los caminos óptimos que deberían dar en cada uno de los ejemplos junto a lo que da cada algoritmo. Se adjunta, además, un diagrama de barras para poder apreciar mejor la eficacia de los resultados. \\
+
+Cabe destacar que nos hemos encontrado recorridos que decían ser óptimos pero, por diversas razones, resultaban no serlo, o al menos no tomandos las distancias euclídeas redondeadas a la baja. En \texttt{rd100.opt.tour} el nodo $7$ estaba repetido y faltaba el $17$. Por su parte, \texttt{pa561.opt.tour} usaba para las medidas de las aristas unos números indicados explícitamente, con valores distintos a las distancias entre sus nodos, y \texttt{gr666.opt.tour} tenía calculada la ruta óptima sobre una esfera, puesto que \texttt{gr666.tsp} contiene coordenadas esféricas y no cartesianas.
 
 \subsubsection{Ejemplo 1: Ulysses16}
 
@@ -144,7 +146,7 @@ Para ver mejor las diferencias entre los tres algoritmos, hemos decidido ejecuta
 	\caption{Comparativa de longitud de los caminos de cada algoritmo} \end{figure}
 
 
-En el primer ejemplo tanto inserción como la colonia de hormigas dan un resultado muy bueno, mientras que el vecino más cercano se aleja bastante de estas distancias. Colocamos aquí los caminos realizados:
+En el primer ejemplo tanto inserción como la colonia de hormigas dan un resultado muy bueno, mientras que el vecino más cercano se aleja bastante de la longitud óptima. Colocamos aquí los caminos realizados:
 
 \begin{figure}[h]	\includegraphics[width = \linewidth ]{ulysses16_tsp_opt} \centering
 	\caption{Camino óptimo para el problema Ulysses16} \end{figure}
