@@ -79,7 +79,7 @@ Implementamos la Colonia (en el fichero \texttt{colonia.h}). Una Colonia consta 
 \begin{itemize}
   \item Un grafo de \textbf{distancias} entre las ciudades.
   \item Un grafo con las \textbf{feromonas} de cada camino, inicialmente arbitrarias.
-  \item Una serie de constantes $\alpha, \beta, \texttt{EVAPORACION}, C, P$.
+  \item Una serie de constantes $\alpha, \beta, \rho, C, P$.
 \end{itemize}
 
 Las constantes controlan el comportamiento del algoritmo:
@@ -87,7 +87,7 @@ Las constantes controlan el comportamiento del algoritmo:
 \begin{description}
   \item[$\alpha$] es el peso que tienen las feromonas.
   \item[$\beta$] es el peso que tienen la distancias.
-  \item[\texttt{EVAPORACION}] es el coeficiente de evaporación de las feromonas.
+  \item[$\rho$] es el coeficiente de evaporación de las feromonas.
   \item[$C$] determina cuánta feromona se añade a un camino.
   \item[$P$] es un flotante entre $0$ y $1$. Durante el progreso de un recorrido, hay
   una probabilidad de $1-P$ de que la hormiga opte por tomar directamente el camino
