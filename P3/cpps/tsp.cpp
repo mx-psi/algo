@@ -132,16 +132,21 @@ vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    return c.itera(512);
 }
 
-void print(const vector<int> ids, bool a_archivo, ostream& os = cout) {
-  for (vector<int>::const_iterator i = ids.begin(); i != ids.end(); ++i)
-    os << (a_archivo ? (*i)+1 : *i) << (a_archivo ? '\n' : ' ');
+void print(const vector<int> ids, ostream& os = cout) {
+  for (vector<int>::const_iterator i = ids.cbegin(); i != ids.cend(); ++i)
+    os << ((*i)+1) << '\n';
 
   os << '\n';
 }
 
 string nombre_optimo(const char* nombre) {
-  return string(nombre).substr(0, string(nombre).find_last_of(".")) + ".opt.tour";
+  string nm(nombre);
+  return nm.substr(0, nm.find_last_of(".")) + ".opt.tour";
+}
 
+string nombre_salida(const char* nombre, char num) {
+  string nm(nombre);
+  return "resultados" + nm.substr(nm.find("TSP"), nm.find(".tsp")-nm.find("TSP")) + "_" + num + ".tour";
 }
 
 peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
@@ -159,7 +164,7 @@ peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
   return l + g.peso(primero-1,actual-1);
 }
 
-int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Grafo<peso_t>& g, const double coordenadas[][2], bool a_archivo) {
+int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Grafo<peso_t>& g, const double coordenadas[][2], ostream& fo) {
   chrono::steady_clock::time_point tantes, tdespues;
   chrono::duration<double> transcurrido;
 
@@ -168,49 +173,52 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Gr
   ciclo = f(g, coordenadas);
   tdespues = chrono::steady_clock::now();
 
-  print(ciclo, a_archivo);
+  print(ciclo, fo);
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
-  if (!a_archivo)
-    cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
+  cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
 
   return 0;
 }
 
 int main(int argc, char * argv[])
 {
-  if ((argc != 3 && argc != 4) || (argv[2][0] != '1' && argv[2][0] != '2' && argv[2][0] != '3') || (argc == 4 && argv[3][0] != 't'))
+  if ((argc != 3 && argc != 4) || (argv[2][0] != '1' && argv[2][0] != '2' && argv[2][0] != '3' && argv[2][0] != 'o') || (argc == 4 && argv[3][0] != 't'))
   {
-    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3 [t]" << endl;
+    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3/o [t]" << endl;
     return -1;
   }
   bool a_archivo = argc == 4;
   srand(time(0));
   int n;
 
-  ifstream f(argv[1]);
+  ifstream fin(argv[1]);
   string s;
-  if (!(f >> s))
+  if (!(fin >> s))
      return -1;
-  f >> n;
+  fin >> n;
   Grafo<peso_t> g(n);
   double coordenadas[n][2];
   int id;
   double x, y;
-  while(f >> id >> x >> y) {
+  while(fin >> id >> x >> y) {
      coordenadas[id-1][0] = x;
      coordenadas[id-1][1] = y;
   }
   g.pesosDesdeCoordenadas(coordenadas);
 
-  if (a_archivo)
-    cout << "DIMENSION: " << g.numNodos() << '\n';
-  else
-    cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << '\n';
+  ofstream fout;
+  if (argv[2][0] != 'o') {
+    fout.open(nombre_salida(argv[1], argv[2][0]));
+    fout << "DIMENSION: " << g.numNodos() << '\n';
 
-  if (argv[2][0] == '1')
-     return ejecutar(tsp_1, g, coordenadas, a_archivo);
-  else if (argv[2][0] == '2')
-     return ejecutar(tsp_2, g, coordenadas, a_archivo);
-  else
-     return ejecutar(tsp_3, g, coordenadas, a_archivo);
+    if (argv[2][0] == '1')
+      return ejecutar(tsp_1, g, coordenadas, fout);
+    if (argv[2][0] == '2')
+      return ejecutar(tsp_2, g, coordenadas, fout);
+    if (argv[2][0] == '3')
+      return ejecutar(tsp_3, g, coordenadas, fout);
+  }
+
+  cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << endl;
+  return 0;
 }
