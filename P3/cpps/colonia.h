@@ -12,9 +12,9 @@ double uniforme(){
 }
 
 class Colonia {
-   Grafo<peso_t> distancias;
+   const Grafo<peso_t> distancias;
    Grafo<double> feromonas;
-   static const double ALPHA, BETA, EVAPORACION, C, P;
+   static const double ALPHA, BETA, RHO, C, P, I, XI;
 
    inline int nodos() const { return distancias.numNodos(); }
 
@@ -32,14 +32,15 @@ class Colonia {
          disponibles.push_back(i);
 
       int actual = inicial;
+      vector<double> prob_acumulada(1,0);
       while(!disponibles.empty()) {
          int siguiente_pos;
          if (uniforme() < P) {
-            vector<double> prob_acumulada(1, 0);
+            prob_acumulada.resize(1);
             for (vector<int>::iterator it = disponibles.begin(); it != disponibles.end() && !std::isinf(prob_acumulada.back()); ++it)
                prob_acumulada.push_back(prob_acumulada.back() + probabilidad(actual, *it));
 
-            if (std::isinf(prob_acumulada.back()))   // Ocurre si dos nodos est�n a distancia 0
+            if (std::isinf(prob_acumulada.back()))   // Ocurre si dos nodos están a distancia 0
                siguiente_pos = prob_acumulada.size()-1;
             else {
                double aleatorio = uniforme()*prob_acumulada.back();
@@ -48,19 +49,19 @@ class Colonia {
             }
          } else {
             int mejor = 0;
-            peso_t mejor_lng = distancias.peso(actual, disponibles.front());
+            double prob, mejor_prob = probabilidad(actual, disponibles.front());
             for (int i = 1; i < disponibles.size(); i++) {
-               peso_t lng = distancias.peso(actual, disponibles[i]);
-               if (lng < mejor_lng) {
+               prob = probabilidad(actual, disponibles[i]);
+               if (prob > mejor_prob) {
                   mejor = i;
-                  mejor_lng = lng;
+                  mejor_prob = prob;
                }
             }
             siguiente_pos = mejor;
          }
          actual = disponibles[siguiente_pos];
          swap(disponibles[siguiente_pos], disponibles.back());
-         disponibles.pop_back();  // Para eliminar el nodo siguiente_pos-�simo en O(1)
+         disponibles.pop_back();  // Para eliminar el nodo siguiente_pos-ésimo en O(1)
          trayecto.push_back(actual);
       }
 
@@ -71,7 +72,7 @@ public:
    Colonia(const Grafo<peso_t>& g) :distancias(g), feromonas(g.numNodos()) {
       for (int i = 1; i < nodos(); i++)
          for (int j = 0; j < i; j++)
-            feromonas.setPeso(i, j, 1.0); // Arbitrario, pero no puede ser 0
+            feromonas.setPeso(i, j, I);
    }
 
    Colonia(const Colonia& otra) :distancias(otra.distancias), feromonas(otra.feromonas) { };
@@ -81,10 +82,6 @@ public:
       list<vector<int> > trayectos;
       for (int i = 0; i < iteraciones; i++)
          trayectos.push_back(un_trayecto());
-
-      for (int i = 1; i < nodos(); i++)
-         for (int j = 0; j < i; j++)
-            feromonas.setPeso(i, j, feromonas.peso(i, j)*EVAPORACION);
 
       double mayor_suma = -1;
       list<vector<int> >::const_iterator mejor_camino, t;
@@ -96,15 +93,18 @@ public:
          }
 
          for (int i = 1; i < (*t).size(); i++)
-            feromonas.setPeso((*t)[i-1], (*t)[i], feromonas.peso((*t)[i-1], (*t)[i])+suma);
+            feromonas.setPeso((*t)[i-1], (*t)[i], (1-XI)*feromonas.peso((*t)[i-1], (*t)[i])+XI*I);
 
-         feromonas.setPeso((*t).front(), (*t).back(), feromonas.peso((*t).front(), (*t).back())+suma);
+         feromonas.setPeso((*t).front(), (*t).back(), (1-XI)*feromonas.peso((*t).front(), (*t).back())+XI*I);
       }
+      for (int i = 1; i < (*mejor_camino).size(); i++)
+         feromonas.setPeso((*mejor_camino)[i-1], (*mejor_camino)[i], (1-RHO)*feromonas.peso((*mejor_camino)[i-1], (*mejor_camino)[i])+RHO*mayor_suma);
 
+      feromonas.setPeso((*mejor_camino).front(), (*mejor_camino).back(), (1-RHO)*feromonas.peso((*mejor_camino).front(), (*mejor_camino).back())+RHO*mayor_suma);
       return *mejor_camino;
    }
 };
 
-const double Colonia::ALPHA = 1, Colonia::BETA = 6, Colonia::EVAPORACION = 0.7, Colonia::C = 4, Colonia::P = 0.2;
+const double Colonia::ALPHA = 1, Colonia::BETA = 6, Colonia::RHO = 0.1, Colonia::C = 2, Colonia::P = 0.1 , Colonia::I = 0.00001, Colonia::XI = 0.02;
 
 #endif

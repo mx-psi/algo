@@ -115,9 +115,18 @@ vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
 
 vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
    Colonia c(g);
-   for (int i = 0; i < 64; i++)
-      c.itera(64);
-   return c.itera(512);
+   vector<int> mejor = c.itera(10), posible;
+   peso_t lng = longitud(mejor, g), lng_mejor = lng;
+   for (int iteraciones = 0; iteraciones < 128 || iteraciones < g.numNodos(); iteraciones++) {
+     posible = c.itera(10);
+     lng = longitud(posible, g);
+     if (lng < lng_mejor) {
+        lng_mejor = lng;
+        swap(posible, mejor);
+     }
+   }
+
+   return mejor;
 }
 
 void print(const vector<int> ids, ostream& os = cout) {
