@@ -53,7 +53,7 @@ resultadosTSP/%_3.dat: datosTSP/%.tsp resultadosTSP/%_3.tour tsp_coord.exe
 	pdflatex $<
 
 clean:
-	$(RM) *.snm *.log *.toc *.aux *.nav *.out *P2.pdf
+	$(RM) *.snm *.log *.toc *.aux *.nav *.out *P3.pdf
 
 mrproper: clean
 	$(RM) dats$(BAR)* img$(BAR)*
