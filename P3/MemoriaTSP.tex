@@ -130,3 +130,68 @@ Cada vez que una serie de hormigas termina su recorrido, se actualizan las ferom
 El algoritmo ejecuta varias generaciones de hormigas. Pueden usarse distintos criterios de parada, como por ejemplo detenerse cuando el mejor recorrido no se haya modificado en las últimas iteraciones, aunque optaremos por fijar el número de generaciones a un múltiplo del número de nodos del grafo.
 
 \subsection{Comparativa de los algoritmos}
+
+Para ver mejor las diferencias entre los tres algoritmos, hemos decidido ejecutarlos en algunos de los ejemplos propuestos, y hacer gráficos con los resultados. A continuación presentamos los caminos óptimos que deberían dar en cada uno de los ejemplos junto a lo que da cada algoritmo. Se adjunta, además, un diagrama de barras para poder apreciar mejor la eficacia de los resultados.
+
+\subsubsection{Ejemplo 1: Ulysses16}
+
+
+\begin{figure}[h]	\includegraphics[width = 14cm ]{barras_ulysses16_longitud} \centering
+	\caption{Comparativa de longitud de los caminos de cada algoritmo} \end{figure}
+
+
+En el primer ejemplo tanto inserción como la colonia de hormigas dan un resultado muy bueno, mientras que el vecino más cercano se aleja bastante de estas distancias. Colocamos aquí los caminos realizados:
+
+\begin{figure}[h]	\includegraphics[width = \linewidth ]{ulysses16_tsp_opt} \centering
+	\caption{Camino óptimo para el problema Ulysses16} \end{figure}
+
+\begin{figure}[h]	\includegraphics[width = \linewidth ]{ulysses16_tsp_1} \centering
+	\caption{Camino proporcionado por el algoritmo del vecino más cercano} \end{figure}
+
+\begin{figure}[h]	\includegraphics[width = \linewidth ]{ulysses16_tsp_2} \centering
+	\caption{Camino proporcionado por el algoritmo de inserción} \end{figure}
+
+\begin{figure}[h]	\includegraphics[width = \linewidth ]{ulysses16_tsp_3} \centering
+	\caption{Camino proporcionado por el algoritmo de la colonia de hormigas} \end{figure}
+
+\clearpage
+\subsubsection{Ejemplo 2: Berlin52}
+
+
+\begin{figure}[h]	\includegraphics[width = 14cm]{barras_berlin52_longitud} \centering
+	\caption{Comparativa de longitud de los caminos de cada algoritmo} \end{figure}
+
+
+En este ejemplo el mejor resultado lo da el tercer algoritmo, la colonia de hormigas. A continuación se ponen los caminos realiados:
+
+\begin{figure}[h]   \includegraphics[width = \linewidth ]{berlin52_tsp_opt} \centering
+	\caption{Camino óptimo para el problema Berlin52} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{berlin52_tsp_1} \centering
+	\caption{Camino proporcionado por el algoritmo del vecino más cercano} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{berlin52_tsp_2} \centering
+	\caption{Camino proporcionado por el algoritmo de inserción} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{berlin52_tsp_3} \centering
+	\caption{Camino proporcionado por el algoritmo de la colonia de hormigas} \end{figure}
+
+\clearpage
+\subsubsection{Ejemplo 3: Pr76}
+
+\begin{figure}[h]	\includegraphics[width = 14cm ]{barras_pr76_longitud} \centering
+	\caption{Comparativa de longitud de los caminos de cada algoritmo} \end{figure}
+
+Por último, hemos colocado un ejemplo en el que el de inserción es el que mejor resultados da, ganando tanto a la colonia de hormigas como al vecino más cercano. Los caminos realizados son:
+
+\begin{figure}	\includegraphics[width = \linewidth ]{pr76_tsp_opt} \centering
+	\caption{Camino óptimo para el problema Pr76} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{pr76_tsp_1} \centering
+	\caption{Camino proporcionado por el algoritmo del vecino más cercano} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{pr76_tsp_2} \centering
+	\caption{Camino proporcionado por el algoritmo de inserción} \end{figure}
+
+\begin{figure}	\includegraphics[width = \linewidth ]{pr76_tsp_3} \centering
+	\caption{Camino proporcionado por el algoritmo de la colonia de hormigas} \end{figure}

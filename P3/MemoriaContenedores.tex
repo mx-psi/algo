@@ -63,7 +63,20 @@ que ordena la lista inicialmente para ordenarla de forma decreciente en función
 y necesitamos realizar, en cada paso, la comprobación de que el contenedor que
 queremos añadir no exceda la capacidad restante del buque:
 
-\lstinputlisting[firstline=54, lastline=68]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=54, lastline=66]{cpps/contenedores.cpp}
+
+Para ver que realmente el algoritmo greedy, aunque parezca muy simple y poco eficaz, es realmente útil, decidimos hacer el algoritmo óptimo. Este otro algoritmo recorre todas las posibles combinaciones de contenedores y se queda con la que más carga meta en el buque. Colocamos a continuación el código:
+
+\lstinputlisting[firstline=82, lastline=105]{cpps/contenedores.cpp}
+
+Como es fácil de ver, este algoritmo es $O(n!)$, ya que tiene que recorrer todas las combinaciones y quedarse con el máximo, y sabemos que hay exactamente $n!$. Por lo tanto, aunque sea un algoritmo que siempre encuentre el óptimo, es claramente lento en problemas un poco grandes.
+
+Por otro lado, uno esperaría que la diferencia en carga de los dos algoritmos fuera apreciable, ya que el greedy es muy bruto, mientras que el algoritmo de fuerza bruta es siempre lo más eficaz que puede ser. Para nuestra sorpresa, cuando hicimos las gráficas no se puede notar mucha diferencia entre las cargas de los dos algoritmos, mientras que en tiempo sí que se observa el contraste:
+
+\begin{figure}[h]\includegraphics[width = \linewidth ]{contenedores_tiempo} \centering
+\caption{Comparativa de tiempo de los dos algoritmos} \end{figure}
+\begin{figure}[h]	\includegraphics[width = \linewidth ]{contenedores_peso} \centering
+	\caption{Comparativa de carga total de los dos algoritmos} \end{figure}
 
 %% TODO: Justificación chusquera de por qué hemos elegido esta heurística
 
