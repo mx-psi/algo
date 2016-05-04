@@ -64,65 +64,53 @@ vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
   return iniciales;
 }
 
+pair<int,list<int>::iterator> PesoNuevoCircuito(int nodo,list<int> & trayecto,const Grafo<peso_t> & g){
+  list<int>::iterator pos_insercion = trayecto.begin(), i, tope = prev(trayecto.end());
+  peso_t pesoMin = g.peso(*pos_insercion, nodo) + g.peso(nodo, *next(pos_insercion)) - g.peso(*pos_insercion, *next(pos_insercion));
 
-pair<int,vector<int>::iterator> PesoNuevoCircuito(list<int>::iterator nodo,vector<int> & trayecto,const Grafo<peso_t> & g){
-
-  int PesoMin = g.peso(trayecto.back(),*nodo);
-  PesoMin += g.peso(*nodo,trayecto.front());
-  PesoMin-= g.peso(trayecto.back(),trayecto.front());
-
-  int IndiceInsercion = 0;
-
-  for(int i = 1; i <= trayecto.size(); i++)
+  for(i = next(pos_insercion); i != tope; ++i)
   {
-     int Peso = g.peso(trayecto[(i-1)%trayecto.size()],*nodo);
-     Peso += g.peso(*nodo,trayecto[i%trayecto.size()]);
-     Peso -=g.peso(trayecto[(i-1)%trayecto.size()],trayecto[i%trayecto.size()]);
+    int peso = g.peso(*i,nodo) + g.peso(nodo,*next(i)) - g.peso(*i, *next(i));
 
-    if (Peso < PesoMin){
-      PesoMin = Peso;
-      IndiceInsercion = i;
+    if (peso < pesoMin){
+      pesoMin = peso;
+      pos_insercion = i;
     }
   }
 
-    pair<int,vector<int>::iterator> PesoIndice(PesoMin,trayecto.begin()+IndiceInsercion);
-    return PesoIndice;
+  return pair<int,list<int>::iterator>(pesoMin, ++pos_insercion);
 }
 
 
 vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
-
-
-  vector<int> trayecto = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
+  vector<int> triangulo = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
 
   list<int> disponibles;
-  for (int i = 0; i < g.numNodos(); i++){
-    if (i != trayecto[0] && i!= trayecto[1] && i!= trayecto[2])
-        disponibles.push_front(i);
-  }
+  for (int i = 0; i < g.numNodos(); i++)
+    if (i != triangulo[0] && i != triangulo[1] && i != triangulo[2])
+       disponibles.push_front(i);
 
-    while (!disponibles.empty()){
-      list<int>::iterator Minimo = disponibles.begin();
-      pair<int,vector<int>::iterator> PesoIndiceMin = PesoNuevoCircuito(Minimo,trayecto,g);
+  list<int> trayecto_l(triangulo.begin(), triangulo.end());
+  trayecto_l.push_back(trayecto_l.front());
+  while (!disponibles.empty()){
+    list<int>::iterator minimo = disponibles.begin();
+    pair<int,list<int>::iterator> PesoIndiceMin = PesoNuevoCircuito(*minimo,trayecto_l,g);
 
-      for(list<int>::iterator it = ++disponibles.begin(); it != disponibles.end(); it++){
-        pair<int,vector<int>::iterator> PesoIndicetmp = PesoNuevoCircuito(it,trayecto,g);
-        if(PesoIndiceMin.first > PesoIndicetmp.first){
-          Minimo = it;
-          PesoIndiceMin=PesoIndicetmp;
-        }
+    for(list<int>::iterator it = ++disponibles.begin(); it != disponibles.end(); it++){
+      pair<int,list<int>::iterator> PesoIndicetmp = PesoNuevoCircuito(*it,trayecto_l,g);
+      if(PesoIndiceMin.first > PesoIndicetmp.first){
+        minimo = it;
+        PesoIndiceMin=PesoIndicetmp;
       }
-
-      if (PesoIndiceMin.second == trayecto.end())
-        trayecto.push_back(*Minimo);
-      else
-        trayecto.insert(PesoIndiceMin.second,*Minimo);
-
-
-      disponibles.erase(Minimo);
     }
 
-  return trayecto; // TODO: algoritmo 2
+    trayecto_l.insert(PesoIndiceMin.second,*minimo);
+    disponibles.erase(minimo);
+  }
+
+  trayecto_l.pop_back();
+  vector<int> trayecto(trayecto_l.begin(), trayecto_l.end());
+  return trayecto;
 }
 
 vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
