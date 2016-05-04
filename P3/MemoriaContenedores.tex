@@ -14,7 +14,7 @@ La implementación de los algoritmos es de la forma:
 Utilizaremos también una estructura de datos simple llamada \texttt{Cont} que almacena un
 contenedor:
 
-\lstinputlisting[firstline=11, lastline=19]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=12, lastline=20]{cpps/contenedores.cpp}
 
 \subsection{Maximizar el número de contenedores cargados}
 
@@ -24,7 +24,7 @@ Para hacer que el algoritmo sea eficiente emparejamos cada elemento
 del vector de entrada con su posición (el contenedor que representa)
 y ordenamos este vector en función de los pesos:
 
-\lstinputlisting[firstline=38, lastline=51]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=39, lastline=52]{cpps/contenedores.cpp}
 
 La función \texttt{menor} nos permite comparar dos contenedores según su peso,
 indicando cuál es menor.
@@ -63,7 +63,7 @@ que ordena la lista inicialmente para ordenarla de forma decreciente en función
 y porque necesitamos realizar, en cada paso, la comprobación de que el contenedor que
 queremos añadir no exceda la capacidad restante del buque:
 
-\lstinputlisting[firstline=53, lastline=67]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=54, lastline=68]{cpps/contenedores.cpp}
 
 %% TODO: Justificación chusquera de por qué hemos elegido esta heurística
 

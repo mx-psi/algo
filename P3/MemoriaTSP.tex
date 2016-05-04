@@ -46,7 +46,7 @@ euclídea al entero más próximo), será de tipo \texttt{int}.
 Utilizando la estructura de datos explicada anteriormente, la resolución del problema
 utilizando la heurística del vecino más cercano quedará:
 
-\lstinputlisting[firstline=16, lastline=39]{cpps/tsp.cpp}
+\lstinputlisting[firstline=17, lastline=40]{cpps/tsp.cpp}
 
 Tomamos como ciudad inicial el nodo 0 y almacenamos en la lista \texttt{disponibles}
 las ciudades no visitadas. A continuación, mientras queden ciudades disponibles,
@@ -61,7 +61,7 @@ Para ello basta tomar las ciudades como coordenadas en el plano y tomar las ciud
 más al norte, este y oeste (tomando los puntos con menor y mayor coordenada x y mayor
 coordenada y):
 
-\lstinputlisting[firstline=41, lastline=64]{cpps/tsp.cpp}
+\lstinputlisting[firstline=42, lastline=65]{cpps/tsp.cpp}
 
 En el caso en el que el punto de mayor coordenada y sea también el de mayor (o menor)
 coordenada x cogeremos el segundo con mayor (o menor) coordenada x.
