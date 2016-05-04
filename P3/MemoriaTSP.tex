@@ -53,6 +53,8 @@ las ciudades no visitadas. A continuación, mientras queden ciudades disponibles
 recorremos la lista buscando aquella ciudad con distancia mínima a la última, la
 cual añadimos al trayecto y eliminamos de la lista de disponibles.
 
+\newpage
+
 \subsubsection{Estrategias de inserción}
 
 Para las estrategias de inserción realizamos el trabajo en 3 etapas.
@@ -74,8 +76,10 @@ Una vez conseguido un triángulo en el grafo lo suficientemente grande lo siguie
   \item Insertamos en dicho índice el nodo que menos aumente el peso total.
 \end{itemize}
 
-\lstinputlisting[firstline = 85, lastline = 114]{cpps/tsp.cpp}
 \newpage
+\lstinputlisting[firstline = 85, lastline = 114]{cpps/tsp.cpp}
+\vspace*{1cm}
+
 El verdadero corazón del algoritmo reside en saber cómo varía el peso del grafo al insertar un nodo.
 Consideremos lo siguiente: \\
 
@@ -86,7 +90,7 @@ $$ \operatorname{PesoInsercion}_i = \operatorname{Peso}(\overline{y_0 \ n_i})+\o
 
 Primero buscamos cuál es el mínimo incremento de insertar el nodo $n_i$ y lo comparamos con los demás. Insertamos el nodo cuyo peso mínimo añadido sea menor en su índice correspondiente.
 
-%% TODO: Explicación del resto de la estrategia
+\newpage
 
 \subsubsection{Colonia de hormigas}
 
