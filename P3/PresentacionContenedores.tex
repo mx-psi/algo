@@ -35,17 +35,12 @@ Este criterio siempre halla la solución con un mayor número de contenedores.
 
 Vamos a razonar por reducción al absurdo.
 
+\vspace{1cm}
 \pause
 Partimos de nuestra solución  $o_1, \dots, o_k$ del algoritmo anterior. Estos contenedores son los menores entre todos los posibles.
 
 Suponemos otra solución, $s_1, \dots, s_m$, una solución del problema, con mayor número de contenedores. Es decir, $m > k$.
 
-
-\begin{center}
-	%% Luego borráis esto pero por dios que el que exponga no se le olvide explicar el final de la demostración que viene en la memoria
-	\textit{Explicasión en pisarra}
-\end{center}
-%%TODO: ¿Lo ponemos? ¿Cómo?
 %% Antonio: Creo que lo mejor es dejar las hipótesis y el planteamiento, y que el que exponga lo explique en la pizarra con detalle
 %% Lo he puesto como he visto, pero no me convence mucho porque hay mucho texto junto, si queréis cambiarlo
 \end{frame}
@@ -81,14 +76,15 @@ Suponemos otra solución, $s_1, \dots, s_m$, una solución del problema, con may
 \end{frame}
 
 \begin{frame}[fragile]{Código}
-	\lstinputlisting[firstline=84, lastline=107]{cpps/contenedores.cpp}
+	\resizebox{10cm}{!}{
+	\lstinputlisting[firstline=82, lastline=104]{cpps/contenedores.cpp}}
 	%% TODO: No cabe, así que o lo ponemos de otra manera, o lo acortamos o no lo ponemos :/
 \end{frame}
 
 \begin{frame}{Comparativa}
 	Es fácil ver que el algoritmo greedy es más eficiente que el óptimo, pero el óptimo tiene asegurada la mejor respuesta.
 	
-	Para poder compararlos mejor, hemos hecho las gráficas de comapración.
+	Para poder contrastar mejor, hemos hecho las gráficas de comparación.
 \end{frame}
 
 \begin{frame}{Comparativa}
