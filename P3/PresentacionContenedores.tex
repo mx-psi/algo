@@ -11,7 +11,7 @@ de contenedores $c_1,\dots, c_n$ con pesos $p_1, \dots, p_n$.
 \end{frame}
 
 \begin{frame}[fragile]{Estructura de datos}
-\lstinputlisting[firstline=11, lastline=19]{cpps/contenedores.cpp}
+\lstinputlisting[firstline=12, lastline=20]{cpps/contenedores.cpp}
 \end{frame}
 
 \subsection{Maximizar el número de contenedores cargados}
@@ -61,18 +61,18 @@ Suponemos otra solución, $s_1, \dots, s_m$, una solución del problema, con may
 \begin{frame}{Perspectiva}
 	Hemos querido comparar el algoritmo Greedy anterior (que coge en cada momento el contenedor que más aumenta el peso total) con uno que encuentra la mejor solución siempre.
 	\vspace{1cm}
-	
+
 	De esta forma, podremos ver las ventajas que presenta enfocar las soluciones de una forma simple.
 \end{frame}
 
 \begin{frame}{Otro algoritmo}
 	A continuación colocamos el algoritmo que encuentra siempre el óptimo:
-	
+
 	\begin{itemize}
 		\item Está basado en la fuerza bruta
 		\item Recorre todas las posibilidades y se queda con la mejor.
 		\item \textbf{Eficiencia:} $O(n!)$
-	\end{itemize}	
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Código}
@@ -83,7 +83,7 @@ Suponemos otra solución, $s_1, \dots, s_m$, una solución del problema, con may
 
 \begin{frame}{Comparativa}
 	Es fácil ver que el algoritmo greedy es más eficiente que el óptimo, pero el óptimo tiene asegurada la mejor respuesta.
-	
+
 	Para poder contrastar mejor, hemos hecho las gráficas de comparación.
 \end{frame}
 
