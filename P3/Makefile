@@ -16,7 +16,7 @@ endif
 
 all: PresentacionP1.pdf MemoriaP1.pdf
 .PHONY: all clean mrproper
-.PRECIOUS: $(TOURS) $(DATS) $(IMGS) $(PDFS)
+.PRECIOUS: $(TOURS) $(DATS) $(PDFS)
 
 exes: $(CPPS:cpps/%.cpp=%.exe)
 %.exe: cpps/%.cpp
@@ -66,4 +66,4 @@ clean:
 	$(RM) *.snm *.log *.toc *.aux *.nav *.out *P3.pdf
 
 mrproper: clean
-	$(RM) dats$(BAR)* img$(BAR)*
+	$(RM) resultadosTSP$(BAR)* img$(BAR)*
