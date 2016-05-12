@@ -48,9 +48,12 @@ Recorremos la lista buscando aquella ciudad con distancia mínima:
 
 \begin{frame}{Inserción (algoritmo)}
   \begin{itemize}
-    \item Toma las ciudades más al norte, este y oeste
-    \item Para cada nodo, halla el índice que aumente menos el recorrido
-    \item Inserta en dicho índice el nodo que aumente menos el recorrido
+    \item Toma como camino inicial los nodos más al norte, este y oeste
+    \item Mientras haya nodos disponibles:
+    \begin{itemize}
+	    \item Para cada nodo disponible, halla la posición entre dos nodos del camino donde, de insertarse, se incrementaría menos la longitud del camino
+	    \item Inserta el nodo que aumente menos la longitud en la posición que se calculó para ese nodo
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -87,7 +90,7 @@ Una Colonia consta de:
   \item[$\xi$] Coeficiente de debilitamiento de las feromonas.
   \item[$C$] Cuántas feromonas se añaden a un camino.
   \item[$P$] Probabilidad de tomar el camino más atractivo.
-  \item[$I$] Cantidad de feromona inicial en cada nodo.
+  \item[$I$] Cantidad de feromona inicial entre cada par de nodos.
 \end{description}
 \note{Explicar cada constante}
 \end{frame}
@@ -96,7 +99,7 @@ Una Colonia consta de:
 \begin{frame}{Comparativa de los algoritmos}
   A continuación ponemos tres ejemplos de ejecución de los algoritmos, para poder verlos y compararlos de una forma más eficaz.
   
-  No colocaremos una comparativa de tiempos porque la colonia de hormigas tarda tanto con respecto a las demás que las comparativas no daban información nueva.
+  El tiempo de ejecución del algoritmo de colonia de hormigas es arbitrario y puede ajustarse a voluntad. A mayor tiempo de ejecución, mejor resultado ofrece. En general necesita más tiempo que los otros dos algoritmos para dar un resultado igual o mejor.
 \end{frame}
 
 \begin{frame}{Comparativa de longitudes}
