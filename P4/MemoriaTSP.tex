@@ -1,0 +1,43 @@
+\section{El problema del viajante de comercio}
+
+El problema del viajante de comercio consiste en hallar el recorrido con distancia
+mínima en un conjunto de ciudades que pase por todas las ciudades y regrese al punto
+inicial. \\
+
+La implementación de los algoritmos es de la forma:
+\begin{description}
+ \item[Entrada:] Ficheros con ciudades indicadas como puntos en el plano según sus
+ coordenadas.
+ \item[Salida:] \texttt{vector<int>} con el orden en el que se recorren las ciudades.
+\end{description}
+
+En la salida nos ahorraremos repetir el primer nodo al final del recorrido.
+
+Para todos los algoritmos utilizaremos una estructura de datos que nos permita manejar
+el problema: la clase \texttt{Grafo} (en el fichero \texttt{grafo.h}). Un grafo consta
+de:
+
+\begin{itemize}
+  \item Una \textbf{cantidad de nodos}, almacenada en el atributo \texttt{nodos}.
+  \item Una \textbf{matriz de pesos}, almacenada en el vector \texttt{lados}.
+\end{itemize}
+
+La interfaz nos permite acceder y modificar estos datos con mayor facilidad.
+Mediante los métodos \texttt{setPeso} y \texttt{peso} accederemos al peso de un
+lado del grafo, y el método \texttt{pesosDesdeCoordenadas} nos permite inicializar el
+grafo utilizando el formato de datos en el que aparece el problema: calculando
+la distancia entre cualesquiera dos ciudades y añadir esta como peso de ese lado:
+
+\lstinputlisting[firstline=47, lastline=51]{cpps/grafo.h}
+
+Adicionalmente, la función \texttt{longitud} calcula la longitud de un camino dado,
+teniendo en cuenta la distancia del último nodo al primero:
+
+\lstinputlisting[firstline=54, lastline=59]{cpps/grafo.h}
+
+Siendo \texttt{peso\_t} el tipo de dato con el que se manejen las distancias entre
+nodos. Según el enunciado del problema (que pide que se redondee la distancia
+euclídea al entero más próximo), será de tipo \texttt{int}.
+
+% TODO todo lo posterior.
+% Además habría que revisar todo lo de arriba (está igual que en la práctica 3)

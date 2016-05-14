@@ -13,7 +13,7 @@ else
 	BAR = /
 endif
 
-all: PresentacionP1.pdf MemoriaP1.pdf
+all: PresentacionP2.pdf MemoriaP2.pdf
 .PHONY: img all clean mrproper
 .PRECIOUS: $(DATS) $(IMGS)
 

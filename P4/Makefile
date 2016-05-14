@@ -4,6 +4,7 @@ TSPS = $(wildcard datosTSP/*.tsp)
 TOURS = $(TSPS:datosTSP/%.tsp=resultadosTSP/%_1.tour) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_2.tour) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_3.tour)
 DATS = $(TSPS:datosTSP/%.tsp=resultadosTSP/%_1.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_2.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_3.dat) $(TSPS:datosTSP/%.tsp=resultadosTSP/%_opt.dat)
 PDFS = $(TSPS:datosTSP/%.tsp=%_tsp_1.pdf) $(TSPS:datosTSP/%.tsp=%_tsp_2.pdf) $(TSPS:datosTSP/%.tsp=%_tsp_3.pdf) $(TSPS:datosTSP/%.tsp=%_tsp_opt.pdf)
+# TODO en los nombres de archivo relacionados con el TSP según organicemos el nuevo TSP
 
 ifdef SystemRoot  # Windows
 	RM = del /q
@@ -14,7 +15,7 @@ else
 	BAR = /
 endif
 
-all: PresentacionP3.pdf MemoriaP3.pdf
+all: PresentacionP4.pdf MemoriaP4.pdf
 .PHONY: all clean mrproper
 .PRECIOUS: $(TOURS) $(DATS) $(PDFS)
 
@@ -58,7 +59,7 @@ resultadosTSP/%_3.dat: datosTSP/%.tsp resultadosTSP/%_3.tour tsp_coord.exe
 %_tsp.pdf: %_tsp_1.pdf %_tsp_2.pdf %_tsp_3.pdf %_tsp_opt.pdf
 	@echo PDFs de $(@:%_tsp.pdf=%) generados.
 
-%P3.pdf: %P3.tex
+%P4.pdf: %P4.tex
 	pdflatex $<
 	pdflatex $<
 
