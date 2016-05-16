@@ -143,7 +143,8 @@ string nombre_optimo(const char* nombre) {
 
 string nombre_salida(const char* nombre, char num) {
   string nm(nombre);
-  return "resultados" + nm.substr(nm.find("TSP"), nm.find(".tsp")-nm.find("TSP")) + "_" + num + ".tour";
+  int barpos = nm.find_last_of("\\/")+1;
+  return "resultadosTSP/" + nm.substr(barpos, nm.find(".tsp")-barpos) + "_" + num + ".tour";
 }
 
 peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
