@@ -26,20 +26,38 @@ vector<Coche> a_coches(const vector<peso_t> v) {
   return coches;
 }
 
-vector<int> reparto_backtrack(const vector<peso_t> p, peso_t K){
-  vector<Cont> conts = a_coches(p);
+vector<vector<int> > reparto_backtrack(const vector<peso_t> p, int lineas){
+  vector<Coche> conts = a_coches(p);
 
-  vector<int> elegidos;
+  vector<vector<int> > elegidos(lineas);
 
   /* Implementar backtrack aquí de forma que elegidos tome el mejor resultado encontrado */
 
   return elegidos;
 }
 
-void print(const vector<int> v, const vector<peso_t> p, ostream& os = cout) {
-  os << "Suma total: " << suma(v, p) << " |-> ";
-  for(int i = 0; i < v.size(); i++)
-    os << v[i] << " (" << p[v[i]] << ") ";
+peso_t suma(const vector<int>& pos, const vector<peso_t>& v){
+  peso_t suma = 0;
+  for(vector<int>::const_iterator it = pos.cbegin(); it != pos.cend(); ++it)
+    suma += v[*it];
+  return suma;
+}
+
+peso_t max(const vector<vector<int> >& pos, const vector<peso_t>& v){
+  peso_t max = 0, prev_max;
+  for(vector<vector<int> >::const_iterator it = pos.cbegin(); it != pos.cend(); ++it)
+    if ((prev_max = suma(*it, v)) > max)
+      max = prev_max;
+  return max;
+}
+
+void print(const vector<vector<int> > v, const vector<peso_t> p, ostream& os = cout) {
+  os << "Tiempo: " << max(v, p) << " |-> ";
+  for(vector<vector<int> >::const_iterator i = v.cbegin(); i != v.cend(); ++i) {
+    for(vector<int>::const_iterator j = i->begin(); j != i->end(); ++j)
+      os << *j << " (" << p[*j] << ") ";
+    os << '\n';
+  }
   os << '\n';
 }
 
@@ -52,7 +70,10 @@ void print(int m, const vector<peso_t> v, ostream& os = cout) {
   os << "]\n";
 }
 
-int main() {
+const int SMIN = 18, SMAX = 54, PMIN = 10, PMAX = 100;
+const double RATIO = 1.0/8;
+
+int main(int argc, char* argv[]) {
   vector<peso_t> pesos;
   int num_lineas;
 
@@ -78,18 +99,18 @@ int main() {
       pesos.push_back(p);
   }
   else {
-    cerr << "Uso:\n  " << argv[0] << "                                             o\n  "
-                       << argv[0] << " n(cantidad de coches)                       o\n  "
+    cerr << "Uso:\n  " << argv[0] << "                                               o\n  "
+                       << argv[0] << " n(cantidad de coches)                         o\n  "
                        << argv[0] << " \"(cantidad de líneas) (tiempo1) (tiempo2)...\"";
     return -1;
   }
   print(num_lineas, pesos);
-  vector<int> res;
+  vector<vector<int> > res;
   chrono::steady_clock::time_point ta, tb;
   chrono::duration<double> t;
 
   ta = chrono::steady_clock::now();
-  res = reparto_backtrack(pesos, cantidad);
+  res = reparto_backtrack(pesos, num_lineas);
   tb = chrono::steady_clock::now();
   print(res, pesos);
   t = chrono::duration_cast<chrono::duration<double>>(tb - ta);

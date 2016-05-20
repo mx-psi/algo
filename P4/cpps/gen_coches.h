@@ -40,7 +40,7 @@ pair<vector<peso_t>,int> gen_coches(int s_min, int s_max, int p_min, int p_max, 
   for(int i = 0; i < n; i++)
     p[i] = f()*(p_max - p_min) + p_min;
 
-  int M = (p_min + p_max)*n*r;
+  int M = 2+n*r*(1+3*benford())/2.0;
   return pair<vector<peso_t>,int>(p,M);
 }
 
