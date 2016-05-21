@@ -18,46 +18,54 @@ struct Coche{
   }
 };
 
-vector<Coche> a_coches(const vector<peso_t> v) {
-  vector<Coche> coches;
-  for(int i = 0; i < v.size(); i++)
-    coches.push_back(Coche(i,v[i]));
-
-  return coches;
+void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& pesos_asignados, vector<int>& mejor, int lineas, peso_t& cota_max) {
+  for (int i = 0; i < lineas; i++) {
+    pesos_asignados[i] += p[asignados.size()];
+    if (pesos_asignados[i] < cota_max) {
+      asignados.push_back(i);
+      if (asignados.size() < p.size())
+        backtrack(p, asignados, pesos_asignados, mejor, lineas, cota_max);
+      else {
+        cota_max = pesos_asignados[i];
+        mejor = asignados;
+      }
+      asignados.pop_back();
+    }
+    pesos_asignados[i] -= p[asignados.size()];
+  }
 }
 
-vector<vector<int> > reparto_backtrack(const vector<peso_t> p, int lineas){
-  vector<Coche> conts = a_coches(p);
+vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
+  vector<int> asignados(lineas), elegidos;
+  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
+  asignados.push_back(0);  // Considera que el primer coche va a la primera línea
+  pesos_asignados[0] = p.front();
+  
+  /* Toma como cota el máximo en un reparto por turnos */
+  peso_t cota_max;
+  vector<peso_t> max_por_turnos(lineas, 0);
+  for (int i = 0; i < p.size(); ++i)
+    max_por_turnos[i%lineas] += p[i];
 
-  vector<vector<int> > elegidos(lineas);
+  cota_max = 1 + *max_element(max_por_turnos.cbegin(), max_por_turnos.cend());
 
-  /* Implementar backtrack aquí de forma que elegidos tome el mejor resultado encontrado */
+  backtrack(p, asignados, pesos_asignados, elegidos, lineas, cota_max);
 
   return elegidos;
 }
 
-peso_t suma(const vector<int>& pos, const vector<peso_t>& v){
-  peso_t suma = 0;
-  for(vector<int>::const_iterator it = pos.cbegin(); it != pos.cend(); ++it)
-    suma += v[*it];
-  return suma;
+peso_t max(const vector<int>& asignacion, const vector<peso_t>& v, int lineas){
+  vector<peso_t> max_cada_una(lineas, 0);
+  for (int i = asignacion.size()-1; i >= 0; i--)
+    max_cada_una[asignacion[i]] += v[i];
+
+  return *max_element(max_cada_una.cbegin(), max_cada_una.cend());
 }
 
-peso_t max(const vector<vector<int> >& pos, const vector<peso_t>& v){
-  peso_t max = 0, prev_max;
-  for(vector<vector<int> >::const_iterator it = pos.cbegin(); it != pos.cend(); ++it)
-    if ((prev_max = suma(*it, v)) > max)
-      max = prev_max;
-  return max;
-}
-
-void print(const vector<vector<int> > v, const vector<peso_t> p, ostream& os = cout) {
-  os << "Tiempo: " << max(v, p) << " |-> ";
-  for(vector<vector<int> >::const_iterator i = v.cbegin(); i != v.cend(); ++i) {
-    for(vector<int>::const_iterator j = i->begin(); j != i->end(); ++j)
-      os << *j << " (" << p[*j] << ") ";
-    os << '\n';
-  }
+void print(const vector<int> v, const vector<peso_t> p, int lineas, ostream& os = cout) {
+  os << "Tiempo de línea más ocupada: " << max(v, p, lineas) << " |-> ";
+  for(int i = 0; i < p.size(); i++)
+    os << i << " (" << p[i] << ") -> " << v[i] << ", ";
   os << '\n';
 }
 
@@ -105,14 +113,14 @@ int main(int argc, char* argv[]) {
     return -1;
   }
   print(num_lineas, pesos);
-  vector<vector<int> > res;
+  vector<int> res;
   chrono::steady_clock::time_point ta, tb;
   chrono::duration<double> t;
 
   ta = chrono::steady_clock::now();
   res = reparto_backtrack(pesos, num_lineas);
   tb = chrono::steady_clock::now();
-  print(res, pesos);
+  print(res, pesos, num_lineas);
   t = chrono::duration_cast<chrono::duration<double>>(tb - ta);
 
   cout << "Tiempo (s): " << t.count() << endl;
