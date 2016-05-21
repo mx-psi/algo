@@ -8,15 +8,13 @@
 #include "gen_coches.h"
 using namespace std::chrono;
 
-struct Coche{
-  int id;
-  peso_t tiempo;
+peso_t max(const vector<int>& asignacion, const vector<peso_t>& v, int lineas) {
+  vector<peso_t> max_cada_una(lineas, 0);
+  for (int i = asignacion.size()-1; i >= 0; i--)
+    max_cada_una[asignacion[i]] += v[i];
 
-  Coche(int i, peso_t t){
-    id = i;
-    tiempo = t;
-  }
-};
+  return *max_element(max_cada_una.cbegin(), max_cada_una.cend());
+}
 
 void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& pesos_asignados, vector<int>& mejor, int lineas, peso_t& cota_max) {
   for (int i = 0; i < lineas; i++) {
@@ -26,8 +24,11 @@ void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& 
       if (asignados.size() < p.size())
         backtrack(p, asignados, pesos_asignados, mejor, lineas, cota_max);
       else {
-        cota_max = pesos_asignados[i];
-        mejor = asignados;
+        peso_t nueva_cota = max(asignados, p, lineas);
+        if (nueva_cota < cota_max) {
+          cota_max = nueva_cota;
+          mejor = asignados;
+        }
       }
       asignados.pop_back();
     }
@@ -36,7 +37,7 @@ void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& 
 }
 
 vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
-  vector<int> asignados(lineas), elegidos;
+  vector<int> asignados, elegidos;
   vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
   asignados.push_back(0);  // Considera que el primer coche va a la primera línea
   pesos_asignados[0] = p.front();
@@ -52,14 +53,6 @@ vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
   backtrack(p, asignados, pesos_asignados, elegidos, lineas, cota_max);
 
   return elegidos;
-}
-
-peso_t max(const vector<int>& asignacion, const vector<peso_t>& v, int lineas){
-  vector<peso_t> max_cada_una(lineas, 0);
-  for (int i = asignacion.size()-1; i >= 0; i--)
-    max_cada_una[asignacion[i]] += v[i];
-
-  return *max_element(max_cada_una.cbegin(), max_cada_una.cend());
 }
 
 void print(const vector<int> v, const vector<peso_t> p, int lineas, ostream& os = cout) {
