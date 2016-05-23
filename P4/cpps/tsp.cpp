@@ -5,129 +5,37 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <list>
-#include <ctime>
-#include <utility>
-#include <cstdlib>
+#include <algorithm>
 #include <chrono>
+#include <queue>
 #include "grafo.h"
-#include "colonia.h"
+//#include <ctime>
+//#include <cstdlib>
+
 using namespace std;
 
-vector<int> tsp_1(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
-  vector<int> trayecto(1, 0);
-  list<int> disponibles;
-  for (int i = g.numNodos()-1; i > 0; i--)
-    disponibles.push_front(i);
-
-  while(!disponibles.empty()) {
-    list<int>::iterator it = disponibles.begin(), cercano = it, fin = disponibles.end();
-    int actual = trayecto.back();
-    peso_t d_actual = g.peso(actual, *cercano);
-    for (++it; it != fin; ++it) {
-      peso_t d_candidato = g.peso(actual, *it);
-      if (d_candidato < d_actual) {
-        cercano = it;
-        d_actual = d_candidato;
-      }
-    }
-
-    trayecto.push_back(*cercano);
-    disponibles.erase(cercano);
-  }
-
-  return trayecto;
+//Luego se busca el mínimo recorriendo los relacionados de k-i para todo i en relacionados
+vector<int> RelacionadosCon(int k, int max, vector<int> camino){
+	vector<int> relacionados;
+	for(int i = 1; i <= max; i++)
+		if(find(camino.begin(), camino.end(), i) == camino.end() && i != k)
+			relacionados.push_back(i);
+	if(k != camino[camino.size()-1])
+		relacionados.push_back(1);
+	return relacionados;
 }
 
-vector<int> triangulo_inicial(const double coordenadas[][2], int n) {
-  vector<int> iniciales = {0,1,2};
-  if (coordenadas[0][1] < coordenadas[1][1])
-     swap(iniciales[0], iniciales[1]);
-  if (coordenadas[iniciales[0]][1] < coordenadas[2][1])
-     swap(iniciales[0], iniciales[2]);
+/*
+int Cotasion1(vector<int>& camino, Grafo<int>& g){
+	int recorrido = 0;
+	for(int i = 0; i < camino.size(); i++)
+		recorrido += g.peso(camino[i], camino[i+1]);
 
-  if (coordenadas[iniciales[1]][0] > coordenadas[iniciales[2]][0])
-     swap(iniciales[1], iniciales[2]);
-  for (int i = 3; i < n; i++)
-     if (coordenadas[i][1] > coordenadas[iniciales[0]][1]) {
-        if (coordenadas[iniciales[0]][0] < coordenadas[iniciales[1]][0])
-           iniciales[1] = iniciales[0];
-        else if (coordenadas[iniciales[0]][0] > coordenadas[iniciales[2]][0])
-           iniciales[2] = iniciales[0];
-        iniciales[0] = i;
-     }
-     else if (coordenadas[i][0] < coordenadas[iniciales[1]][0])
-        iniciales[1] = i;
-     else if (coordenadas[i][0] > coordenadas[iniciales[2]][0])
-        iniciales[2] = i;
-
-  return iniciales;
 }
 
-pair<int,list<int>::iterator> PesoNuevoCircuito(int nodo,list<int> & trayecto,const Grafo<peso_t> & g){
-  list<int>::iterator pos_insercion = trayecto.begin(), i, tope = prev(trayecto.end());
-  peso_t pesoMin = g.peso(*pos_insercion, nodo) + g.peso(nodo, *next(pos_insercion)) - g.peso(*pos_insercion, *next(pos_insercion));
-
-  for(i = next(pos_insercion); i != tope; ++i)
-  {
-    int peso = g.peso(*i,nodo) + g.peso(nodo,*next(i)) - g.peso(*i, *next(i));
-
-    if (peso < pesoMin){
-      pesoMin = peso;
-      pos_insercion = i;
-    }
-  }
-
-  return pair<int,list<int>::iterator>(pesoMin, ++pos_insercion);
+int Ramificacion(vector<int>& camino, Grafo<int>& g){
 }
-
-
-vector<int> tsp_2(const Grafo<peso_t>& g, const double coordenadas[][2]){
-  vector<int> triangulo = triangulo_inicial(coordenadas, g.numNodos());  // Inicializamos el vector con las ciudades que forman el mayor triángulo en el grafo.
-
-  list<int> disponibles;
-  for (int i = 0; i < g.numNodos(); i++)
-    if (i != triangulo[0] && i != triangulo[1] && i != triangulo[2])
-       disponibles.push_front(i);
-
-  list<int> trayecto_l(triangulo.begin(), triangulo.end());
-  trayecto_l.push_back(trayecto_l.front());
-  while (!disponibles.empty()){
-    list<int>::iterator minimo = disponibles.begin();
-    pair<int,list<int>::iterator> PesoIndiceMin = PesoNuevoCircuito(*minimo,trayecto_l,g);
-
-    for(list<int>::iterator it = ++disponibles.begin(); it != disponibles.end(); it++){
-      pair<int,list<int>::iterator> PesoIndicetmp = PesoNuevoCircuito(*it,trayecto_l,g);
-      if(PesoIndiceMin.first > PesoIndicetmp.first){
-        minimo = it;
-        PesoIndiceMin=PesoIndicetmp;
-      }
-    }
-
-    trayecto_l.insert(PesoIndiceMin.second,*minimo);
-    disponibles.erase(minimo);
-  }
-
-  trayecto_l.pop_back();
-  vector<int> trayecto(trayecto_l.begin(), trayecto_l.end());
-  return trayecto;
-}
-
-vector<int> tsp_3(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
-   Colonia c(g);
-   vector<int> mejor = c.itera(10), posible;
-   peso_t lng = longitud(mejor, g), lng_mejor = lng;
-   for (int iteraciones = 0; iteraciones < 128 || iteraciones < g.numNodos(); iteraciones++) {
-     posible = c.itera(10);
-     lng = longitud(posible, g);
-     if (lng < lng_mejor) {
-        lng_mejor = lng;
-        swap(posible, mejor);
-     }
-   }
-
-   return mejor;
-}
+*/
 
 void print(const vector<int> ids, ostream& os = cout) {
   for (vector<int>::const_iterator i = ids.cbegin(); i != ids.cend(); ++i)
@@ -184,7 +92,6 @@ int main(int argc, char * argv[])
     cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3/o [t]" << endl;
     return -1;
   }
-  bool a_archivo = argc == 4;
   srand(time(0));
   int n;
 
@@ -207,13 +114,14 @@ int main(int argc, char * argv[])
   if (argv[2][0] != 'o') {
     fout.open(nombre_salida(argv[1], argv[2][0]));
     fout << "DIMENSION: " << g.numNodos() << '\n';
-
+  /*
     if (argv[2][0] == '1')
       return ejecutar(tsp_1, g, coordenadas, fout);
     if (argv[2][0] == '2')
       return ejecutar(tsp_2, g, coordenadas, fout);
     if (argv[2][0] == '3')
       return ejecutar(tsp_3, g, coordenadas, fout);
+    */
   }
 
   cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << endl;
