@@ -37,6 +37,18 @@ int Ramificacion(vector<int>& camino, Grafo<int>& g){
 }
 */
 
+vector<int> tsp_4(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
+  // TODO: Algoritmo branch and bound con función de acotación descrita
+}
+
+vector<int> tsp_5(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
+  // TODO: Algoritmo branch and bound con alguna otra función de acotación
+}
+
+vector<int> tsp_6(const Grafo<peso_t>& g, const double coordenadas[][2] = 0) {
+  // TODO: Backtracking con función de acotación descrita
+}
+
 void print(const vector<int> ids, ostream& os = cout) {
   for (vector<int>::const_iterator i = ids.cbegin(); i != ids.cend(); ++i)
     os << ((*i)+1) << '\n';
@@ -51,7 +63,8 @@ string nombre_optimo(const char* nombre) {
 
 string nombre_salida(const char* nombre, char num) {
   string nm(nombre);
-  return "resultados" + nm.substr(nm.find("TSP"), nm.find(".tsp")-nm.find("TSP")) + "_" + num + ".tour";
+  int barpos = nm.find_last_of("\\/")+1;
+  return "resultadosTSP/" + nm.substr(barpos, nm.find(".tsp")-barpos) + "_" + num + ".tour";
 }
 
 peso_t longitud_desde_archivo(string nombre, const Grafo<peso_t>& g) {
@@ -85,11 +98,13 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&, const double[][2]), const Gr
   return 0;
 }
 
+vector<int> (*const tsp[])(const Grafo<peso_t>&, const double[][2]) = {tsp_4, tsp_4, tsp_4, tsp_4, tsp_5, tsp_6};
+
 int main(int argc, char * argv[])
 {
-  if ((argc != 3 && argc != 4) || (argv[2][0] != '1' && argv[2][0] != '2' && argv[2][0] != '3' && argv[2][0] != 'o') || (argc == 4 && argv[3][0] != 't'))
+  if ((argc != 3 && argc != 4) || ((argv[2][0] < '4' || argv[2][0] > '6') && argv[2][0] != 'o') || (argc == 4 && argv[3][0] != 't'))
   {
-    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3/o [t]" << endl;
+    cerr << "Formato " << argv[0] << " [datos].tsp 1/2/3/4/5/6/o [t]" << endl;
     return -1;
   }
   srand(time(0));
@@ -114,14 +129,7 @@ int main(int argc, char * argv[])
   if (argv[2][0] != 'o') {
     fout.open(nombre_salida(argv[1], argv[2][0]));
     fout << "DIMENSION: " << g.numNodos() << '\n';
-  /*
-    if (argv[2][0] == '1')
-      return ejecutar(tsp_1, g, coordenadas, fout);
-    if (argv[2][0] == '2')
-      return ejecutar(tsp_2, g, coordenadas, fout);
-    if (argv[2][0] == '3')
-      return ejecutar(tsp_3, g, coordenadas, fout);
-    */
+    return ejecutar(tsp[argv[2][0] - '1'], g, coordenadas, fout);
   }
 
   cout << "Longitud óptima: " << longitud_desde_archivo(nombre_optimo(argv[1]), g) << endl;
