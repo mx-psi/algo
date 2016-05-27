@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <chrono>
 #include <queue>
+#include <climits>
 #include "grafo.h"
 //#include <ctime>
 //#include <cstdlib>
@@ -26,10 +27,10 @@ vector<int> RelacionadosCon(int k, int max, vector<int> camino){
 }
 
 // Cota dada en el enunciado
-int cota1(vector<int>& camino, Grafo<int>& g){
+int cota1(vector<int>& camino, const Grafo<int>& g){
 	int recorrido = 0;
   // Peso del recorrido ya hecho
-	for(int i = 0; i < camino.size(); i++)
+	for(int i = 0; i < camino.size()-1; i++)
 		recorrido += g.peso(camino[i], camino[i+1]);
 
   // Para cada i halla el peso mínimo entre los relacionados
@@ -47,12 +48,72 @@ int cota1(vector<int>& camino, Grafo<int>& g){
 }
 
 // Nuestra función de acotación
-int cota2(vector<int>& camino, Grafo<int>& g){
+int cota2(vector<int>& camino, const Grafo<int>& g){
   return 0; // TODO
 }
 
-vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&,Grafo<int>&)) {
-  priority_queue<vector<int>> cola;
+const int INFINITO = INT_MAX;
+
+class Compare{
+public:
+  bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
+    return a.second < b.second;
+  }
+};
+
+vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
+  priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int>>,Compare> cola;
+  vector<int> inicial = {1}, mejor_camino;
+  int mejor_longitud = INFINITO;
+  cola.push({inicial,cota(inicial,g)});
+
+  // Mientras haya caminos posiblemente mejores que el mejor encontrado
+  while(!cola.empty() && cola.top().second < mejor_longitud){
+    vector<int> camino_actual = cola.top().first;
+    int cota_actual = cola.top().second;
+    cola.pop();
+
+    // No podemos formar directamente una solución
+    if(camino_actual.size() < g.numNodos()- 2){
+      for(int i = 0; i < g.numNodos(); i++){
+        if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+          vector<int> nuevo_camino = camino_actual;
+          nuevo_camino.push_back(i);
+
+          int nueva_cota = cota(nuevo_camino,g);
+          if(nueva_cota < mejor_longitud)
+            cola.push({nuevo_camino,nueva_cota});
+        }
+      }
+    }
+    else{// Podemos formar una solución
+      for(int i = 0; i < g.numNodos(); i++){
+        if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+          vector<int> pos_sol = camino_actual;
+          int long_sol = cota_actual;
+          pos_sol.push_back(i);
+          long_sol += g.peso(pos_sol[pos_sol.size()-2],i);
+          bool encontrado = false;
+
+          // Añade el nodo restante (TODO: no sé si cambiar esto)
+          for(int j = i; !encontrado && j < g.numNodos(); j++)
+            if(find(pos_sol.begin(), pos_sol.end(), i) == pos_sol.end()){
+              pos_sol.push_back(j);
+              long_sol += g.peso(i,j);
+              encontrado = true;
+            }
+
+          // Actualiza la mejor solución
+          if(long_sol < mejor_longitud){
+            mejor_longitud = long_sol;
+            mejor_camino = pos_sol;
+          }
+        }
+      }
+    }
+  }
+
+  return mejor_camino;
 }
 
 vector<int> tsp_1(const Grafo<peso_t>& g) {
@@ -130,8 +191,10 @@ int main(int argc, char * argv[])
 
   ifstream fin(argv[1]);
   string s;
-  if (!(fin >> s))
+  if (!(fin >> s)){
+     cerr << "El fichero de datos no ha podido leerse correctamente." << endl;
      return -1;
+  }
   fin >> n;
   Grafo<peso_t> g(n);
   double coordenadas[n][2];
