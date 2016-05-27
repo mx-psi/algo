@@ -21,7 +21,7 @@ vector<int> RelacionadosCon(int k, int max, vector<int> camino){
   for(int i = 1; i <= max; i++)
     if(find(camino.begin(), camino.end(), i) == camino.end() && i != k)
       relacionados.push_back(i);
-  if(k != camino[camino.size()-1])
+  if(k != camino[camino.size()-1] || k == max-1)
     relacionados.push_back(1);
   return relacionados;
 }
@@ -35,12 +35,12 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
 
   // Para cada i halla el peso mínimo entre los relacionados
   for(int i = 0; i < g.numNodos(); i++){
-    if(find(camino.begin(), camino.end(), i) == camino.end()){
+    if((find(camino.begin(), camino.end(), i) == camino.end()) || (i == camino[camino.size()-1])){ // No toy seguro de la segunda parte del OR, que ha subido
       vector<int> v = RelacionadosCon(i,g.numNodos(),camino);
       int min = 0;
-      for(int j = 1; j < v.size(); j++)
-        if(g.peso(i,j) < g.peso(i,min))
-          min = j;
+      for(int j = 0; j < v.size(); j++)
+        if(g.peso(i,v[j]) < g.peso(i,min))
+          min = v[j];
       recorrido += g.peso(i,min);
     }
   }
@@ -62,7 +62,7 @@ public:
 };
 
 vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
-  priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int>>,Compare> cola;
+  priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
   vector<int> inicial = {1}, mejor_camino;
   int mejor_longitud = INFINITO;
   cola.push({inicial,cota(inicial,g)});
@@ -90,13 +90,13 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
       for(int i = 0; i < g.numNodos(); i++){
         if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
           vector<int> pos_sol = camino_actual;
-          int long_sol = cota_actual;
+          int long_sol = longitud(pos_sol, g);
           pos_sol.push_back(i);
           long_sol += g.peso(pos_sol[pos_sol.size()-2],i);
           bool encontrado = false;
 
           // Añade el nodo restante (TODO: no sé si cambiar esto)
-          for(int j = i; !encontrado && j < g.numNodos(); j++)
+          for(int j = 0; !encontrado && j < g.numNodos(); j++)
             if(find(pos_sol.begin(), pos_sol.end(), i) == pos_sol.end()){
               pos_sol.push_back(j);
               long_sol += g.peso(i,j);
