@@ -72,7 +72,6 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
     vector<int> camino_actual = cola.top().first;
     int cota_actual = cola.top().second;
     cola.pop();
-
     // No podemos formar directamente una solución
     if(camino_actual.size() < g.numNodos()- 2){
       for(int i = 0; i < g.numNodos(); i++){
@@ -90,16 +89,14 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
       for(int i = 0; i < g.numNodos(); i++){
         if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
           vector<int> pos_sol = camino_actual;
-          int long_sol = longitud(pos_sol, g);
           pos_sol.push_back(i);
-          long_sol += g.peso(pos_sol[pos_sol.size()-2],i);
+          int long_sol = longitud(pos_sol, g);
           bool encontrado = false;
 
           // Añade el nodo restante (TODO: no sé si cambiar esto)
           for(int j = 0; !encontrado && j < g.numNodos(); j++)
             if(find(pos_sol.begin(), pos_sol.end(), i) == pos_sol.end()){
               pos_sol.push_back(j);
-              long_sol += g.peso(i,j);
               encontrado = true;
             }
 
@@ -112,7 +109,6 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
       }
     }
   }
-
   return mejor_camino;
 }
 
