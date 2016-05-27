@@ -18,7 +18,7 @@ using namespace std;
 //Luego se busca el mínimo recorriendo los relacionados de k-i para todo i en relacionados
 vector<int> RelacionadosCon(int k, int max, vector<int> camino){
   vector<int> relacionados;
-  for(int i = 1; i <= max; i++)
+  for(int i = 0; i < max; i++)
     if(find(camino.begin(), camino.end(), i) == camino.end() && i != k)
       relacionados.push_back(i);
   if(k != camino[camino.size()-1] || k == max-1)
@@ -32,16 +32,18 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
   // Peso del recorrido ya hecho
 	for(int i = 0; i < camino.size()-1; i++)
 		recorrido += g.peso(camino[i], camino[i+1]);
-
+    int recorrido1 = recorrido;
   // Para cada i halla el peso mínimo entre los relacionados
   for(int i = 0; i < g.numNodos(); i++){
     if((find(camino.begin(), camino.end(), i) == camino.end()) || (i == camino[camino.size()-1])){ // No toy seguro de la segunda parte del OR, que ha subido
       vector<int> v = RelacionadosCon(i,g.numNodos(),camino);
-      int min = 0;
-      for(int j = 0; j < v.size(); j++)
+      int min = v[0];
+      for(int j = 1; j < v.size(); j++){
         if(g.peso(i,v[j]) < g.peso(i,min))
           min = v[j];
+      }
       recorrido += g.peso(i,min);
+
     }
   }
   return recorrido;
@@ -57,7 +59,7 @@ const int INFINITO = INT_MAX;
 class Compare{
 public:
   bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
-    return a.second < b.second;
+    return a.second > b.second;
   }
 };
 
@@ -93,12 +95,14 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
           bool encontrado = false;
 
           // Añade el nodo restante (TODO: no sé si cambiar esto)
-          for(int j = 0; !encontrado && j < g.numNodos(); j++)
-            if(find(pos_sol.begin(), pos_sol.end(), i) == pos_sol.end()){
+
+          for(int j = 0; !encontrado && j < g.numNodos(); j++){
+            if(find(pos_sol.begin(), pos_sol.end(), j) == pos_sol.end()){
               pos_sol.push_back(j);
               encontrado = true;
             }
-            
+          }
+
           int long_sol = longitud(pos_sol, g);
 
           // Actualiza la mejor solución
@@ -109,7 +113,6 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
         }
       }
     }
-    mejor_longitud = INFINITO;
   }
   return mejor_camino;
 }
@@ -186,6 +189,7 @@ int main(int argc, char * argv[])
   }
   srand(time(0));
   int n;
+
 
   ifstream fin(argv[1]);
   string s;
