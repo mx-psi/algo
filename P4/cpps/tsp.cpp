@@ -90,7 +90,6 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
         if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
           vector<int> pos_sol = camino_actual;
           pos_sol.push_back(i);
-          int long_sol = longitud(pos_sol, g);
           bool encontrado = false;
 
           // Añade el nodo restante (TODO: no sé si cambiar esto)
@@ -99,6 +98,8 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
               pos_sol.push_back(j);
               encontrado = true;
             }
+            
+          int long_sol = longitud(pos_sol, g);
 
           // Actualiza la mejor solución
           if(long_sol < mejor_longitud){
@@ -108,6 +109,7 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
         }
       }
     }
+    mejor_longitud = INFINITO;
   }
   return mejor_camino;
 }
