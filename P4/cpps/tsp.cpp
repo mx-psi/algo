@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <list>
 #include <algorithm>
 #include <chrono>
 #include <queue>
@@ -14,6 +15,32 @@
 //#include <cstdlib>
 
 using namespace std;
+
+vector<int> tsp_greedy(const Grafo<peso_t>& g) {
+  vector<int> trayecto(1, 0);
+  list<int> disponibles;
+  for (int i = g.numNodos()-1; i > 0; i--)
+    disponibles.push_front(i);
+
+  while(!disponibles.empty()) {
+    list<int>::iterator it = disponibles.begin(), cercano = it, fin = disponibles.end();
+    int actual = trayecto.back();
+    peso_t d_actual = g.peso(actual, *cercano);
+    for (++it; it != fin; ++it) {
+      peso_t d_candidato = g.peso(actual, *it);
+      if (d_candidato < d_actual) {
+        cercano = it;
+        d_actual = d_candidato;
+      }
+    }
+
+    trayecto.push_back(*cercano);
+    disponibles.erase(cercano);
+  }
+
+  return trayecto;
+}
+
 
 //Luego se busca el mínimo recorriendo los relacionados de k-i para todo i en relacionados
 vector<int> RelacionadosCon(int k, int max, vector<int> camino){
@@ -32,7 +59,6 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
   // Peso del recorrido ya hecho
 	for(int i = 0; i < camino.size()-1; i++)
 		recorrido += g.peso(camino[i], camino[i+1]);
-    int recorrido1 = recorrido;
   // Para cada i halla el peso mínimo entre los relacionados
   for(int i = 0; i < g.numNodos(); i++){
     if((find(camino.begin(), camino.end(), i) == camino.end()) || (i == camino[camino.size()-1])){ // No toy seguro de la segunda parte del OR, que ha subido
@@ -54,8 +80,6 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
   return 0; // TODO
 }
 
-const int INFINITO = INT_MAX;
-
 class Compare{
 public:
   bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
@@ -65,14 +89,13 @@ public:
 
 vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
   priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
-  vector<int> inicial = {1}, mejor_camino;
-  int mejor_longitud = INFINITO;
+  vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
+  int mejor_longitud = longitud(mejor_camino,g);
   cola.push({inicial,cota(inicial,g)});
 
   // Mientras haya caminos posiblemente mejores que el mejor encontrado
   while(!cola.empty() && cola.top().second < mejor_longitud){
     vector<int> camino_actual = cola.top().first;
-    int cota_actual = cola.top().second;
     cola.pop();
     // No podemos formar directamente una solución
     if(camino_actual.size() < g.numNodos()- 2){
@@ -92,10 +115,9 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
         if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
           vector<int> pos_sol = camino_actual;
           pos_sol.push_back(i);
+
+          // Añade el otro nodo
           bool encontrado = false;
-
-          // Añade el nodo restante (TODO: no sé si cambiar esto)
-
           for(int j = 0; !encontrado && j < g.numNodos(); j++){
             if(find(pos_sol.begin(), pos_sol.end(), j) == pos_sol.end()){
               pos_sol.push_back(j);
