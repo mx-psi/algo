@@ -34,6 +34,32 @@ void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& 
     pesos_asignados[i] -= p[asignados.size()];
   }
 }
+bool mayor(pair<int, peso_t> a, pair<int, peso_t> b) { return a.second > b.second; }
+
+vector<int> reparto_greedy(const vector<peso_t> p, int lineas) {
+  vector<pair<int, peso_t> > p_indices;
+  for (int i = p.size()-1; i >= 0; i--)
+    p_indices.push_back(pair<int, peso_t>(i, p[i]));
+  
+  sort(p_indices.begin(), p_indices.end(), mayor);
+  vector<int> elegidos(p.size());
+  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
+  elegidos[p_indices.back().first] = 0;   // El mayor va a la primera línea
+  pesos_asignados[0] = p_indices.back().second;
+  p_indices.pop_back();
+  
+  while(!p_indices.empty()) {
+    int linea_mas_vacia = 0;
+    for (int i = 1; i < lineas; i++)
+      if (pesos_asignados[i] < pesos_asignados[linea_mas_vacia])
+        linea_mas_vacia = i;
+
+    elegidos[p_indices.back().first] = linea_mas_vacia;
+    pesos_asignados[linea_mas_vacia] += p_indices.back().second;
+    p_indices.pop_back();
+  }
+  return elegidos;
+}
 
 vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
   vector<int> asignados, elegidos;
@@ -41,14 +67,9 @@ vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
   asignados.push_back(0);  // Considera que el primer coche va a la primera línea
   pesos_asignados[0] = p.front();
   
-  /* Toma como cota el máximo en un reparto por turnos */
-  peso_t cota_max;
-  vector<peso_t> max_por_turnos(lineas, 0);
-  for (int i = 0; i < p.size(); ++i)
-    max_por_turnos[i%lineas] += p[i];
-
-  cota_max = 1 + *max_element(max_por_turnos.cbegin(), max_por_turnos.cend());
-
+  /* Toma como cota el máximo en un reparto greedy */
+  peso_t cota_max = max(reparto_greedy(p, lineas), p, lineas);
+  
   backtrack(p, asignados, pesos_asignados, elegidos, lineas, cota_max);
 
   return elegidos;
