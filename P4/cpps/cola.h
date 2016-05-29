@@ -29,7 +29,7 @@ public:
     c.pop_back();
   }
 
-  void remove_less_than(const T& x){c.erase(upper_bound(c.begin(), c.end(), x, comp), c.end());}
+  void remove_less_than(const T& x){c.erase(lower_bound(c.begin(), c.end(), x, comp), c.end());}
 };
 
 #endif
