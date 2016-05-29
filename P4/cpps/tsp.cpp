@@ -11,6 +11,7 @@
 #include <queue>
 #include <climits>
 #include "grafo.h"
+#include "cola.h"
 //#include <ctime>
 //#include <cstdlib>
 
@@ -88,7 +89,7 @@ public:
 };
 
 vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
-  priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
+  cola_prioridad<pair<vector<int>,int>,Compare> cola;
   vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
   int mejor_longitud = longitud(mejor_camino,g);
   cola.push({inicial,cota(inicial,g)});
@@ -129,6 +130,7 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
 
           // Actualiza la mejor solución
           if(long_sol < mejor_longitud){
+            cola.remove_less_than({{},long_sol});
             mejor_longitud = long_sol;
             mejor_camino = pos_sol;
           }
