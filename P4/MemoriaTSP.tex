@@ -39,5 +39,49 @@ Siendo \texttt{peso\_t} el tipo de dato con el que se manejen las distancias ent
 nodos. Según el enunciado del problema (que pide que se redondee la distancia
 euclídea al entero más próximo), será de tipo \texttt{int}.
 
-% TODO todo lo posterior.
-% Además habría que revisar todo lo de arriba (está igual que en la práctica 3)
+\subsection{Ramificación y acotación}
+
+El primer tipo de algoritmos a analizar son los algoritmos de ramificación y acotación
+(\textit{branch and bound}). Estos algoritmos exploran un árbol de caminos parciales (en el que los hijos de un nodo añaden una ciudad no visitada) pero expandiendo sólo aquellos nodos para los que existe la posibilidad de que haya una solución mejor que la mejor
+encontrada hasta el momento.
+
+Para ello hemos utilizado una cola con prioridad que presenta una operación adicional
+que presentaremos a continuación. Posteriormente veremos el algoritmo de ramificación
+y acotación para una cota general y por último veremos la implementación de las cotas
+que hemos utilizado.
+
+\subsubsection{Cola con prioridad}
+
+El algoritmo de ramificación y acotación utiliza una cola con prioridad para guardar
+los nodos a explorar, ordenados por una cota (el nodo con menor cota aparecerá el
+primero en la cola).
+
+En un primer lugar utilizamos la cola con prioridad que proporciona la STL (\texttt{priority\_queue}), que implementa las operaciones \texttt{top}, \texttt{push}, \texttt{pop} y \texttt{size}. La interfaz de esta estructura de datos no proporciona una forma de borrar los nodos muertos (aquellos cuya cota es peor que la longitud de la mejor solución encontrada hasta el momento), por lo que inicialmente decidimos no borrar estos nodos y simplemente ignorarlos. Tras realizar pruebas nos dimos cuenta de que el
+uso de memoria del programa era excesivo, por lo que hemos construido una estructura simple que añade esta nueva operación, mejorando, en el caso de \texttt{ulysses16} de más de 15 minutos a menos de un minuto.
+
+Dado que la eficiencia de las operaciones es crucial en este caso, la estructura de datos implementada sigue a grandes rasgos la implementación de \texttt{priority\_queue}, ya que consideramos que es difícil de mejorar y nos permitía implementar la nueva operación fácilmente. La clase implementada es la siguiente:
+
+\lstinputlisting[firstline=11, lastline=34]{cpps/cola.h}
+
+
+\subsubsection{Algoritmo general}
+
+% TODO (Pablo): Descripción del algoritmo general
+
+\subsubsection{Cotas}
+
+% TODO (Antonio): Cota del árbol generador minimal
+
+\subsection{Vuelta atrás}
+
+%% TODO: Descripción del algoritmo de backtracking
+
+\subsection{Comparativa de los algoritmos}
+
+%%% TODO (Iñaki)
+% Gráficas que comparen entre los 3 algoritmos:
+% - Número de nodos expandidos
+% - Tamaño máximo de la cola con prioridad
+% - Número de veces que se realiza la poda
+% - Tiempo empleado en resolver el problema
+%%%
