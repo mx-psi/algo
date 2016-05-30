@@ -1,5 +1,5 @@
 /**
-    @file Algoritmos para el ejercicio de la estación de ITV
+    @file Algoritmos para el ejercicio de la estaciÃ³n de ITV
   */
 
 #include <iostream>
@@ -34,41 +34,47 @@ void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& 
     pesos_asignados[i] -= p[asignados.size()];
   }
 }
-bool mayor(pair<int, peso_t> a, pair<int, peso_t> b) { return a.second > b.second; }
+
+bool mayor_tiempo_primero(pair<int, peso_t> a, pair<int, peso_t> b) {
+  return a.second > b.second;
+}
 
 vector<int> reparto_greedy(const vector<peso_t> p, int lineas) {
   vector<pair<int, peso_t> > p_indices;
   for (int i = p.size()-1; i >= 0; i--)
     p_indices.push_back(pair<int, peso_t>(i, p[i]));
   
-  sort(p_indices.begin(), p_indices.end(), mayor);
+  sort(p_indices.begin(), p_indices.end(), mayor_tiempo_primero);
   vector<int> elegidos(p.size());
-  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
-  elegidos[p_indices.back().first] = 0;   // El mayor va a la primera línea
-  pesos_asignados[0] = p_indices.back().second;
-  p_indices.pop_back();
+  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo de cada lÃ­nea
+  vector<pair<int, peso_t> >::const_iterator it;
+  int asignados = 0;
+  for (it = p_indices.begin(); it != p_indices.end() && asignados < lineas; ++it, ++asignados) {
+    elegidos[it->first] = asignados;          // Asigna a lÃ­neas distintas todos los coches de mÃ¡s tiempo
+    pesos_asignados[asignados] += it->second;
+  }
   
-  while(!p_indices.empty()) {
+  for (; it != p_indices.end(); ++it) {
     int linea_mas_vacia = 0;
     for (int i = 1; i < lineas; i++)
       if (pesos_asignados[i] < pesos_asignados[linea_mas_vacia])
         linea_mas_vacia = i;
 
-    elegidos[p_indices.back().first] = linea_mas_vacia;
-    pesos_asignados[linea_mas_vacia] += p_indices.back().second;
-    p_indices.pop_back();
+    elegidos[it->first] = linea_mas_vacia;    // Asigna los siguientes coches a la lÃ­nea menos ocupada
+    pesos_asignados[linea_mas_vacia] += it->second;
   }
   return elegidos;
 }
 
 vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
   vector<int> asignados, elegidos;
-  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
-  asignados.push_back(0);  // Considera que el primer coche va a la primera línea
+  vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada lÃ­nea
+  asignados.push_back(0);  // Considera que el primer coche va a la primera lÃ­nea
   pesos_asignados[0] = p.front();
   
-  /* Toma como cota el máximo en un reparto greedy */
-  peso_t cota_max = max(reparto_greedy(p, lineas), p, lineas);
+  /* Toma como cota el mÃ¡ximo en un reparto greedy */
+  elegidos = reparto_greedy(p, lineas);
+  peso_t cota_max = max(elegidos, p, lineas);
   
   backtrack(p, asignados, pesos_asignados, elegidos, lineas, cota_max);
 
@@ -76,7 +82,7 @@ vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
 }
 
 void print(const vector<int> v, const vector<peso_t> p, int lineas, ostream& os = cout) {
-  os << "Tiempo de línea más ocupada: " << max(v, p, lineas) << " |-> ";
+  os << "Tiempo de lÃ­nea mÃ¡s ocupada: " << max(v, p, lineas) << " |-> ";
   for(int i = 0; i < p.size(); i++)
     os << i << " (" << p[i] << ") -> " << v[i] << ", ";
   os << '\n';
@@ -100,7 +106,7 @@ int main(int argc, char* argv[]) {
 
   if (argc == 1 || (argc == 2 && argv[1][0] == 'n')) {
     srand(time(0));
-    rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
+    rand();  // "Quema" un nÃºmero aleatorio: en Windows el primero es muy previsible
     pair<vector<peso_t>,int> datos;
     int cantidad;
     if (argc == 1)
@@ -122,7 +128,7 @@ int main(int argc, char* argv[]) {
   else {
     cerr << "Uso:\n  " << argv[0] << "                                               o\n  "
                        << argv[0] << " n(cantidad de coches)                         o\n  "
-                       << argv[0] << " \"(cantidad de líneas) (tiempo1) (tiempo2)...\"";
+                       << argv[0] << " \"(cantidad de lÃ­neas) (tiempo1) (tiempo2)...\"";
     return -1;
   }
   print(num_lineas, pesos);

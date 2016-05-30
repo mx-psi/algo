@@ -1,12 +1,24 @@
 \section{Estación de ITV}
 
-% TODO: describir el problema
+En este problema se presenta una estación de ITV de $m$ líneas, entre las que
+se pretende repartir un grupo de $n$ coches tales que cada coche requiere un
+tiempo de inspección $T_i$ (independiente de la línea a la que se haya asignado)
+de forma que el tiempo transcurrido desde el inicio hasta que terminen las
+inspecciones sea mínimo. Por ello, se buscará organizar los coches en las $m$
+líneas buscando que el máximo de la suma de los tiempos de inspección de cada
+línea sea mínimo. \\
 
 La implementación de los algoritmos es de la forma:
 \begin{description}
- \item[Entrada:] % TODO
- \item[Salida:] % TODO
+\item[Entrada:] Vector de tiempos de los coches $T$ y número de líneas $m$
+\item[Salida:] Vector que indica en la posición $i$ a qué línea va el coche $i$-ésimo
 \end{description}
+
+Proponemos un algoritmo que vaya asignando cada vehículo a cada línea, guarde la solución con el mínimo tiempo que se haya encontrado y vuelva atrás cuando la solución actual no pueda ser mejor que la de menor tiempo encontrada hasta el momento. \\
+
+Para obtener una cota inicial utilizaremos un algoritmo greedy, que se limita a insertar cada coche, de mayor a menor tiempo, en la línea que menos ocupada se encuentre. El orden escogido busca que sea más fácil nivelar las líneas:
+
+\lstinputlisting[firstline=38, lastline=67]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
 % TODO: describir el procedimiento
 
