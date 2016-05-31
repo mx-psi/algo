@@ -63,6 +63,15 @@ Dado que la eficiencia de las operaciones es crucial en este caso, la estructura
 
 \lstinputlisting[firstline=11, lastline=34]{cpps/cola.h}
 
+Para todas las operaciones utilizamos una clase funtor \texttt{Compare} que implementa
+la operación de comparación entre las soluciones parciales: un nodo se considera con más prioridad que otro si su cota es menor.
+
+La implementación utiliza las operaciones \texttt{push\_heap} y \texttt{pop\_heap}, que implementan
+de forma efectiva las operaciones \texttt{push} y \texttt{pop} de una cola con prioridad sobre un \texttt{vector} con eficiencia logarítmica.
+
+En el caso de \texttt{remove\_less\_than} utilizamos la función \texttt{lower\_bound},
+que realiza un algoritmo muy similar a la búsqueda binaria para encontrar en tiempo
+logarítmico el primer elemento del vector que es mayor o igual que uno dado.
 
 \subsubsection{Algoritmo general}
 
