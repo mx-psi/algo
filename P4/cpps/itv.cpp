@@ -99,6 +99,31 @@ void print(int m, const vector<peso_t>& v, ostream& os = cout) {
 
 const int SMIN = 18, SMAX = 54, PMIN = 10, PMAX = 100;
 const double RATIO = 1.0/8;
+const int MAX_COCHES = 18, NUM_TESTS = 100;
+
+int compare(int num_lineas) {
+  srand(time(0));
+  rand();  // "Quema" un número aleatorio: en Windows el primero es muy previsible
+
+  pair<vector<peso_t>,int> datos;
+  vector<peso_t> pesos;
+  peso_t t_greedy, t_backtrack;
+  for (int i = num_lineas+1; i <= MAX_COCHES; i++) {
+    t_greedy = t_backtrack = 0;
+    for (int t = 0; t < NUM_TESTS; t++) {
+      datos = gen_coches(i,i,PMIN,PMAX,RATIO,uniforme);
+      pesos = datos.first;
+      
+      t_greedy    += max(reparto_greedy   (pesos, num_lineas), pesos, num_lineas);
+      t_backtrack += max(reparto_backtrack(pesos, num_lineas), pesos, num_lineas);
+    }
+    double media_greedy    = t_greedy    * 1.0 / NUM_TESTS;
+    double media_backtrack = t_backtrack * 1.0 / NUM_TESTS;
+    cout << i << " " << media_greedy << " " << media_backtrack << '\n';
+  }
+
+  return 0;
+}
 
 int main(int argc, char* argv[]) {
   vector<peso_t> pesos;
@@ -118,6 +143,11 @@ int main(int argc, char* argv[]) {
     pesos = datos.first;
     num_lineas = datos.second;
   }
+  else if (argc == 2 && (argv[1]++)[0] == 'c') {
+    stringstream str(argv[1]);
+    str >> num_lineas;
+    return compare(num_lineas);
+  }
   else if (argc == 2){
     stringstream str(argv[1]);
     str >> num_lineas;
@@ -128,6 +158,7 @@ int main(int argc, char* argv[]) {
   else {
     cerr << "Uso:\n  " << argv[0] << "                                               o\n  "
                        << argv[0] << " n(cantidad de coches)                         o\n  "
+                       << argv[0] << " c(cantidad de líneas)    o\n  "
                        << argv[0] << " \"(cantidad de líneas) (tiempo1) (tiempo2)...\"";
     return -1;
   }
