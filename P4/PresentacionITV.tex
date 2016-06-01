@@ -19,6 +19,49 @@ Presentaremos algoritmos con el formato:
 \end{description}
 \end{frame}
 
+
+\begin{frame}{Eficiencia}
+	\begin{itemize}
+		\item Problema: \textbf{Tamaño del árbol}
+		\pause
+		\item El tiempo crece al aumentar las \textbf{lineas} y/o los \textbf{coches}
+		\pause
+		\item Solución para estudiar la eficiencia?
+		\pause
+		\item \textbf{Fijamos} el número de filas y dejamos variable el número de coches
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Eficiencia-Tiempo de ejecución}
+	\begin{center}
+		\includegraphics[width = \linewidth]{img/itvEficiencia}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Eficiencia-Comparación con Greedy}
+	\begin{itemize}
+		\item Vamos a analizar qué hemos ganado y qué perdido
+		\pause
+		\item Está claro que los resultados son mejores, pero, ¿Y el tiempo?
+		\pause
+		\item Para 6 lineas y 18 coches el greedy tarda varios ordenes de magnitud menos
+
+	\end{itemize}
+	\begin{center}
+			\begin{tabular}{c|c|c}
+				Coches	& Greedy  & Backtraking  \\ 
+				17	& 190.33 &  209.09\\ 
+				18	& 209.09 & 200.59
+			\end{tabular}
+			
+	\end{center}
+
+\end{frame}
+
+\begin{frame}{Eficiencia-Gráfica Greedy vs Backtraking}
+	\includegraphics[width = \linewidth]{./img/comp.pdf}
+\end{frame}
+
 % TODO: descripción del greedy
 
 % TODO: descripción del backtrack
