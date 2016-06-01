@@ -19,9 +19,39 @@ Presentaremos algoritmos con el formato:
 \end{description}
 \end{frame}
 
-% TODO: descripción del greedy
+\subsection{Algoritmos}
 
-% TODO: descripción del backtrack
+\begin{frame}{Greedy}
+	El greedy se usará dentro del algoritmo backtrack, además de servir como referencia para comparación de ambos.
+	
+	\pause
+	
+	Funcionamiento:
+	\begin{itemize}
+		\item Se ordenan los coches de mayor a menor tiempo.
+		\item Se introduce el coche de mayor tiempo en la línea que se encuentre menos ocupada.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backtrack}
+	Se mantienen dos vectores de enteros que indica en la posición $i$ a qué línea va el coche $i$: uno con la mejor solución encontrada hasta el momento y otro cambiante, al que se le añaden y eliminan elementos durante la ejecución.
+	
+	También mantiene la cantidad de tiempo que se ha ocupado en cada línea durante el desarrollo.
+	
+	\pause
+	
+	En cada momento, intenta meter el primer vehículo no asignado en cada una de las líneas, y si, una vez introducido en una línea, esa línea tiene un tiempo de ocupación menor que el máximo tiempo de ocupación de la mejor solución, se sigue explorando esa posibilidad. Si no, se descarta.
+\end{frame}
+
+\begin{frame}{Backtrack}
+	El programa solo comprueba la longitud de la línea actual. Es posible que alguna de las otras líneas tenga una carga no menor que la de la mejor solución encontrada hasta el momento. Pero comprobar todas las líneas dispara el tiempo de ejecución y no compensa.
+	
+	\pause
+	
+	Como primera mejor solución se utiliza el resultado greedy.
+\end{frame}
+
+\subsection{Eficiencia}
 
 \begin{frame}{Eficiencia}
 	\begin{itemize}
