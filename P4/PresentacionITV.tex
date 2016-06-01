@@ -19,14 +19,47 @@ Presentaremos algoritmos con el formato:
 \end{description}
 \end{frame}
 
+\subsection{Algoritmos}
+
+\begin{frame}{Greedy}
+	El greedy se usará dentro del algoritmo backtrack, además de servir como referencia para comparación de ambos.
+	
+	\pause
+	
+	Funcionamiento:
+	\begin{itemize}
+		\item Se ordenan los coches de mayor a menor tiempo.
+		\item Se introduce el coche de mayor tiempo en la línea que se encuentre menos ocupada.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backtrack}
+	Se mantienen dos vectores de enteros que indica en la posición $i$ a qué línea va el coche $i$: uno con la mejor solución encontrada hasta el momento y otro cambiante, al que se le añaden y eliminan elementos durante la ejecución.
+	
+	También mantiene la cantidad de tiempo que se ha ocupado en cada línea durante el desarrollo.
+	
+	\pause
+	
+	En cada momento, intenta meter el primer vehículo no asignado en cada una de las líneas, y si, una vez introducido en una línea, esa línea tiene un tiempo de ocupación menor que el máximo tiempo de ocupación de la mejor solución, se sigue explorando esa posibilidad. Si no, se descarta.
+\end{frame}
+
+\begin{frame}{Backtrack}
+	El programa solo comprueba la longitud de la línea actual. Es posible que alguna de las otras líneas tenga una carga no menor que la de la mejor solución encontrada hasta el momento. Pero comprobar todas las líneas dispara el tiempo de ejecución y no compensa.
+	
+	\pause
+	
+	Como primera mejor solución se utiliza el resultado greedy.
+\end{frame}
+
+\subsection{Eficiencia}
 
 \begin{frame}{Eficiencia}
 	\begin{itemize}
 		\item Problema: \textbf{Tamaño del árbol}
 		\pause
-		\item El tiempo crece al aumentar las \textbf{lineas} y/o los \textbf{coches}
+		\item El tiempo crece al aumentar las \textbf{líneas} y/o los \textbf{coches}
 		\pause
-		\item Solución para estudiar la eficiencia?
+		\item ¿Solución para estudiar la eficiencia?
 		\pause
 		\item \textbf{Fijamos} el número de filas y dejamos variable el número de coches
 	\end{itemize}
@@ -40,18 +73,18 @@ Presentaremos algoritmos con el formato:
 
 \begin{frame}{Eficiencia-Comparación con Greedy}
 	\begin{itemize}
-		\item Vamos a analizar qué hemos ganado y qué perdido
+		\item Vamos a analizar qué hemos ganado y qué perdido.
 		\pause
 		\item Está claro que los resultados son mejores, pero, ¿Y el tiempo?
 		\pause
-		\item Para 6 lineas y 18 coches el greedy tarda varios ordenes de magnitud menos
+		\item Para $5$ líneas y $18$ coches el greedy tarda varios órdenes de magnitud menos.
 		\item \textbf{¿Cuánto hemos ganado exactamente?}
 		
 
 	\end{itemize}
 	\begin{center}
 			\begin{tabular}{c|c|c}
-				Coches	& Greedy  & Backtraking  \\ 
+				Coches	& Greedy  & Backtracking  \\ 
 				17	& 190.33 &  209.09\\ 
 				18	& 209.09 & 200.59
 			\end{tabular}
@@ -60,14 +93,7 @@ Presentaremos algoritmos con el formato:
 
 \end{frame}
 
-\begin{frame}{Eficiencia-Gráfica Greedy vs Backtraking}
+\begin{frame}{Eficiencia-Gráfica Greedy vs Backtracking}
 	\includegraphics[width = \linewidth]{./img/comp.pdf}
 \end{frame}
 
-% TODO: descripción del greedy
-
-% TODO: descripción del backtrack
-
-% TODO: eficiencia del backtrack
-
-% TODO: comparación backtrack-greedy
