@@ -24,7 +24,7 @@ El algoritmo vuelta atrás propuesto mantiene un vector de enteros, \texttt{eleg
 
 \lstinputlisting[firstline=69, lastline=83]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
-A continuación se ejecuta un algoritmo recursivo que intenta añadir el último elemento asignado a cada una de las líneas disponibles siempre que esto no provoque que esa línea pase a tener un tiempo asignado mayor que el tiempo máximo de la mejor solución encontrada hasta el momento (que, al inicio de la ejecución del algoritmo, se fija a una solución encontrada por el algoritmo greedy). Además, se evita añadir elementos en una línea si la anterior tiene el mismo tiempo asignado (entre otros casos, si ambas están vacías), dado que las soluciones obtenidas a partir de esa posición serían iguales que las obtenidas colocando ese coche en la anterior salvo permutación de algunos elementos de ambas líneas.
+A continuación se ejecuta un algoritmo recursivo que intenta añadir el último elemento asignado a cada una de las líneas disponibles siempre que esto no provoque que esa línea pase a tener un tiempo asignado mayor que el tiempo máximo de la mejor solución encontrada hasta el momento (que, al inicio de la ejecución del algoritmo, se fija a una solución encontrada por el algoritmo greedy). Además, se evita añadir elementos en una línea si alguna línea anterior se encuentra vacía, dado que las soluciones obtenidas a partir de esa posición serían iguales que las obtenidas colocando ese coche en la anterior salvo permutación de ambas líneas.
 
 \lstinputlisting[firstline=19, lastline=37]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
