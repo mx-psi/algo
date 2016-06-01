@@ -61,21 +61,23 @@ Presentaremos algoritmos con el formato:
 		\pause
 		\item ¿Solución para estudiar la eficiencia?
 		\pause
-		\item \textbf{Fijamos} el número de filas y dejamos variable el número de coches
+		\item \textbf{Fijamos} el número de filas y dejamos variable el número de coches.
+		
+		En este caso hemos fijado el número de líneas a 10:
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Eficiencia-Tiempo de ejecución}
+\begin{frame}{Tiempo de ejecución}
 	\begin{center}
 		\includegraphics[width = \linewidth]{img/itvEficiencia}
 	\end{center}
 \end{frame}
 
-\begin{frame}{Eficiencia-Comparación con Greedy}
+\begin{frame}{Comparación con Greedy}
 	\begin{itemize}
-		\item Vamos a analizar qué hemos ganado y qué perdido.
+		\item Vamos a analizar qué hemos ganado y qué hemos perdido.
 		\pause
-		\item Está claro que los resultados son mejores, pero, ¿Y el tiempo?
+		\item Está claro que los resultados son mejores, pero ¿y el tiempo?
 		\pause
 		\item Para $5$ líneas y $18$ coches el greedy tarda varios órdenes de magnitud menos.
 		\item \textbf{¿Cuánto hemos ganado exactamente?}
@@ -85,7 +87,8 @@ Presentaremos algoritmos con el formato:
 	\begin{center}
 			\begin{tabular}{c|c|c}
 				Coches	& Greedy  & Backtracking  \\ 
-				17	& 190.33 &  209.09\\ 
+				16  & 182.83 & 175.91 \\
+				17	& 190.33 & 183.56 \\ 
 				18	& 209.09 & 200.59
 			\end{tabular}
 			
@@ -93,7 +96,9 @@ Presentaremos algoritmos con el formato:
 
 \end{frame}
 
-\begin{frame}{Eficiencia-Gráfica Greedy vs Backtracking}
+\begin{frame}{Gráfica Greedy vs Backtracking}
 	\includegraphics[width = \linewidth]{./img/comp.pdf}
+	
+	El número de líneas se ha fijado a $5$.
 \end{frame}
 
