@@ -35,11 +35,11 @@ void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& 
   }
 }
 
-bool mayor_tiempo_primero(pair<int, peso_t> a, pair<int, peso_t> b) {
+bool mayor_tiempo_primero(const pair<int, peso_t>& a, const pair<int, peso_t>& b) {
   return a.second > b.second;
 }
 
-vector<int> reparto_greedy(const vector<peso_t> p, int lineas) {
+vector<int> reparto_greedy(const vector<peso_t>& p, int lineas) {
   vector<pair<int, peso_t> > p_indices;
   for (int i = p.size()-1; i >= 0; i--)
     p_indices.push_back(pair<int, peso_t>(i, p[i]));
@@ -66,7 +66,7 @@ vector<int> reparto_greedy(const vector<peso_t> p, int lineas) {
   return elegidos;
 }
 
-vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
+vector<int> reparto_backtrack(const vector<peso_t>& p, int lineas){
   vector<int> asignados, elegidos;
   vector<peso_t> pesos_asignados(lineas, 0);  // Tiempo total de cada línea
   asignados.push_back(0);  // Considera que el primer coche va a la primera línea
@@ -81,14 +81,14 @@ vector<int> reparto_backtrack(const vector<peso_t> p, int lineas){
   return elegidos;
 }
 
-void print(const vector<int> v, const vector<peso_t> p, int lineas, ostream& os = cout) {
+void print(const vector<int>& v, const vector<peso_t>& p, int lineas, ostream& os = cout) {
   os << "Tiempo de línea más ocupada: " << max(v, p, lineas) << " |-> ";
   for(int i = 0; i < p.size(); i++)
     os << i << " (" << p[i] << ") -> " << v[i] << ", ";
   os << '\n';
 }
 
-void print(int m, const vector<peso_t> v, ostream& os = cout) {
+void print(int m, const vector<peso_t>& v, ostream& os = cout) {
   if (v.empty())
      return;
   os << m << ": [" << v[0];
