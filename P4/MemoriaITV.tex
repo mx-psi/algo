@@ -30,9 +30,6 @@ A continuación se ejecuta un algoritmo recursivo que intenta añadir el último
 
 Puede observarse que la función de factibilidad consiste en comprobar que la línea donde se piense insertar el coche no tome más peso que el máximo de la mejor solución encontrada, sin comprobar que esto tampoco ocurra en el resto de líneas, pero esto sí se comprueba a la hora de determinar si una solución completa es la mejor solución. Que la función de factibilidad solo compruebe la línea donde se va a insertar se debe a que esta comprobación es mucho más rápida y compensa el mayor número de ramas que se exploran, mientras que es necesario hallar la cota exacta en la solución completa porque la última línea a la que se haya asignado un vehículo podría no ser la que esté más ocupada, y es necesario calcular la cota exacta.
 
-
-
 % TODO: estudio empírico de la eficiencia
 
 % TODO: comparar con el greedy
-% TODO: ¿comparar con fuerza bruta mal enfocada?

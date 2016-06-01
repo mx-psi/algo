@@ -158,7 +158,7 @@ int main(int argc, char* argv[]) {
   else {
     cerr << "Uso:\n  " << argv[0] << "                                               o\n  "
                        << argv[0] << " n(cantidad de coches)                         o\n  "
-                       << argv[0] << " c(cantidad de líneas)    o\n  "
+                       << argv[0] << " c(cantidad de líneas)                         o\n  "
                        << argv[0] << " \"(cantidad de líneas) (tiempo1) (tiempo2)...\"";
     return -1;
   }
