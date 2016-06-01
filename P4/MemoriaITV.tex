@@ -117,21 +117,21 @@ Desde una perspectiva experimental rápidamente vemos que el árbol de posibilid
 Los resultados de esta sección se han obtenido en el siguiente contexto hardware: \\
 \spec{Darío}{\href{http://ark.intel.com/products/75116}{Intel\textregistered\ Core\texttrademark\ i7-4700HQ}}{2.40}{12}{Ubuntu 14.04 64 bits}{0} \\
 
-Aquí presentamos una gráfica de varias ejecuciones del algoritmo con número de vehículos variable y número de líneas fijo a $10$. Mostramos la gráfica en escala logarítmica, ya que si no el crecimiento de la función es inapreciable.
+Aquí presentamos una gráfica de varias ejecuciones del algoritmo con número de vehículos variable y número de líneas fijo a $10$. Mostramos la gráfica con el tiempo en escala logarítmica, ya que si no el crecimiento de la función es inapreciable.
 
 \begin{center}
-	\includegraphics{./img/itvEficiencia}
+	\includegraphics[width=\textwidth]{./img/itvEficiencia}
 \end{center}
 
 \newpage
 \subsection{Comparación backtrack-greedy}
 
-Los algoritmos greedy ofrecen la ventaja de la rapidez, pero no garantizan obtener una solución óptima. En este caso el algoritmo greedy se ejecuta dentro del propio algoritmo de backtracking aprovechando que da una cota inicial bastante baja y el tiempo que consume es despreciable comparado con el que se toma el algoritmo de vuelta atrás.
+Los algoritmos greedy ofrecen la ventaja de la rapidez, pero no garantizan obtener una solución óptima. En este caso el algoritmo greedy se ejecuta dentro del propio algoritmo de backtracking aprovechando que da una cota inicial bastante baja y el tiempo que consume es despreciable comparado con el que se toma el algoritmo de vuelta atrás. \\
 
-En el siguiente gráfico se comparar la media del tiempo máximo de las líneas en $100$ ejecuciones para $5$ líneas con un número variable de coches:
+En el siguiente gráfico se compara la media del tiempo máximo de las líneas en $100$ ejecuciones para $5$ líneas con un número variable de coches:
 
 \begin{center}
-	\includegraphics{./img/comp}
+	\includegraphics[width=\textwidth]{./img/comp}
 \end{center}
 
 Podemos ver que el backtracking ofrece soluciones mejores que las del greedy, pero la distancia a la solución que encuentra el backtracking es pequeña mientras que la pérdida en velocidad es enorme. El algoritmo greedy queda, en tiempo, varios órdenes de magnitud por debajo del backtracking a partir de un número relativamente bajo de coches y líneas; en nuestro caso son suficientes $5$ líneas y $18$ coches para que difieran en cuatro órdenes de magnitud. \\
