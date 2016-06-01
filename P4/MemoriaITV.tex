@@ -86,15 +86,15 @@ tiempo de inspección $T_i$ (independiente de la línea a la que se haya asignad
 de forma que el tiempo transcurrido desde el inicio hasta que terminen las
 inspecciones sea mínimo. Por ello, se buscará organizar los coches en las $m$
 líneas buscando que el máximo de la suma de los tiempos de inspección de cada
-línea sea mínimo. \\
-
-La implementación de los algoritmos es de la forma:
+línea sea mínimo. La implementación de los algoritmos es de la forma:
 \begin{description}
 	\item[Entrada:] Vector de tiempos de los coches $T$ y número de líneas $m$
 	\item[Salida:] Vector que indica en la posición $i$ a qué línea va el coche $i$-ésimo
 \end{description}
 
-Proponemos un algoritmo que vaya asignando cada vehículo a cada línea, guarde la solución con el mínimo tiempo que se haya encontrado y vuelva atrás cuando la solución actual no pueda ser mejor que la de menor tiempo encontrada hasta el momento. \\
+\subsection{Algoritmo}
+
+Proponemos un algoritmo que vaya asignando cada vehículo a cada línea, guarde la solución con el mínimo tiempo que se haya encontrado y vuelva atrás cuando la solución actual no pueda ser mejor que la de menor tiempo encontrada hasta el momento.
 
 Para obtener una cota inicial utilizaremos un algoritmo greedy, que se limita a insertar cada coche, por orden de mayor a menor tiempo, en la línea que menos ocupada se encuentre. El orden escogido busca que sea más fácil nivelar las líneas:
 
@@ -112,37 +112,30 @@ Puede observarse que la función de factibilidad consiste en comprobar que la l�
 
 \subsection{Estudio empírico de la eficiencia}
 
-Desde una perspectiva experimental rápidamente vemos que el árbol de posibilidades que tiene que explorar el algoritmo de Backtraking es inmenso; tanto que para más de 20 coches y 10 lineas de el tiempo comienza a volverse un problema inabarcable.
+Desde una perspectiva experimental rápidamente vemos que el árbol de posibilidades que tiene que explorar el algoritmo de vuelta atrás es inmenso; tanto que para más de $20$ coches y $10$ líneas el problema comienza a volverse inabarcable. También se observa que el tiempo es muy irregular, dependiendo mucho de en qué momento se encuentren repartos buenos. \\
 
-Aquí presentamos una gráfica de varias ejecuciones del algoritmo, que presentamos en escala logarítmica, ya que si no el crecimiento de la función es inapreciable.
+Los resultados de esta sección se han obtenido en el siguiente contexto hardware: \\
+\spec{Darío}{\href{http://ark.intel.com/products/75116}{Intel\textregistered\ Core\texttrademark\ i7-4700HQ}}{2.40}{12}{Ubuntu 14.04 64 bits}{0} \\
+
+Aquí presentamos una gráfica de varias ejecuciones del algoritmo con número de vehículos variable y número de líneas fijo a $10$. Mostramos la gráfica en escala logarítmica, ya que si no el crecimiento de la función es inapreciable.
+
 \begin{center}
 	\includegraphics{./img/itvEficiencia}
 \end{center}
 
-El crecimiento de la gráfica es desmedido; de hecho las ejecuciones las están hechas con un número bajo de lineas, 10; debido a dicho crecimiento. Esta función claramente mayora a la exponencial.
 \newpage
-\subsection{Comparación con el Greedy}
+\subsection{Comparación backtrack-greedy}
 
-Los algoritmos greedy ofrecen la ventaja de la rapidez, pero es verdad que resuelven el problema de manera óptima, aunque este matiz es a veces insustancial e inapreciable; veamos un claro ejemplo:
+Los algoritmos greedy ofrecen la ventaja de la rapidez, pero no garantizan obtener una solución óptima. En este caso el algoritmo greedy se ejecuta dentro del propio algoritmo de backtracking aprovechando que da una cota inicial bastante baja y el tiempo que consume es despreciable comparado con el que se toma el algoritmo de vuelta atrás.
+
+En el siguiente gráfico se comparar la media del tiempo máximo de las líneas en $100$ ejecuciones para $5$ líneas con un número variable de coches:
 
 \begin{center}
 	\includegraphics{./img/comp}
 \end{center}
 
-Fijamos en esta ejecución el número de colas a 6. Podemos ver como el bactraking es mejor que el greedy, pero la ganancia en prestaciones frente a la perdida en velocidad es nimia. El algoritmo greedy queda, en tiempo, varios ordenes de magnitud por debajo del backtraking a partir de un número relativamente bajo de coches y lineas, en nuestro caso son suficientes 6 lineas y 18 coches para que difieran en 4 ordenes de magnitud.
+Podemos ver que el backtracking ofrece soluciones mejores que las del greedy, pero la distancia a la solución que encuentra el backtracking es pequeña mientras que la pérdida en velocidad es enorme. El algoritmo greedy queda, en tiempo, varios órdenes de magnitud por debajo del backtracking a partir de un número relativamente bajo de coches y líneas; en nuestro caso son suficientes $5$ líneas y $18$ coches para que difieran en cuatro órdenes de magnitud. \\
 
-Volviendo a la ganancia de prestaciones; es incuestionable que mejoramos, pero si el tiempo lo entendemos en segundos la planificación hecha por el greedy tarda varios segundos en completarse más que el bactraking, que en nuestro caso no es relevante.
-
-Como conclusión resaltar lo que hemos ganado frente a lo que hemos perdido, pocas prestaciones frente a mucho tiempo; por tanto a no ser que la solución óptima sea de crucial importancia elegiríamos un greedy en lugar de un bactraking sin dudarlo. Por último como coletazo final cabe mencionar que nuestro algoritmo greedy es con diferencia más fácil de programar.  
-
-
-
-% TODO: estudio empírico de la eficiencia
-
-% TODO: comparar con el greedy
-
-% TODO: ¿comparar con fuerza bruta mal enfocada?
+Puede concluirse que, a no ser que obtener la solución óptima sea de crucial importancia, elegiríamos un greedy en lugar de un algoritmo de vuelta atrás. Cabe mencionar que, además, nuestro algoritmo greedy es con diferencia más fácil de programar.
 
 \end{document}
-
->>>>>>> Stashed changes
