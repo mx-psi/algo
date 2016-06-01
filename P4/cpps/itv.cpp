@@ -17,7 +17,7 @@ peso_t max(const vector<int>& asignacion, const vector<peso_t>& v, int lineas) {
 }
 
 void backtrack(const vector<peso_t>& p, vector<int>& asignados, vector<peso_t>& pesos_asignados, vector<int>& mejor, int lineas, peso_t& cota_max) {
-  for (int i = 0; i < lineas; i++) {
+  for (int i = 0; i < lineas && !(i && pesos_asignados[i-1] == pesos_asignados[i]); i++) {
     if ((pesos_asignados[i] += p[asignados.size()]) < cota_max) {
       asignados.push_back(i);
       if (asignados.size() < p.size())

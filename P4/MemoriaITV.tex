@@ -20,17 +20,15 @@ Para obtener una cota inicial utilizaremos un algoritmo greedy, que se limita a 
 
 \lstinputlisting[firstline=38, lastline=67]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
-El algoritmo vuelta atrás propuesto mantiene un vector de enteros, \texttt{elegidos}, que indica en la posición $i$ a qué línea va el coche $i$. Además tiene un vector de enteros, \texttt{asignados}, que mantiene asignaciones incompletas, en las que solo los primeros elementos tienen líneas asignadas, y un vector de tiempos, \texttt{pesos\_asignados}, que mantiene cuánto tiempo asignado tiene cada línea conforme evoluciona el vector de asignaciones incompleto. Aprovechando que las líneas son iguales, supone que el primer vehículo va a la línea 0. \\
+El algoritmo vuelta atrás propuesto mantiene un vector de enteros, \texttt{elegidos}, que indica en la posición $i$ a qué línea va el coche $i$. Además tiene un vector de enteros, \texttt{asignados}, que mantiene asignaciones incompletas, en las que solo los primeros elementos tienen líneas asignadas, y un vector de tiempos, \texttt{pesos\_asignados}, que mantiene cuánto tiempo asignado tiene cada línea conforme evoluciona el vector de asignaciones incompleto. Aprovechando que las líneas son iguales, supone que el primer vehículo va a la línea 0.
 
 \lstinputlisting[firstline=69, lastline=83]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
-A continuación se ejecuta un algoritmo recursivo que intenta añadir el último elemento asignado a cada una de las líneas disponibles siempre que esto no provoque que esa línea pase a tener un tiempo asignado mayor que el tiempo máximo de la mejor solución encontrada hasta el momento (que, al inicio de la ejecución del algoritmo, se fija a una solución encontrada por el algoritmo greedy).
+A continuación se ejecuta un algoritmo recursivo que intenta añadir el último elemento asignado a cada una de las líneas disponibles siempre que esto no provoque que esa línea pase a tener un tiempo asignado mayor que el tiempo máximo de la mejor solución encontrada hasta el momento (que, al inicio de la ejecución del algoritmo, se fija a una solución encontrada por el algoritmo greedy). Además, se evita añadir elementos en una línea si la anterior tiene el mismo tiempo asignado (entre otros casos, si ambas están vacías), dado que las soluciones obtenidas a partir de esa posición serían iguales que las obtenidas colocando ese coche en la anterior salvo permutación de algunos elementos de ambas líneas.
 
 \lstinputlisting[firstline=19, lastline=37]{cpps/itv.cpp} % TODO: comprobar que no se mueva el código
 
-Puede observarse que la función de factibilidad consiste en comprobar que la línea donde se piense insertar el coche no tome más peso que el máximo de la mejor solución encontrada, sin comprobar que esto tampoco ocurra en el resto de líneas, pero esto sí se comprueba a la hora de determinar si una solución completa es la mejor solución. Que la función de factibilidad solo compruebe la línea donde se va a insertar se debe a % TODO (sé que si no se comprueban todas sino solo una es más rápido, pero no tengo claro si esta comprobación es más laxa (poda menos) o no)
-, mientras que es necesario hallar la cota exacta en la solución completa porque % TODO
-.
+Puede observarse que la función de factibilidad consiste en comprobar que la línea donde se piense insertar el coche no tome más peso que el máximo de la mejor solución encontrada, sin comprobar que esto tampoco ocurra en el resto de líneas, pero esto sí se comprueba a la hora de determinar si una solución completa es la mejor solución. Que la función de factibilidad solo compruebe la línea donde se va a insertar se debe a que esta comprobación es mucho más rápida y compensa el mayor número de ramas que se exploran, mientras que es necesario hallar la cota exacta en la solución completa porque la última línea a la que se haya asignado un vehículo podría no ser la que esté más ocupada, y es necesario calcular la cota exacta.
 
 
 
