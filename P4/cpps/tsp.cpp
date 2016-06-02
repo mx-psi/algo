@@ -8,12 +8,8 @@
 #include <list>
 #include <algorithm>
 #include <chrono>
-#include <queue>
-#include <climits>
 #include "grafo.h"
 #include "cola.h"
-//#include <ctime>
-//#include <cstdlib>
 
 using namespace std;
 
@@ -49,7 +45,7 @@ vector<int> RelacionadosCon(int k, int max, vector<int> camino){
   for(int i = 0; i < max; i++)
     if(find(camino.begin(), camino.end(), i) == camino.end() && i != k)
       relacionados.push_back(i);
-  if(k != camino[camino.size()-1] || k == max-1)
+  if(k != camino.back() || k == max-1)
     relacionados.push_back(1);
   return relacionados;
 }
@@ -57,12 +53,11 @@ vector<int> RelacionadosCon(int k, int max, vector<int> camino){
 // Cota dada en el enunciado
 int cota1(vector<int>& camino, const Grafo<int>& g){
 	int recorrido = 0;
-  // Peso del recorrido ya hecho
 	for(int i = 0; i < camino.size()-1; i++)
 		recorrido += g.peso(camino[i], camino[i+1]);
-  // Para cada i halla el peso mínimo entre los relacionados
+    
   for(int i = 0; i < g.numNodos(); i++){
-    if((find(camino.begin(), camino.end(), i) == camino.end()) || (i == camino[camino.size()-1])){ // No toy seguro de la segunda parte del OR, que ha subido
+    if((i == camino.back()) || (find(camino.begin(), camino.end(), i) == camino.end())){
       vector<int> v = RelacionadosCon(i,g.numNodos(),camino);
       int min = v[0];
       for(int j = 1; j < v.size(); j++){
@@ -70,7 +65,6 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
           min = v[j];
       }
       recorrido += g.peso(i,min);
-
     }
   }
   return recorrido;

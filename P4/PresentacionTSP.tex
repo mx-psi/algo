@@ -16,3 +16,66 @@ ciudades que pase por todas las ciudades y regrese al punto inicial.
 \end{frame}
 
 % TODO: todo lo posterior
+
+\begin{frame}{\texttt{Grafo}}
+Un grafo consta de:
+
+\begin{itemize}
+  \item Una \textbf{cantidad de nodos}: \texttt{nodos}.
+  \item Una \textbf{matriz de pesos}: \texttt{lados}.
+\end{itemize}
+\end{frame}
+
+\subsection{Ramificación y acotación}
+
+% TODO: Diapositiva previa con la idea del algoritmo?
+
+\begin{frame}[fragile]{Cola con prioridad}
+  Necesitamos una cola ordenada por la cota. \texttt{priority\_queue} no permite borrar nodos: implementamos nuestra clase con ese método:
+
+  \lstinputlisting[firstline=31, lastline=33]{cpps/cola.h}
+
+  Un funtor (\texttt{comp}) implementa la comparación. Guardamos en la cola el valor de la cota de cada nodo.
+
+  \note{El uso de memoria era excesivo y hacía que las inserciones y borrados fueran demasiado lentos. Esta nueva operación mejora en \texttt{ulysses16} de más de 15 minutos a menos de un minuto.}
+\end{frame}
+
+\begin{frame}{Algoritmo general}
+  Iniciamos:
+  \begin{itemize}
+    \item La cola con la solución parcial \texttt{[0]}
+    \item La mejor solución con un algoritmo \textit{greedy} (vecino más cercano)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo general}
+  Mientras la cola no esté vacía, coge el primer elemento:
+  \begin{itemize}
+    \item Si \textbf{puede formarse una solución completa}, comprueba si es mejor que la mejor encontrada. En tal caso actualizala y borra los nodos con peor cota.
+    \item En \textbf{otro caso}, para cada ciudad no visitada forma una nueva solución parcial. Añádela a la cola si su cota es mejor que la mejor solución.
+  \end{itemize}
+\end{frame}
+
+\subsubsection{Cotas}
+
+\begin{frame}{Cota del mínimo}
+  Calcular la longitud del recorrido inicial y suma la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas.
+\end{frame}
+
+\begin{frame}{Arbol generador}
+  % TODO (Antonio): Cota del árbol generador minimal
+\end{frame}
+
+\subsection{Vuelta atrás}
+
+%% TODO: (Iñaki) Descripción del algoritmo de backtracking
+
+\subsection{Comparativa de los algoritmos}
+
+%%% TODO (Iñaki)
+% Gráficas que comparen entre los 3 algoritmos:
+% - Número de nodos expandidos
+% - Tamaño máximo de la cola con prioridad
+% - Número de veces que se realiza la poda
+% - Tiempo empleado en resolver el problema
+%%%

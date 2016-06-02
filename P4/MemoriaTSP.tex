@@ -80,7 +80,7 @@ Presentamos en esta sección un algoritmo general que implementa el \textit{bran
 El algoritmo toma un \texttt{Grafo} y una función \texttt{cota}. Esta última calcula dado un camino (y el grafo) un entero que sea menor o igual que la mejor solución posible que pueda obtenerse añadiendo nuevas ciudades a la solución parcial.
 
 En primer lugar iniciamos la cola con prioridad introduciendo la solución parcial
-inicial (\texttt{[0]}). Para optimizar el cálculo guardamos también en la cola el valor de la cota para cada nodo que introducimos. Inicializamos también la mejor solución encontrada con un algrotimo greedy (en este caso vecino más cercano).
+inicial (\texttt{[0]}). Para optimizar el cálculo guardamos también en la cola el valor de la cota para cada nodo que introducimos. Inicializamos también la mejor solución encontrada con un algoritmo greedy (en este caso vecino más cercano).
 
 %% TODO (Cuando no se muevan las lineas): Código de la primera parte
 
@@ -102,11 +102,20 @@ Repetimos este proceso y devolvemos el mejor camino encontrado. El algoritmo com
 
 \subsubsection{Cotas}
 
+Para implementar la cota dada por el enunciado utilizamos una función auxiliar \texttt{RelacionadosCon} que nos indica dada una ciudad, cuál es el conjunto de ciudades que debemos considerar para calcular la cota:
+
+\lstinputlisting[firstline=43, lastline=51]{cpps/tsp.cpp}
+
+De esta forma para calcular la primera cota basta con calcular la longitud del recorrido inicial y sumar la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas:
+
+\lstinputlisting[firstline=54, lastline=73]{cpps/tsp.cpp}
+
+
 % TODO (Antonio): Cota del árbol generador minimal
 
 \subsection{Vuelta atrás}
 
-%% TODO: Descripción del algoritmo de backtracking
+%% TODO: (Iñaki) Descripción del algoritmo de backtracking
 
 \subsection{Comparativa de los algoritmos}
 
