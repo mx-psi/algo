@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <list>
+#include <utility>
 #include <algorithm>
 #include <chrono>
 #include "grafo.h"
@@ -13,6 +14,7 @@
 
 using namespace std;
 
+#define INFINITO 2147483647;
 vector<int> tsp_greedy(const Grafo<peso_t>& g) {
   vector<int> trayecto(1, 0);
   list<int> disponibles;
@@ -55,7 +57,7 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
 	int recorrido = 0;
 	for(int i = 0; i < camino.size()-1; i++)
 		recorrido += g.peso(camino[i], camino[i+1]);
-    
+
   for(int i = 0; i < g.numNodos(); i++){
     if((i == camino.back()) || (find(camino.begin(), camino.end(), i) == camino.end())){
       vector<int> v = RelacionadosCon(i,g.numNodos(),camino);
@@ -70,15 +72,105 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
   return recorrido;
 }
 
+bool GeneraCiclos(vector<vector<pair<int,int> > > aristas, pair<int, int> arista_nueva){
+  bool genera = false;
+  bool genera1,genera2;
+  for(vector<vector<pair<int,int> > >::iterator it = aristas.begin(); it != aristas.end() && !genera; ++it){
+    genera1 = genera2 = false;
+    for(vector<pair<int,int> >::iterator it2 = it->begin(); it2 != it->end(); ++it2){
+      if((it2->first == arista_nueva.first) || (it2->second == arista_nueva.first))
+        genera1 = true;
+      if((it2->first == arista_nueva.second) || (it2->second == arista_nueva.second))
+        genera1 = true;
+    }
+    genera = genera1 && genera2;
+  }
+  return genera;
+}
+
+pair<int, int> MenorAristaSiguiente(vector<vector<pair<int,int> > > aristas, const Grafo<int>& g){
+  pair<int,int> par_min;
+  int minimo = INFINITO;
+  for(int i = 0; i < g.numNodos(); i++){
+    for(int j = 0; j < g.numNodos(); j++){
+      if(g.peso(i,j) < minimo && !GeneraCiclos(aristas, pair<int,int>(i,j))){
+        minimo = g.peso(i,j);
+        par_min = pair<int,int>(i,j);
+      }
+    }
+  }
+  return par_min;
+}
+
+bool CompartenNodo(vector<pair<int,int> > v1, vector<pair<int,int> > v2){
+  bool encontrado = false;
+  for(int i = 0; i < v1.size() && !encontrado; i++){
+    for(int j = 0; j < v2.size(); j++){
+      encontrado = v1[i].first == v2[j].first || v1[i].first == v2[j].second || v1[i].second == v2[j].first || v1[i].second == v2[j].second;
+    }
+  }
+  return encontrado;
+}
+
+template <class T>
+vector<T> union_vec(const vector<T>& v1, const vector<T>& v2){
+  vector<T> nuevo(v1);
+  for(int i = 0; i < v2.size(); i++)
+    if(find(nuevo.begin(), nuevo.end(), v2[i]) == nuevo.end())
+      nuevo.push_back(v2[i]);
+  return nuevo;
+}
+
+void RecomponerAristas(vector<vector<pair<int,int> > >& aristas){
+  vector<vector<pair<int,int> > > nuevo;
+  bool encontrado;
+  for(vector<vector<pair<int,int> > >::iterator it1 = aristas.begin(); it1 != aristas.end(); ++it1){
+    encontrado = false;
+    for(vector<vector<pair<int,int> > >::iterator it2 = nuevo.begin(); (it2 != nuevo.end()) && !encontrado; ++it2){
+      if(CompartenNodo(*it1, *it2)){
+        *(it2) = union_vec(*it1, *it2);
+        encontrado = true;
+      }
+    }
+    if(!encontrado)
+      nuevo.push_back(*it1);
+  }
+  aristas = nuevo;
+}
 // Nuestra función de acotación
 int cota2(vector<int>& camino, const Grafo<int>& g){
-  return 0; // TODO
+  int recorrido = 0;// Peso del recorrido ya hecho
+  vector<vector<pair<int,int> > > aristas;
+  vector<pair<int,int> > arista;
+  int total_aristas = camino.size()-1;
+
+  for(int i = 0; i < camino.size()-1; i++){
+    recorrido += g.peso(camino[i], camino[i+1]);
+    arista.push_back(pair<int,int>(camino[i],camino[i+1]));
+   }
+  aristas.push_back(arista);
+  arista.clear();
+
+  while(total_aristas < g.numNodos()-1){
+    pair<int,int> par_nuevo = MenorAristaSiguiente(aristas, g);
+    arista.push_back(par_nuevo);
+    aristas.push_back(arista);
+    recorrido += g.peso(par_nuevo.first, par_nuevo.second);
+    RecomponerAristas(aristas);
+    arista.clear();
+    total_aristas++;
+  }
+  int minimo = g.peso(0,1);
+  for(int i = 2; i < g.numNodos(); i++)
+    if(g.peso(0,i) < minimo)
+      minimo = g.peso(0,i);
+  return recorrido + minimo;
 }
 
 class Compare{
 public:
   bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
-    return a.second > b.second;
+    return a.second < b.second;
   }
 };
 
@@ -87,11 +179,13 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
   vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
   int mejor_longitud = longitud(mejor_camino,g);
   cola.push({inicial,cota(inicial,g)});
+  int total_en_cola = 0;
 
   // Mientras haya caminos posiblemente mejores que el mejor encontrado
-  while(!cola.empty() && cola.top().second < mejor_longitud){
+  while((!cola.empty()) && (cola.top().second < mejor_longitud)){
     vector<int> camino_actual = cola.top().first;
     cola.pop();
+    total_en_cola--;
     // No podemos formar directamente una solución
     if(camino_actual.size() < g.numNodos()- 2){
       for(int i = 0; i < g.numNodos(); i++){
@@ -100,8 +194,10 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
           nuevo_camino.push_back(i);
 
           int nueva_cota = cota(nuevo_camino,g);
-          if(nueva_cota < mejor_longitud)
+          if(nueva_cota < mejor_longitud){
+            total_en_cola++;
             cola.push({nuevo_camino,nueva_cota});
+          }
         }
       }
     }
