@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 template<class T, class Compare>
@@ -17,7 +18,7 @@ public:
   bool empty() const {return c.empty();}
   unsigned size() const {return c.size();}
   const T& top() const {return c.front();}
-  
+
   void push(T x) {
     c.push_back(x);
     push_heap(c.begin(), c.end(), comp);
@@ -29,7 +30,9 @@ public:
   }
 
   void remove_less_than(const T& x){
-    c.erase(lower_bound(c.begin(), c.end(), x, comp), c.end());
+    sort_heap(c.begin(), c.end(), comp);
+    c.erase(c.begin(), lower_bound(c.begin(), c.end(), x, comp));
+    make_heap(c.begin(), c.end());
   }
 };
 

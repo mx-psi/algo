@@ -166,7 +166,6 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
       minimo = g.peso(0,i);
   return recorrido + minimo;
 }
-
 class Compare{
 public:
   bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
