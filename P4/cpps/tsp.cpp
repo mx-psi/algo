@@ -226,29 +226,32 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
   }
   return mejor_camino;
 }
-vector<int> tsp_back_rec(vector<int> camino_actual, int mejor_longitud&, const Grafo<peso_t>& g){
+void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
 	if(camino_actual.size() < g.numNodos()){
 		for(int i = 0; i < g.numNodos(); i++){
-        if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
-      		vector<int> nuevo_camino = camino_actual;
-      		nuevo_camino.push_back(i);
+			if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+		      		vector<int> nuevo_camino = camino_actual;
+		      		nuevo_camino.push_back(i);
 
-      		if(longitud(camino_actual,g) < mejor_longitud)
-      			tsp_back_rec(nuevo_camino,mejor_longitud,g);
-		  }
+		      		if(longitud(camino_actual,g) < mejor_longitud)
+		      			tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
+			}
 		}
 	}
 	else{ // Habemus camino completo
-		mejor_longitud = longitud(camino_actual,g);
-		return camino_actual;
+		if(longitud(camino_actual,g) < mejor_longitud){
+			mejor_longitud = longitud(camino_actual,g);
+			solucion = camino_actual;
+		}
 	}
 }
 vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
-	vecto<int> primera_solucion = tsp_greedy(g);
+	vector<int> primera_solucion = tsp_greedy(g);
 	int mejor_longitud = longitud(primera_solucion,g);
 	vector<int> inicial = {0};
+	vector<int> solucion; // se modifica éste
 
-	vector<int> solucion = tsp_back_rec(inicial,mejor_longitud,g);
+	tsp_back_rec(solucion,inicial,mejor_longitud,g);
 
 	return solucion;
 }
@@ -309,11 +312,13 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&), const Grafo<peso_t>& g, ost
 
   print(ciclo, fo);
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
+  /*
   for(int i = 1; i < ciclo.size(); i++){
     cout << ciclo[i-1] << "-" << ciclo[i] << "->" << g.peso(ciclo[i-1], ciclo[i]) << "\n";
   }
   cout << ciclo[ciclo.size()-1] << "-0->" << g.peso(ciclo[ciclo.size()-1], 0) << "\n";
   cout << "\n";
+  */
   cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
 
   return 0;
