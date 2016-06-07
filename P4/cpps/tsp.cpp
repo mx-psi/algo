@@ -170,7 +170,7 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
 class Compare{
 public:
   bool operator()(pair<vector<int>,int> a, pair<vector<int>,int> b){
-    return a.second < b.second;
+    return a.second > b.second;
   }
 };
 
