@@ -28,18 +28,6 @@ Un grafo consta de:
 
 \subsection{Ramificación y acotación}
 
-% TODO: Diapositiva previa con la idea del algoritmo?
-
-\begin{frame}[fragile]{Cola con prioridad}
-  Necesitamos una cola ordenada por la cota. \texttt{priority\_queue} no permite borrar nodos: implementamos nuestra clase con ese método:
-
-  \lstinputlisting[firstline=31, lastline=33]{cpps/cola.h}
-
-  Un funtor (\texttt{comp}) implementa la comparación. Guardamos en la cola el valor de la cota de cada nodo.
-
-  \note{El uso de memoria era excesivo y hacía que las inserciones y borrados fueran demasiado lentos. Esta nueva operación mejora en \texttt{ulysses16} de más de 15 minutos a menos de un minuto.}
-\end{frame}
-
 \begin{frame}{Algoritmo general}
   Iniciamos:
   \begin{itemize}
@@ -64,7 +52,7 @@ Un grafo consta de:
 
 \begin{frame}{Arbol generador}
   Calcular la longitud del recorrido que se lleva hasta ese momento, y suma la longitud del árbol generador minimal de los nodos que faltan junto al último nodo del camino. Además, se suma la mínima longitud del primer nodo a otro más.
-  
+
   %% Aquí pintad en pizarra que si no, no lo entiende ni dios, y es una tontería
 \end{frame}
 

@@ -45,33 +45,7 @@ El primer tipo de algoritmos a analizar son los algoritmos de ramificación y ac
 (\textit{branch and bound}). Estos algoritmos exploran un árbol de caminos parciales (en el que los hijos de un nodo añaden una ciudad no visitada) pero expandiendo sólo aquellos nodos para los que existe la posibilidad de que haya una solución mejor que la mejor
 encontrada hasta el momento.
 
-Para ello hemos utilizado una cola con prioridad que presenta una operación adicional
-que presentaremos a continuación. Posteriormente veremos el algoritmo de ramificación
-y acotación para una cota general y por último veremos la implementación de las cotas
-que hemos utilizado.
-
-\subsubsection{Cola con prioridad}
-
-El algoritmo de ramificación y acotación utiliza una cola con prioridad para guardar
-los nodos a explorar, ordenados por una cota (el nodo con menor cota aparecerá el
-primero en la cola).
-
-En un primer lugar utilizamos la cola con prioridad que proporciona la STL (\texttt{priority\_queue}), que implementa las operaciones \texttt{top}, \texttt{push}, \texttt{pop} y \texttt{size}. La interfaz de esta estructura de datos no proporciona una forma de borrar los nodos muertos (aquellos cuya cota es peor que la longitud de la mejor solución encontrada hasta el momento), por lo que inicialmente decidimos no borrar estos nodos y simplemente ignorarlos. Tras realizar pruebas nos dimos cuenta de que el
-uso de memoria del programa era excesivo y esto hacía que las inserciones y borrados fueran demasiado lentos, por lo que hemos construido una estructura simple que añade esta nueva operación, mejorando, en el caso de \texttt{ulysses16} de más de 15 minutos a menos de un minuto.
-
-Dado que la eficiencia de las operaciones es crucial en este caso, la estructura de datos implementada sigue a grandes rasgos la implementación de \texttt{priority\_queue}, ya que consideramos que es difícil de mejorar y nos permitía implementar la nueva operación fácilmente. La clase implementada es la siguiente:
-
-\lstinputlisting[firstline=11, lastline=34]{cpps/cola.h}
-
-Para todas las operaciones utilizamos una clase funtor \texttt{Compare} que implementa
-la operación de comparación entre las soluciones parciales: un nodo se considera con más prioridad que otro si su cota es menor.
-
-La implementación utiliza las operaciones \texttt{push\_heap} y \texttt{pop\_heap}, que implementan
-de forma efectiva las operaciones \texttt{push} y \texttt{pop} de una cola con prioridad sobre un \texttt{vector} con eficiencia logarítmica.
-
-En el caso de \texttt{remove\_less\_than} utilizamos la función \texttt{lower\_bound},
-que realiza un algoritmo muy similar a la búsqueda binaria para encontrar en tiempo
-logarítmico el primer elemento del vector que es mayor o igual que uno dado.
+En primer lugar veremos el algoritmo de ramificación y acotación para una cota general y por último veremos la implementación de las cotas que hemos utilizado.
 
 \subsubsection{Algoritmo general}
 
@@ -89,8 +63,6 @@ A partir de aquí, mientras la cola no esté vacía cogemos el nodo en el frente
 Si \textbf{basta añadir 2 ciudades para hallar un camino}, creamos todos los caminos posibles y comprobamos, para cada uno de ellos, si es mejor que la mejor solución encontrada hasta el momento, y en tal caso actualizamos. Esto permite no añadir más nodos a la cola de prioridad y genera una ligera mejora en los tiempos de ejecución.
 
 %% TODO (Cuando no se muevan las lineas): Código del caso hojas
-
-Cuando encontramos una solución mejor que la encontrada hasta el momento, borramos todos los nodos de la que tengan peor cota que este de la cola con prioridad.
 
 En el caso de que no baste añadir 2 ciudades a la solución parcial que estamos considerando, para cada ciudad no visitada consideramos el camino que resulta de añadir esta ciudad al final de la solución parcial. Si la nueva solución tiene una cota menor que la de la mejor solución la insertamos ordenadamente en la cola:
 
@@ -112,7 +84,7 @@ De esta forma para calcular la primera cota basta con calcular la longitud del r
 
 En la otra cota nos pedían una original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota coge el recorrido del camino parcial que tenías hasta ese momento y le suma el recorrido del árbol generador minimal de los nodos que faltan por meter junto al último nodo del camino. Como el árbol generador minimal es la forma más corta de comunicar los nodos que faltan, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo.
 
-Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso de las aristas y las va cogiendo en orden, cuidando que no formen ciclos. Se puede ver que el método no dista mucho de la primera cota, puesto que muchas de las aristas que coja el primero se cogerán en este, ya que las ordenan por la misma comparación. Hay que notar que la primera cota podía formar ciclos o incluso no llegar a formar un camino, mientras que esta segunda cota mantiene al menos una conexión entre los nodos. 
+Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso de las aristas y las va cogiendo en orden, cuidando que no formen ciclos. Se puede ver que el método no dista mucho de la primera cota, puesto que muchas de las aristas que coja el primero se cogerán en este, ya que las ordenan por la misma comparación. Hay que notar que la primera cota podía formar ciclos o incluso no llegar a formar un camino, mientras que esta segunda cota mantiene al menos una conexión entre los nodos.
 
 Si bien ganamos en la acotación %% TODO: (Antonio) Comprobar que de verdad se gana, que no estoy seguro)
 la eficiencia es algo peor que en el primer caso. Debido a que el algoritmo se vuelve inservible a partir de muy pocos nodos (cerca de 16), la eficiencia de la cota en función de los nodos no debería afectar tanto al resultado. %% Aunque sí que afecta, JAJ
