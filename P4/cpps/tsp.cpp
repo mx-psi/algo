@@ -105,7 +105,7 @@ pair<int, int> MenorAristaSiguiente(vector<vector<pair<int,int> > > aristas, con
 bool CompartenNodo(vector<pair<int,int> > v1, vector<pair<int,int> > v2){
   bool encontrado = false;
   for(int i = 0; i < v1.size() && !encontrado; i++){
-    for(int j = 0; j < v2.size(); j++){
+    for(int j = 0; j < v2.size() && !encontrado; j++){
       encontrado = v1[i].first == v2[j].first || v1[i].first == v2[j].second || v1[i].second == v2[j].first || v1[i].second == v2[j].second;
     }
   }
@@ -179,13 +179,11 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
   vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
   int mejor_longitud = longitud(mejor_camino,g);
   cola.push({inicial,cota(inicial,g)});
-  int total_en_cola = 0;
 
   // Mientras haya caminos posiblemente mejores que el mejor encontrado
   while((!cola.empty()) && (cola.top().second < mejor_longitud)){
     vector<int> camino_actual = cola.top().first;
     cola.pop();
-    total_en_cola--;
     // No podemos formar directamente una solución
     if(camino_actual.size() < g.numNodos()- 2){
       for(int i = 0; i < g.numNodos(); i++){
@@ -194,10 +192,8 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
           nuevo_camino.push_back(i);
 
           int nueva_cota = cota(nuevo_camino,g);
-          if(nueva_cota < mejor_longitud){
-            total_en_cola++;
+          if(nueva_cota < mejor_longitud)
             cola.push({nuevo_camino,nueva_cota});
-          }
         }
       }
     }
@@ -313,6 +309,11 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&), const Grafo<peso_t>& g, ost
 
   print(ciclo, fo);
   transcurrido = chrono::duration_cast<chrono::duration<double>>(tdespues - tantes);
+  for(int i = 1; i < ciclo.size(); i++){
+    cout << ciclo[i-1] << "-" << ciclo[i] << "->" << g.peso(ciclo[i-1], ciclo[i]) << "\n";
+  }
+  cout << ciclo[ciclo.size()-1] << "-0->" << g.peso(ciclo[ciclo.size()-1], 0) << "\n";
+  cout << "\n";
   cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
 
   return 0;
