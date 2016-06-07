@@ -77,15 +77,15 @@ bool GeneraCiclos(vector<vector<pair<int,int> > > aristas, pair<int, int> arista
   bool genera1,genera2;
   for(vector<vector<pair<int,int> > >::iterator it = aristas.begin(); it != aristas.end() && !genera; ++it){
     genera1 = genera2 = false;
-    for(vector<pair<int,int> >::iterator it2 = it->begin(); it2 != it->end(); ++it2){
+    for(vector<pair<int,int> >::iterator it2 = it->begin(); it2 != it->end() && (!genera1 || !genera2); ++it2){
       if((it2->first == arista_nueva.first) || (it2->second == arista_nueva.first))
         genera1 = true;
       if((it2->first == arista_nueva.second) || (it2->second == arista_nueva.second))
-        genera1 = true;
+        genera2 = true;
     }
     genera = genera1 && genera2;
   }
-  return genera;
+  return genera || (arista_nueva.first == arista_nueva.second);
 }
 
 pair<int, int> MenorAristaSiguiente(vector<vector<pair<int,int> > > aristas, const Grafo<int>& g){
@@ -160,9 +160,9 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
     arista.clear();
     total_aristas++;
   }
-  int minimo = g.peso(0,1);
-  for(int i = 2; i < g.numNodos(); i++)
-    if(g.peso(0,i) < minimo)
+  int minimo = INFINITO;
+  for(int i = 1; i < g.numNodos(); i++)
+    if(g.peso(0,i) < minimo && (find(camino.begin(), camino.end(), i) == camino.end()))
       minimo = g.peso(0,i);
   return recorrido + minimo;
 }
@@ -236,7 +236,7 @@ vector<int> tsp_back_rec(vector<int> camino_actual, int mejor_longitud&, const G
         if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
       		vector<int> nuevo_camino = camino_actual;
       		nuevo_camino.push_back(i);
-      		
+
       		if(longitud(camino_actual,g) < mejor_longitud)
       			tsp_back_rec(nuevo_camino,mejor_longitud,g);
 		  }
@@ -251,9 +251,9 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 	vecto<int> primera_solucion = tsp_greedy(g);
 	int mejor_longitud = longitud(primera_solucion,g);
 	vector<int> inicial = {0};
-	
+
 	vector<int> solucion = tsp_back_rec(inicial,mejor_longitud,g);
-	
+
 	return solucion;
 }
 
