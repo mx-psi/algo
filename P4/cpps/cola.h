@@ -6,7 +6,6 @@
 
 #include <algorithm>
 #include <vector>
-#include <iostream>
 using namespace std;
 
 template<class T, class Compare>
@@ -31,8 +30,11 @@ public:
 
   void remove_less_than(const T& x){
     sort_heap(c.begin(), c.end(), comp);
-    c.erase(c.begin(), lower_bound(c.begin(), c.end(), x, comp));
-    make_heap(c.begin(), c.end());
+    typename vector<T>::iterator it = lower_bound(c.begin(), c.end(), x, comp);
+    if(it != c.begin())
+      --it;
+    c.erase(c.begin(), it);
+    make_heap(c.begin(), c.end(), comp);
   }
 };
 
