@@ -224,6 +224,9 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
   }
   return mejor_camino;
 }
+
+int num_nodos_expandidos_3 = 0;
+int num_veces_poda_3 = 0;
 void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
 	if(camino_actual.size() < g.numNodos()){
 		for(int i = 0; i < g.numNodos(); i++){
@@ -231,8 +234,12 @@ void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_l
 		      		vector<int> nuevo_camino = camino_actual;
 		      		nuevo_camino.push_back(i);
 
-		      		if(longitud(camino_actual,g) < mejor_longitud)
+		      		if(longitud(camino_actual,g) < mejor_longitud){
+		      			num_nodos_expandidos_3++;
 		      			tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
+		      		}
+		      		else
+		      			num_veces_poda_3++;
 			}
 		}
 	}
@@ -241,6 +248,8 @@ void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_l
 			mejor_longitud = longitud(camino_actual,g);
 			solucion = camino_actual;
 		}
+		else
+			num_veces_poda_3++;
 	}
 }
 vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
@@ -318,6 +327,9 @@ int ejecutar(vector<int> (*f)(const Grafo<peso_t>&), const Grafo<peso_t>& g, ost
   cout << "\n";
   */
   cout << longitud(ciclo, g) << " " << transcurrido.count() << endl;
+  cout << "Número nodos expandidos: " << num_nodos_expandidos_3 << endl;
+  cout << "Número de veces que se poda: " << num_veces_poda_3 << endl;
+  cout << "Tamaño máximo de la cola con prioridad de nodos vivos: " << "----" << endl;
 
   return 0;
 }
