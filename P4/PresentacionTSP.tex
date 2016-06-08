@@ -26,9 +26,11 @@ Un grafo consta de:
 \end{itemize}
 \end{frame}
 
+\section{Ramificación y acotación (Branch and Bound)}
+
 \subsection{Ramificación y acotación}
 
-\begin{frame}{Algoritmo general}
+\begin{frame}{Algoritmo Branch and Bound}
   Iniciamos:
   \begin{itemize}
     \item La cola con la solución parcial \texttt{[0]}
@@ -36,33 +38,37 @@ Un grafo consta de:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Algoritmo general}
+\begin{frame}{Algoritmo Branch and Bound}
   Mientras la cola no esté vacía, coge el primer elemento:
   \begin{itemize}
-    \item Si \textbf{puede formarse una solución completa}, comprueba si es mejor que la mejor encontrada. En tal caso actualizala y borra los nodos con peor cota.
-    \item En \textbf{otro caso}, para cada ciudad no visitada forma una nueva solución parcial. Añádela a la cola si su cota es mejor que la mejor solución.
+    \item Si \textbf{puede formarse una solución completa}, comprueba si es mejor que la mejor encontrada. En tal caso se actualiza y se borra los nodos con peor cota.
+    \item En \textbf{otro caso}, para cada ciudad no visitada forma una nueva solución parcial. Se añade a la cola si su cota es mejor que la mejor solución.
   \end{itemize}
 \end{frame}
 
-\subsubsection{Cotas}
+\section{Cotas (Branch and Bound)}}
 
 \begin{frame}{Cota del mínimo}
-  Calcular la longitud del recorrido inicial y suma la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas.
+  Calcular la longitud del recorrido inicial y sumar la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas.
 \end{frame}
 
-\begin{frame}{Arbol generador}
-  Calcular la longitud del recorrido que se lleva hasta ese momento, y suma la longitud del árbol generador minimal de los nodos que faltan junto al último nodo del camino. Además, se suma la mínima longitud del primer nodo a otro más.
+\begin{frame}{Árbol generador}
+  Calcular la longitud del recorrido que se lleva hasta ese momento, y sumar la longitud del árbol generador minimal de los nodos que faltan junto al último nodo del camino. Además, se suma la mínima longitud del primer nodo a otro más.
 
   %% Aquí pintad en pizarra que si no, no lo entiende ni dios, y es una tontería
 \end{frame}
 
+\section{Vuelta atrás (Backtracking)}
+
 \subsection{Vuelta atrás}
 
-\begin{frame}{Backtracking}
-  Desde un nodo inicial, vamos tomando todas las posibilidades mediante una llamada recursiva. Si al añadir un nodo hace que el camino mida más que nuestra mejor longitud hasta el momento, se deja esa posibilidad, y se vuelve atrás.
+\begin{frame}{Algoritmo Backtracking}
+  Desde un nodo inicial, vamos tomando todas las posibilidades mediante una llamada recursiva. Si al añadir un nodo hace que el camino mida más que nuestro camino más corto hasta el momento, se deja esa posibilidad, y se vuelve atrás.
+  
+  Aquí no interviene ninguna cota inferior, y se trabaja con la longitud del mejor camino hasta el momento como cota superior.
 \end{frame}
 
-\begin{frame}[fragile]{Llamada inicial backtracking}
+\begin{frame}[fragile]{Llamada inicial}
 \begin{lstlisting}
 vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 	vector<int> primera_solucion = tsp_greedy(g);
@@ -77,7 +83,43 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 \end{lstlisting}
 \end{frame}
 
-\subsection{Comparativa de los algoritmos}
+\section{Comparación de algoritmos}
+
+\subsection{Comparativa}
+
+\begin{frame}{Comparación de caminos óptimos}
+	Se han escogido tres ejemplos de grafos (de 5, 10 y 12 nodos), y se comparará el camino óptimo tomado por cada algoritmo en cada caso.
+	
+	Esto nos hace ver que, siendo la longitud del camino óptimo la misma independientemente del algoritmo, el camino óptimo no tiene por qué ser el mismo.
+\end{frame}
+
+\begin{frame}{5 ciudades (BaB cota 1, Backtracking)}
+	\includegraphics[width=\textwidth]{img/e-h-c-a-c5_tsp_1}
+\end{frame}
+
+\begin{frame}{5 ciudades (BaB cota 2)}
+	\includegraphics[width=\textwidth]{img/e-h-c-a-c5_tsp_2}
+\end{frame}
+
+\begin{frame}{10 ciudades (BaB cota 1)}
+	\includegraphics[width=\textwidth]{img/ulysses10_tsp_1}
+\end{frame}
+
+\begin{frame}{10 ciudades (BaB cota 2)}
+	\includegraphics[width=\textwidth]{img/ulysses10_tsp_2}
+\end{frame}
+
+\begin{frame}{10 ciudades (Backtracking)}
+	\includegraphics[width=\textwidth]{img/ulysses10_tsp_3}
+\end{frame}
+
+\begin{frame}{12 ciudades (BaB cota 1, cota 2, Backtracking)}
+	\includegraphics[width=\textwidth]{img/branchambao12_tsp_1}
+\end{frame}
+
+\begin{frame}{Comparación de datos}
+	Se presenta a continuación la comparación de tiempo, nodos expandidos, podas y tamaño máximo de la cola (en Branch and Bound) en cada uno de los tres ejemplos; grafos de 5, 10 y 12 nodos.
+\end{frame}
 
 \begin{frame}{5 ciudades (tiempos)}
 \includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_t}
@@ -87,11 +129,11 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 \includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_nodos}
 \end{frame}
 
-\begin{frame}{5 ciudades (Podas)}
+\begin{frame}{5 ciudades (podas)}
 \includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_poda}
 \end{frame}
 
-\begin{frame}{5 ciudades (Cola)}
+\begin{frame}{5 ciudades (cola)}
 \includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_cola}
 \end{frame}
 
@@ -103,11 +145,11 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 \includegraphics[width=\textwidth]{img/barras_ulysses10_nodos}
 \end{frame}
 
-\begin{frame}{10 ciudades (Podas)}
+\begin{frame}{10 ciudades (podas)}
 \includegraphics[width=\textwidth]{img/barras_ulysses10_poda}
 \end{frame}
 
-\begin{frame}{10 ciudades (Cola)}
+\begin{frame}{10 ciudades (cola)}
 \includegraphics[width=\textwidth]{img/barras_ulysses10_cola}
 \end{frame}
 
@@ -119,10 +161,10 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 \includegraphics[width=\textwidth]{img/barras_branchambao12_nodos}
 \end{frame}
 
-\begin{frame}{12 ciudades (Podas)}
+\begin{frame}{12 ciudades (podas)}
 \includegraphics[width=\textwidth]{img/barras_branchambao12_poda}
 \end{frame}
 
-\begin{frame}{12 ciudades (Cola)}
+\begin{frame}{12 ciudades (cola)}
 \includegraphics[width=\textwidth]{img/barras_branchambao12_cola}
 \end{frame}

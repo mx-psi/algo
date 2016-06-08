@@ -292,7 +292,33 @@ Debemos notar que la longitud del camino más corto se pasa como referencia, pue
 
 \subsection{Comparativa de los algoritmos}
 
-Incluimos los tiempos de ejecución de 3 ejemplos con 5, 10 y 12 nodos respectivamente. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiores:
+Seleccionados tres ejemplos con 5, 10 y 12 nodos, se va a comparar primero los caminos óptimos seleccionados por cada algoritmo, y después se hará una comparación de los datos (tiempo, etc.). Se ha de notar que las longitudes de los caminos óptimos es la misma, sea cual sea el algoritmo usado.
+
+\includegraphics[width=15cm]{img/e-h-c-a-c5_tsp_1}
+
+\includegraphics[width=15cm]{img/e-h-c-a-c5_tsp_2}
+
+\includegraphics[width=15cm]{img/e-h-c-a-c5_tsp_3}
+
+En este primer caso, el Branch and Bound con la primera cota y Backtracking coinciden, pero el del Branch and Bound con el Árbol generador no.
+
+\includegraphics[width=15cm]{img/ulysses10_tsp_1}
+
+\includegraphics[width=15cm]{img/ulysses10_tsp_2}
+
+\includegraphics[width=15cm]{img/ulysses10_tsp_3}
+
+En este segundo caso, cada algoritmo toma un camino distinto.
+
+\includegraphics[width=15cm]{img/branchambao12_tsp_1}
+
+\includegraphics[width=15cm]{img/branchambao12_tsp_2}
+
+\includegraphics[width=15cm]{img/branchambao12_tsp_3}
+
+En este tercer caso, los tres coinciden.
+
+Ahora pasamos a comparar según el tiempo. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiores:
 
 \includegraphics[width=15cm]{img/barras_e-h-c-a-c5_t}
 
