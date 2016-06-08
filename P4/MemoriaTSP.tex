@@ -56,31 +56,153 @@ El algoritmo toma un \texttt{Grafo} y una función \texttt{cota}. Esta última c
 En primer lugar iniciamos la cola con prioridad introduciendo la solución parcial
 inicial (\texttt{[0]}). Para optimizar el cálculo guardamos también en la cola el valor de la cota para cada nodo que introducimos. Inicializamos también la mejor solución encontrada con un algoritmo greedy (en este caso vecino más cercano).
 
-%% TODO (Cuando no se muevan las lineas): Código de la primera parte
+\begin{lstlisting}
+priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
+vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
+int mejor_longitud = longitud(mejor_camino,g);
+cola.push({inicial,cota(inicial,g)});
+\end{lstlisting}
 
 A partir de aquí, mientras la cola no esté vacía cogemos el nodo en el frente (aquel con menor cota), y distinguimos dos casos:
 
 Si \textbf{basta añadir 2 ciudades para hallar un camino}, creamos todos los caminos posibles y comprobamos, para cada uno de ellos, si es mejor que la mejor solución encontrada hasta el momento, y en tal caso actualizamos. Esto permite no añadir más nodos a la cola de prioridad y genera una ligera mejora en los tiempos de ejecución.
 
-%% TODO (Cuando no se muevan las lineas): Código del caso hojas
+\begin{lstlisting}
+for(int i = 0; i < g.numNodos(); i++){
+  if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+    vector<int> pos_sol = camino_actual;
+    pos_sol.push_back(i);
+
+    // Añade el otro nodo
+    bool encontrado = false;
+    for(int j = 0; !encontrado && j < g.numNodos(); j++){
+      if(find(pos_sol.begin(), pos_sol.end(), j) == pos_sol.end()){
+        pos_sol.push_back(j);
+        encontrado = true;
+      }
+    }
+
+    int long_sol = longitud(pos_sol, g);
+
+    // Actualiza la mejor solución
+    if(long_sol < mejor_longitud){
+      mejor_longitud = long_sol;
+      mejor_camino = pos_sol;
+    }
+  }
+}
+\end{lstlisting}
 
 En el caso de que no baste añadir 2 ciudades a la solución parcial que estamos considerando, para cada ciudad no visitada consideramos el camino que resulta de añadir esta ciudad al final de la solución parcial. Si la nueva solución tiene una cota menor que la de la mejor solución la insertamos ordenadamente en la cola:
 
-%% TODO (Cuando no se muevan las lineas): Código del caso de branch
+\begin{lstlisting}
+for(int i = 0; i < g.numNodos(); i++){
+  if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+    vector<int> nuevo_camino = camino_actual;
+    nuevo_camino.push_back(i);
+
+    int nueva_cota = cota(nuevo_camino,g);
+    if(nueva_cota < mejor_longitud)
+      cola.push({nuevo_camino,nueva_cota});
+  }
+}
+\end{lstlisting}
 
 Repetimos este proceso y devolvemos el mejor camino encontrado. El algoritmo completo queda:
 
-%% TODO (Cuando no se muevan las lineas): Código completo
+\begin{lstlisting}
+vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
+  priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
+  vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
+  int mejor_longitud = longitud(mejor_camino,g);
+  cola.push({inicial,cota(inicial,g)});
+
+  // Mientras haya caminos posiblemente mejores que el mejor encontrado
+  while((!cola.empty()) && (cola.top().second < mejor_longitud)){
+
+    vector<int> camino_actual = cola.top().first;
+    cola.pop();
+    // No podemos formar directamente una solución
+    if(camino_actual.size() < g.numNodos()- 2){
+      for(int i = 0; i < g.numNodos(); i++){
+        if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+          vector<int> nuevo_camino = camino_actual;
+          nuevo_camino.push_back(i);
+
+          int nueva_cota = cota(nuevo_camino,g);
+          if(nueva_cota < mejor_longitud)
+            cola.push({nuevo_camino,nueva_cota});
+        }
+      }
+    }
+    else{// Podemos formar una solución
+      for(int i = 0; i < g.numNodos(); i++){
+        if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+          vector<int> pos_sol = camino_actual;
+          pos_sol.push_back(i);
+
+          // Añade el otro nodo
+          bool encontrado = false;
+          for(int j = 0; !encontrado && j < g.numNodos(); j++){
+            if(find(pos_sol.begin(), pos_sol.end(), j) == pos_sol.end()){
+              pos_sol.push_back(j);
+              encontrado = true;
+            }
+          }
+
+          int long_sol = longitud(pos_sol, g);
+
+          // Actualiza la mejor solución
+          if(long_sol < mejor_longitud){
+            mejor_longitud = long_sol;
+            mejor_camino = pos_sol;
+          }
+        }
+      }
+    }
+  }
+  return mejor_camino;
+}
+\end{lstlisting}
 
 \subsubsection{Cotas}
 
 Para implementar la cota dada por el enunciado utilizamos una función auxiliar \texttt{RelacionadosCon} que nos indica dada una ciudad, cuál es el conjunto de ciudades que debemos considerar para calcular la cota:
 
-\lstinputlisting[firstline=43, lastline=51]{cpps/tsp.cpp}
+\begin{lstlisting}
+vector<int> RelacionadosCon(int k, int max, vector<int> camino){
+  vector<int> relacionados;
+  for(int i = 0; i < max; i++)
+    if(find(camino.begin(), camino.end(), i) == camino.end() && i != k)
+      relacionados.push_back(i);
+  if(k != camino.back() || k == max-1)
+    relacionados.push_back(1);
+  return relacionados;
+}
+\end{lstlisting}
 
 De esta forma para calcular la primera cota basta con calcular la longitud del recorrido inicial y sumar la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas:
 
-\lstinputlisting[firstline=54, lastline=73]{cpps/tsp.cpp}
+\begin{lstlisting}
+int cota1(vector<int>& camino, const Grafo<int>& g){
+  int recorrido = 0;
+  for(int i = 0; i < camino.size()-1; i++)
+    recorrido += g.peso(camino[i], camino[i+1]);
+
+  for(int i = 0; i < g.numNodos(); i++){
+    if((i == camino.back()) || (find(camino.begin(), camino.end(), i) == camino.end())){
+      vector<int> v = RelacionadosCon(i,g.numNodos(),camino);
+      int min = v[0];
+      for(int j = 1; j < v.size(); j++){
+        if(g.peso(i,v[j]) < g.peso(i,min))
+          min = v[j];
+      }
+      recorrido += g.peso(i,min);
+    }
+  }
+  return recorrido;
+}
+\end{lstlisting}
 
 En la otra cota nos pedían una original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota coge el recorrido del camino parcial que tenías hasta ese momento y le suma el recorrido del árbol generador minimal de los nodos que faltan por meter junto al último nodo del camino. Como el árbol generador minimal es la forma más corta de comunicar los nodos que faltan, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo.
 
@@ -88,16 +210,98 @@ Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso
 
 Si bien ganamos en la acotación %% TODO: (Antonio) Comprobar que de verdad se gana, que no estoy seguro)
 la eficiencia es algo peor que en el primer caso. Debido a que el algoritmo se vuelve inservible a partir de muy pocos nodos (cerca de 16), la eficiencia de la cota en función de los nodos no debería afectar tanto al resultado. %% Aunque sí que afecta, JAJ
+
+La cota queda:
+\begin{lstlisting}
+int cota2(vector<int>& camino, const Grafo<int>& g){
+  int recorrido = 0;// Peso del recorrido ya hecho
+  vector<vector<pair<int,int> > > aristas;
+  vector<pair<int,int> > arista;
+  int total_aristas = camino.size()-1;
+
+  for(int i = 0; i < camino.size()-1; i++){
+    recorrido += g.peso(camino[i], camino[i+1]);
+    arista.push_back(pair<int,int>(camino[i],camino[i+1]));
+   }
+  aristas.push_back(arista);
+  arista.clear();
+
+  while(total_aristas < g.numNodos()-1){
+    pair<int,int> par_nuevo = MenorAristaSiguiente(aristas, g);
+    arista.push_back(par_nuevo);
+    aristas.push_back(arista);
+    recorrido += g.peso(par_nuevo.first, par_nuevo.second);
+    RecomponerAristas(aristas);
+    arista.clear();
+    total_aristas++;
+  }
+  int minimo = INFINITO;
+  for(int i = 1; i < g.numNodos(); i++)
+    if(g.peso(0,i) < minimo && (find(camino.begin(), camino.end(), i) == camino.end()))
+      minimo = g.peso(0,i);
+  return recorrido + minimo;
+}
+\end{lstlisting}
+
 \subsection{Vuelta atrás}
 
 %% TODO: (Iñaki) Descripción del algoritmo de backtracking
+\begin{lstlisting}
+void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
+  if(camino_actual.size() < g.numNodos()){
+    for(int i = 0; i < g.numNodos(); i++){
+      if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
+      vector<int> nuevo_camino = camino_actual;
+        nuevo_camino.push_back(i);
+
+        if(longitud(camino_actual,g) < mejor_longitud)
+        tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
+      }
+    }
+  }
+  else{
+    if(longitud(camino_actual,g) < mejor_longitud){
+      mejor_longitud = longitud(camino_actual,g);
+      solucion = camino_actual;
+    }
+	}
+}
+\end{lstlisting}
+
+Luego se llama a esta función tomando como camino inicial el \texttt{\{0\}}:
+
+\begin{lstlisting}
+vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
+	vector<int> primera_solucion = tsp_greedy(g);
+	int mejor_longitud = longitud(primera_solucion,g);
+	vector<int> inicial = {0};
+	vector<int> solucion; // se modifica éste
+
+	tsp_back_rec(solucion,inicial,mejor_longitud,g);
+
+	return solucion;
+}
+\end{lstlisting}
 
 \subsection{Comparativa de los algoritmos}
+
+Incluimos los tiempos de ejecución de 3 ejemplos con 5, 10 y 12 nodos respectivamente. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiories:
+
+\includegraphics[width=15cm]{img/barras_e-h-c-a-c5_t}
+
+\includegraphics[width=15cm]{img/barras_ulysses10_t}
+
+\includegraphics[width=15cm]{img/barras_branchambao12_t}
 
 %%% TODO (Iñaki)
 % Gráficas que comparen entre los 3 algoritmos:
 % - Número de nodos expandidos
 % - Tamaño máximo de la cola con prioridad
 % - Número de veces que se realiza la poda
-% - Tiempo empleado en resolver el problema
 %%%
+
+Con respecto al número de nodos expandidos:
+
+El tamaño máximo e la cola con prioridad en los algoritmos branch and bound es:
+
+El número de veces que se realiza la poda es:
