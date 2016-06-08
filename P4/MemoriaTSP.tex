@@ -245,17 +245,22 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
 
 \subsection{Vuelta atrás}
 
-%% TODO: (Iñaki) Descripción del algoritmo de backtracking
+Con un camino y su longitud inicial, se desarrolla el algoritmo de la vuelta atrás de la siguiente manera: desde un nodo inicial, vamos añadiendo nodo a nodo creando distintos caminos tomando todas las posibilidades mediante la llamada recursiva. Si al añadir un nodo hace que el camino mida más que nuestra mejor longitud hasta el momento, se deja esa posibilidad, y se miran otras posibilidades desde el nodo anterior al último. Es decir, se poda esa rama y se estudian las demás. Esto es, por definición, la vuelta atrás.
+
+Si se llega a crear un camino completo que mida menos que nuestro camino más corto hasta el momento, éste pasa a ser nuestro nuevo camino más corto.
+
+Ésta es la función que emplea la llamada recursiva, pasándole una primera mejor longitud para tener un buen criterio de poda:
+
 \begin{lstlisting}
 void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
   if(camino_actual.size() < g.numNodos()){
     for(int i = 0; i < g.numNodos(); i++){
       if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
-      vector<int> nuevo_camino = camino_actual;
-        nuevo_camino.push_back(i);
+	      vector<int> nuevo_camino = camino_actual;
+	      nuevo_camino.push_back(i);
 
         if(longitud(camino_actual,g) < mejor_longitud)
-        tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
+	        tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
       }
     }
   }
@@ -264,11 +269,11 @@ void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_l
       mejor_longitud = longitud(camino_actual,g);
       solucion = camino_actual;
     }
-	}
+  }
 }
 \end{lstlisting}
 
-Luego se llama a esta función tomando como camino inicial el \texttt{\{0\}}:
+Y ésta es la función que llama a la anterior, donde obtenemos la primera solución (mediante el algoritmo Greedy), y donde fijamos que el primer nodo será el de la posición \texttt{\{0\}}:
 
 \begin{lstlisting}
 vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
@@ -283,9 +288,11 @@ vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
 }
 \end{lstlisting}
 
+Debemos notar que la longitud del camino más corto se pasa como referencia, pues se irá modificando mediante el algoritmo de vuelta atrás, y es importante tenerla presente todo el tiempo para podar correctamente.
+
 \subsection{Comparativa de los algoritmos}
 
-Incluimos los tiempos de ejecución de 3 ejemplos con 5, 10 y 12 nodos respectivamente. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiories:
+Incluimos los tiempos de ejecución de 3 ejemplos con 5, 10 y 12 nodos respectivamente. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiores:
 
 \includegraphics[width=15cm]{img/barras_e-h-c-a-c5_t}
 
@@ -293,15 +300,26 @@ Incluimos los tiempos de ejecución de 3 ejemplos con 5, 10 y 12 nodos respectiv
 
 \includegraphics[width=15cm]{img/barras_branchambao12_t}
 
-%%% TODO (Iñaki)
-% Gráficas que comparen entre los 3 algoritmos:
-% - Número de nodos expandidos
-% - Tamaño máximo de la cola con prioridad
-% - Número de veces que se realiza la poda
-%%%
+Con estos mismos ejemplos, comparamos según el número de nodos expandidos:
 
-Con respecto al número de nodos expandidos:
+\includegraphics[width=15cm]{img/barras_e-h-c-a-c5_nodos}
 
-El tamaño máximo e la cola con prioridad en los algoritmos branch and bound es:
+\includegraphics[width=15cm]{img/barras_ulysses10_nodos}
 
-El número de veces que se realiza la poda es:
+\includegraphics[width=15cm]{img/barras_branchambao12_nodos}
+
+Comparamos según el número de veces que se poda:
+
+\includegraphics[width=15cm]{img/barras_e-h-c-a-c5_poda}
+
+\includegraphics[width=15cm]{img/barras_ulysses10_poda}
+
+\includegraphics[width=15cm]{img/barras_branchambao12_poda}
+
+Y, solamente para los algoritmos Branch and Bound, observamos el tamaño máximo de nodos vivos en la cola de prioridad:
+
+\includegraphics[width=15cm]{img/barras_e-h-c-a-c5_cola}
+
+\includegraphics[width=15cm]{img/barras_ulysses10_cola}
+
+\includegraphics[width=15cm]{img/barras_branchambao12_cola}
