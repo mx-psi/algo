@@ -239,28 +239,29 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
   return mejor_camino;
 }
 
-void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
-	if(camino_actual.size() < g.numNodos()){
+void tsp_back_rec(vector<int>& solucion, vector<int>& camino, int& mejor_longitud, const Grafo<peso_t>& g){
+	if(camino.size() < g.numNodos()){
 		for(int i = 0; i < g.numNodos(); i++){
-			if(find(camino_actual.begin(), camino_actual.end(), i) == camino_actual.end()){
-		      		vector<int> nuevo_camino = camino_actual;
-		      		nuevo_camino.push_back(i);
+			if(find(camino.begin(), camino.end(), i) == camino.end()){
+		      		camino.push_back(i);
 
-		      		if(longitud(camino_actual,g) < mejor_longitud){
+		      		if(longitud(camino,g) < mejor_longitud){
 					//num_veces_expandidos_3++;
-		      			tsp_back_rec(solucion,nuevo_camino,mejor_longitud,g);
+		      			tsp_back_rec(solucion,camino,mejor_longitud,g);
+                
 				}
 				else
 					;//num_veces_poda_3++;
 
 
+        camino.pop_back();
 			}
 		}
 	}
 	else{ // Habemus camino completo
-		if(longitud(camino_actual,g) < mejor_longitud){
-			mejor_longitud = longitud(camino_actual,g);
-			solucion = camino_actual;
+		if(longitud(camino,g) < mejor_longitud){
+			mejor_longitud = longitud(camino,g);
+			solucion = camino;
 		}
 		else
 			;//num_veces_poda_3++;
