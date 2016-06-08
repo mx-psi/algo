@@ -15,6 +15,7 @@
 using namespace std;
 
 #define INFINITO 2147483647;
+
 vector<int> tsp_greedy(const Grafo<peso_t>& g) {
   vector<int> trayecto(1, 0);
   list<int> disponibles;
@@ -173,6 +174,10 @@ public:
   }
 };
 
+int nodos_expandidos = 0;
+int max_tam_cola = 0;
+int num_veces_poda = 0;
+
 vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Grafo<int>&)) {
   priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
   vector<int> inicial = {0}, mejor_camino = tsp_greedy(g);
@@ -181,6 +186,9 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
 
   // Mientras haya caminos posiblemente mejores que el mejor encontrado
   while((!cola.empty()) && (cola.top().second < mejor_longitud)){
+    if(max_tam_cola < cola.size())
+      max_tam_cola = cola.size();
+
     vector<int> camino_actual = cola.top().first;
     cola.pop();
     // No podemos formar directamente una solución
@@ -191,8 +199,13 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
           nuevo_camino.push_back(i);
 
           int nueva_cota = cota(nuevo_camino,g);
-          if(nueva_cota < mejor_longitud)
+          if(nueva_cota < mejor_longitud){
             cola.push({nuevo_camino,nueva_cota});
+            nodos_expandidos++;
+          }
+          else{
+            num_veces_poda++;
+          }
         }
       }
     }
@@ -238,8 +251,8 @@ void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_l
 				}
 				else
 					;//num_veces_poda_3++;
-					
-				
+
+
 			}
 		}
 	}
