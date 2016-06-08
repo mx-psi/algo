@@ -58,25 +58,71 @@ Un grafo consta de:
 
 \subsection{Vuelta atrás}
 
-%% TODO: (Iñaki) Descripción del algoritmo de backtracking
+\begin{frame}{Backtracking}
+  Desde un nodo inicial, vamos tomando todas las posibilidades mediante una llamada recursiva. Si al añadir un nodo hace que el camino mida más que nuestra mejor longitud hasta el momento, se deja esa posibilidad, y se vuelve atrás.
+\end{frame}
+
+\begin{frame}[fragile]{Llamada inicial backtracking}
+\begin{lstlisting}
+vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
+	vector<int> primera_solucion = tsp_greedy(g);
+	int mejor_longitud = longitud(primera_solucion,g);
+	vector<int> inicial = {0};
+	vector<int> solucion; // Se modifica
+
+	tsp_back_rec(solucion,inicial,mejor_longitud,g);
+
+	return solucion;
+}
+\end{lstlisting}
+\end{frame}
 
 \subsection{Comparativa de los algoritmos}
 
-\begin{frame}{Ejemplo con 5 nodos}
+\begin{frame}{5 ciudades (tiempos)}
 \includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_t}
 \end{frame}
 
-\begin{frame}{Ejemplo con 10 nodos}
+\begin{frame}{5 ciudades (nodos expandidos)}
+\includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_nodos}
+\end{frame}
+
+\begin{frame}{5 ciudades (Podas)}
+\includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_poda}
+\end{frame}
+
+\begin{frame}{5 ciudades (Cola)}
+\includegraphics[width=\textwidth]{img/barras_e-h-c-a-c5_cola}
+\end{frame}
+
+\begin{frame}{10 ciudades (tiempos)}
 \includegraphics[width=\textwidth]{img/barras_ulysses10_t}
 \end{frame}
 
-\begin{frame}{Ejemplo con 12 nodos}
+\begin{frame}{10 ciudades (nodos expandidos)}
+\includegraphics[width=\textwidth]{img/barras_ulysses10_nodos}
+\end{frame}
+
+\begin{frame}{10 ciudades (Podas)}
+\includegraphics[width=\textwidth]{img/barras_ulysses10_poda}
+\end{frame}
+
+\begin{frame}{10 ciudades (Cola)}
+\includegraphics[width=\textwidth]{img/barras_ulysses10_cola}
+\end{frame}
+
+\begin{frame}{12 ciudades (tiempos)}
 \includegraphics[width=\textwidth]{img/barras_branchambao12_t}
 \end{frame}
 
-%%% TODO (Iñaki)
-% Gráficas que comparen entre los 3 algoritmos:
-% - Número de nodos expandidos
-% - Tamaño máximo de la cola con prioridad
-% - Número de veces que se realiza la poda
-%%%
+\begin{frame}{12 ciudades (nodos expandidos)}
+\includegraphics[width=\textwidth]{img/barras_branchambao12_nodos}
+\end{frame}
+
+\begin{frame}{12 ciudades (Podas)}
+\includegraphics[width=\textwidth]{img/barras_branchambao12_poda}
+\end{frame}
+
+\begin{frame}{12 ciudades (Cola)}
+\includegraphics[width=\textwidth]{img/barras_branchambao12_cola}
+\end{frame}
