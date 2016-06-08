@@ -204,12 +204,11 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
 }
 \end{lstlisting}
 
-Se nos pedía además una función de cota original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota toma el recorrido del camino parcial que se tiene hasta ese momento y le suma el recorrido del árbol generador minimal de los nodos que faltan por meter junto al último nodo del camino. Como el árbol generador minimal es la forma más corta de comunicar los nodos que faltan, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo. \\
+Se nos pedía además una función de cota original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota toma el recorrido del camino parcial que se tiene hasta ese momento y le suma el recorrido del árbol generador minimal de todos los nodos que se forma a partir del camino ya formado. Como lo que incluimos es la forma más corta de comunicar los nodos que faltan con el camino, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo. \\
 
 Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso de las aristas y las va cogiendo en orden, excluyendo aquellas que formen ciclos al ser incluidas. Se puede ver que el método no dista mucho de la primera cota, puesto que muchas de las aristas que coja el primero se cogerán en este, ya que las ordenan por la misma comparación. Hay que notar que la primera cota podía formar ciclos o incluso no llegar a formar un camino, mientras que esta segunda cota garantiza la conexión entre los nodos (y por un único camino). \\
 
-Si bien ganamos en la acotación %% TODO: (Antonio) Comprobar que de verdad se gana, que no estoy seguro)
-la eficiencia es algo peor que en el primer caso. Debido a que el algoritmo se vuelve inservible a partir de muy pocos nodos (cerca de 16), la eficiencia de la cota en función de los nodos no debería afectar tanto al resultado. %% Aunque sí que afecta, JAJ
+La eficiencia es algo peor que en el primer caso. Debido a que el algoritmo se vuelve inservible a partir de muy pocos nodos (cerca de 16), la eficiencia de la cota en función de los nodos no debería afectar tanto al resultado. %% Aunque sí que afecta, JAJ
 \\
 
 La función de cota queda así:
