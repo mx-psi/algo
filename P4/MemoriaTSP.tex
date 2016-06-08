@@ -41,20 +41,20 @@ euclídea al entero más próximo), será de tipo \texttt{int}.
 
 \subsection{Ramificación y acotación}
 
-El primer tipo de algoritmos a analizar son los algoritmos de ramificación y acotación
-(\textit{branch and bound}). Estos algoritmos exploran un árbol de caminos parciales (en el que los hijos de un nodo añaden una ciudad no visitada) pero expandiendo sólo aquellos nodos para los que existe la posibilidad de que haya una solución mejor que la mejor
-encontrada hasta el momento.
+El primer tipo de algoritmos a implementar son los algoritmos de ramificación y acotación
+(\textit{branch and bound}). Estos algoritmos exploran un árbol de caminos parciales (en el que los hijos de un nodo añaden una ciudad no visitada) pero expandiendo solo aquellos nodos para los que existe la posibilidad de que haya una solución mejor que la mejor
+encontrada hasta el momento. \\
 
 En primer lugar veremos el algoritmo de ramificación y acotación para una cota general y por último veremos la implementación de las cotas que hemos utilizado.
 
 \subsubsection{Algoritmo general}
 
-Presentamos en esta sección un algoritmo general que implementa el \textit{branch and bound} dada una cota. Utilizaremos este mismo algoritmo variando únicamente la cota para las dos implementaciones. En casos particulares en los que existe una forma eficiente de obtener la cota de una solución parcial a partir de la de su padre (la solución parcial que tiene todas las ciudades menos la última), podrían hacerse pequeñas modificaciones de este algoritmo para optimizar el cálculo de la misma.
+Presentamos en esta sección un algoritmo general que implementa el \textit{branch and bound} dada una función de acotación. Utilizaremos este mismo algoritmo variando únicamente la función de cota para las dos implementaciones. En casos particulares en los que existe una forma eficiente de obtener la cota de una solución parcial a partir de la de su padre (la solución parcial que tiene todas las ciudades menos la última), podrían hacerse pequeñas modificaciones de este algoritmo para optimizar el cálculo de la misma. \\
 
-El algoritmo toma un \texttt{Grafo} y una función \texttt{cota}. Esta última calcula dado un camino (y el grafo) un entero que sea menor o igual que la mejor solución posible que pueda obtenerse añadiendo nuevas ciudades a la solución parcial.
+El algoritmo toma un \texttt{Grafo} y una función \texttt{cota}. Esta última calcula a partir de un camino (y el grafo) un entero que será menor o igual que la mejor solución posible que pueda obtenerse añadiendo nuevas ciudades a la solución parcial. La distancia del valor obtenido a la longitud de la mejor solución posible y el tiempo requerido para obtenerlo determinarán el tiempo de ejecución del algoritmo.  \\
 
-En primer lugar iniciamos la cola con prioridad introduciendo la solución parcial
-inicial (\texttt{[0]}). Para optimizar el cálculo guardamos también en la cola el valor de la cota para cada nodo que introducimos. Inicializamos también la mejor solución encontrada con un algoritmo greedy (en este caso vecino más cercano).
+En primer lugar iniciamos la cola con prioridad introduciendo el camino parcial
+inicial (\texttt{[0]}). Para optimizar el cálculo guardamos también en la cola el valor de la cota para cada nodo que introducimos. Inicializamos la mejor solución encontrada con un algoritmo greedy (en este caso, vecino más cercano).
 
 \begin{lstlisting}
 priority_queue<pair<vector<int>,int>,vector<pair<vector<int>,int> >,Compare> cola;
@@ -63,9 +63,9 @@ int mejor_longitud = longitud(mejor_camino,g);
 cola.push({inicial,cota(inicial,g)});
 \end{lstlisting}
 
-A partir de aquí, mientras la cola no esté vacía cogemos el nodo en el frente (aquel con menor cota), y distinguimos dos casos:
+A partir de aquí, mientras la cola no esté vacía cogemos el nodo en el frente (aquel con menor cota) y distinguimos dos casos: \\
 
-Si \textbf{basta añadir 2 ciudades para hallar un camino}, creamos todos los caminos posibles y comprobamos, para cada uno de ellos, si es mejor que la mejor solución encontrada hasta el momento, y en tal caso actualizamos. Esto permite no añadir más nodos a la cola de prioridad y genera una ligera mejora en los tiempos de ejecución.
+Si \textbf{basta añadir 2 ciudades para hallar un camino}, creamos todos los caminos posibles y comprobamos, para cada uno de ellos, si es mejor que la mejor solución encontrada hasta el momento, y en tal caso actualizamos la mejor solución. Esto permite no añadir más nodos a la cola de prioridad y genera una ligera mejora en los tiempos de ejecución.
 
 \begin{lstlisting}
 for(int i = 0; i < g.numNodos(); i++){
@@ -93,7 +93,7 @@ for(int i = 0; i < g.numNodos(); i++){
 }
 \end{lstlisting}
 
-En el caso de que no baste añadir 2 ciudades a la solución parcial que estamos considerando, para cada ciudad no visitada consideramos el camino que resulta de añadir esta ciudad al final de la solución parcial. Si la nueva solución tiene una cota menor que la de la mejor solución la insertamos ordenadamente en la cola:
+En el caso de que \textbf{no baste añadir 2 ciudades a la solución parcial} que estamos considerando, para cada ciudad no visitada consideramos el camino que resulta de añadir esta ciudad al final de la solución parcial. Si la nueva solución tiene una cota menor que la de la mejor solución la insertamos ordenadamente en la cola:
 
 \begin{lstlisting}
 for(int i = 0; i < g.numNodos(); i++){
@@ -167,7 +167,7 @@ vector<int> tsp_cota(const Grafo<peso_t>& g, int (*cota)(vector<int>&, const Gra
 
 \subsubsection{Cotas}
 
-Para implementar la cota dada por el enunciado utilizamos una función auxiliar \texttt{RelacionadosCon} que nos indica dada una ciudad, cuál es el conjunto de ciudades que debemos considerar para calcular la cota:
+Para implementar la función de acotación pedida en el enunciado utilizamos una función auxiliar \texttt{RelacionadosCon} que nos indica, dada una ciudad, cuál es el conjunto de ciudades que debemos considerar para calcular la cota:
 
 \begin{lstlisting}
 vector<int> RelacionadosCon(int k, int max, vector<int> camino){
@@ -181,7 +181,7 @@ vector<int> RelacionadosCon(int k, int max, vector<int> camino){
 }
 \end{lstlisting}
 
-De esta forma para calcular la primera cota basta con calcular la longitud del recorrido inicial y sumar la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas:
+De esta forma calcular la primera cota se reduce a calcular la longitud del recorrido inicial y sumar la menor distancia de cada ciudad no incluida en la solución parcial con sus relacionadas:
 
 \begin{lstlisting}
 int cota1(vector<int>& camino, const Grafo<int>& g){
@@ -204,14 +204,15 @@ int cota1(vector<int>& camino, const Grafo<int>& g){
 }
 \end{lstlisting}
 
-En la otra cota nos pedían una original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota coge el recorrido del camino parcial que tenías hasta ese momento y le suma el recorrido del árbol generador minimal de los nodos que faltan por meter junto al último nodo del camino. Como el árbol generador minimal es la forma más corta de comunicar los nodos que faltan, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo.
+Se nos pedía además una función de cota original, y hemos optado por usar lo que sabíamos de árboles generadores minimales de los grafos. Así que la segunda cota toma el recorrido del camino parcial que se tiene hasta ese momento y le suma el recorrido del árbol generador minimal de los nodos que faltan por meter junto al último nodo del camino. Como el árbol generador minimal es la forma más corta de comunicar los nodos que faltan, no vamos a poder realizar un camino que pase por ellos que sea menor que eso, así que es una cota real del camino mínimo. \\
 
-Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso de las aristas y las va cogiendo en orden, cuidando que no formen ciclos. Se puede ver que el método no dista mucho de la primera cota, puesto que muchas de las aristas que coja el primero se cogerán en este, ya que las ordenan por la misma comparación. Hay que notar que la primera cota podía formar ciclos o incluso no llegar a formar un camino, mientras que esta segunda cota mantiene al menos una conexión entre los nodos.
+Para calcular la cota usamos el algoritmo de Kruskal, que toma en cuenta el peso de las aristas y las va cogiendo en orden, excluyendo aquellas que formen ciclos al ser incluidas. Se puede ver que el método no dista mucho de la primera cota, puesto que muchas de las aristas que coja el primero se cogerán en este, ya que las ordenan por la misma comparación. Hay que notar que la primera cota podía formar ciclos o incluso no llegar a formar un camino, mientras que esta segunda cota garantiza la conexión entre los nodos (y por un único camino). \\
 
 Si bien ganamos en la acotación %% TODO: (Antonio) Comprobar que de verdad se gana, que no estoy seguro)
 la eficiencia es algo peor que en el primer caso. Debido a que el algoritmo se vuelve inservible a partir de muy pocos nodos (cerca de 16), la eficiencia de la cota en función de los nodos no debería afectar tanto al resultado. %% Aunque sí que afecta, JAJ
+\\
 
-La cota queda:
+La función de cota queda así:
 \begin{lstlisting}
 int cota2(vector<int>& camino, const Grafo<int>& g){
   int recorrido = 0;// Peso del recorrido ya hecho
@@ -245,11 +246,11 @@ int cota2(vector<int>& camino, const Grafo<int>& g){
 
 \subsection{Vuelta atrás}
 
-Con un camino y su longitud inicial, se desarrolla el algoritmo de la vuelta atrás de la siguiente manera: desde un nodo inicial, vamos añadiendo nodo a nodo creando distintos caminos tomando todas las posibilidades mediante la llamada recursiva. Si al añadir un nodo hace que el camino mida más que nuestra mejor longitud hasta el momento, se deja esa posibilidad, y se miran otras posibilidades desde el nodo anterior al último. Es decir, se poda esa rama y se estudian las demás. Esto es, por definición, la vuelta atrás.
+Con un camino y su longitud inicial se desarrolla el algoritmo de la vuelta atrás de la siguiente manera: desde un nodo inicial, vamos añadiendo nodo a nodo creando distintos caminos tomando todas las posibilidades mediante llamadas recursivas. Si, tras añadir un nodo, el camino mide más o lo mismo que nuestra mejor longitud hasta el momento se deja esa posibilidad y se miran otras posibilidades desde el nodo anterior al último. Es decir, se poda esa rama y se estudian las demás. Esto es, por definición, la vuelta atrás. \\
 
-Si se llega a crear un camino completo que mida menos que nuestro camino más corto hasta el momento, éste pasa a ser nuestro nuevo camino más corto.
+Si se llega a crear un camino completo que mida menos que nuestro camino más corto hasta el momento, este pasa a ser nuestro nuevo camino más corto. \\
 
-Ésta es la función que emplea la llamada recursiva, pasándole una primera mejor longitud para tener un buen criterio de poda:
+Esta es la función que emplea la llamada recursiva, recibiendo una primera mejor longitud para tener un buen criterio de poda:
 
 \begin{lstlisting}
 void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_longitud, const Grafo<peso_t>& g){
@@ -273,7 +274,7 @@ void tsp_back_rec(vector<int>& solucion, vector<int> camino_actual, int& mejor_l
 }
 \end{lstlisting}
 
-Y ésta es la función que llama a la anterior, donde obtenemos la primera solución (mediante el algoritmo Greedy), y donde fijamos que el primer nodo será el de la posición \texttt{\{0\}}:
+Y esta es la función que llama a la anterior, donde obtenemos la primera solución (mediante el algoritmo Greedy), y donde fijamos que el primer nodo será el de la posición \texttt{\{0\}}:
 
 \begin{lstlisting}
 vector<int> tsp_backtracking(const Grafo<peso_t>& g) {
@@ -316,9 +317,9 @@ En este segundo caso, cada algoritmo toma un camino distinto.
 
 \includegraphics[width=15cm]{img/branchambao12_tsp_3}
 
-En este tercer caso, los tres coinciden.
+En este tercer caso, los tres coinciden. \\
 
-Ahora pasamos a comparar según el tiempo. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho más superiores:
+Ahora pasamos a comparar según el tiempo. Debido al elevado tiempo de ejecución de los algoritmos no podemos crear una comparativa con tamaños mucho mayores:
 
 \includegraphics[width=15cm]{img/barras_e-h-c-a-c5_t}
 
