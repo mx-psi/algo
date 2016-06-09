@@ -33,15 +33,15 @@ Un grafo consta de:
 \begin{frame}{Algoritmo Branch and Bound}
   Iniciamos:
   \begin{itemize}
-    \item La cola con la solución parcial \texttt{[0]}
+    \item La cola con prioridad con la solución parcial \texttt{[0]}
     \item La mejor solución con un algoritmo \textit{greedy} (vecino más cercano)
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Algoritmo Branch and Bound}
-  Mientras la cola no esté vacía, coge el primer elemento:
+  Mientras la cola no esté vacía y la cota del primer elemento esté por debajo de la mejor solución, coge el primer elemento:
   \begin{itemize}
-    \item Si \textbf{puede formarse una solución completa}, comprueba si es mejor que la mejor encontrada. En tal caso se actualiza y se borra los nodos con peor cota.
+    \item Si \textbf{puede formarse una solución completa}, comprueba si es mejor que la mejor encontrada. En tal caso se actualiza.
     \item En \textbf{otro caso}, para cada ciudad no visitada forma una nueva solución parcial. Se añade a la cola si su cota es mejor que la mejor solución.
   \end{itemize}
 \end{frame}
